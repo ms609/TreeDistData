@@ -13,6 +13,7 @@ git:
 
 r_github_packages:
  - ms609/TreeDist # Remove once available via CRAN
+ - ms609/TreeSearch@noTreeDist # Remove once pushed to master
 
 r_binary_packages:
  - devtools
