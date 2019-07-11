@@ -1,15 +1,15 @@
-library(TreeDist)
-suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
+library('TreeDist')
+#suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 set.seed(0)
 
 RandomDistances <- function (nLeaves, repls) {
   RandomTree <- function(nTip) ape::rtree(nTip, br=NULL)
-  vapply(seq_len(repls), 
+  vapply(seq_len(repls),
          function (XX) {
-           tr1 <- RandomTree(nLeaves) 
-           tr2 <- RandomTree(nLeaves) 
+           tr1 <- RandomTree(nLeaves)
+           tr2 <- RandomTree(nLeaves)
            cat('.')
-            
+
            c(VariationOfArborealInfo(tr1, tr2, normalize=TRUE),
              VariationOfPartitionInfo(tr1, tr2, normalize=TRUE),
              VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
@@ -20,7 +20,7 @@ RandomDistances <- function (nLeaves, repls) {
              phangorn::SPR.dist(tr1, tr2)
            )
          },
-         c(vai = 0, vpi = 0, vci = 0, qd = 0, nts = 0, 
+         c(vai = 0, vpi = 0, vci = 0, qd = 0, nts = 0,
            msd = 0, rf = 0, path = 0, spr = 0)
   )
 }

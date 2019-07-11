@@ -5,7 +5,22 @@
 * Using check_rhub()
 
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTEs.
+There were no ERRORs or WARNINGs.
+
+There were two NOTEs:
+
+* New submission. This package is a new submission.
+
+* sub-directories of 1Mb or more
+- This package contains large datasets used to build the vignettes of
+  the forthcoming package`TreeDist`.  I have compressed the datasets as far
+  as possible.
+  
+  These datasets should very seldom change, and are primarily used to build 
+  vignettes (though there are some other use cases);
+  as such, I feel that it is most appropriate to serve them as a standalone
+  package.
+
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
