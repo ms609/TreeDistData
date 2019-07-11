@@ -1,0 +1,27 @@
+language: R
+r:
+ - 3.6.0
+ - release
+# - devel # Incompatible with devtools
+cache: packages
+sudo: required # required if r_binary_packages; false otherwise
+warnings_are_errors: true
+r_check_args: --as-cran
+
+git:
+  depth: 1
+
+#r_github_packages:
+# - ms609/TreeSearch
+# - ms609/TreeDistData
+# - r-lib/pkgload
+# - r-lib/devtools
+
+r_binary_packages:
+ - devtools
+ - Rdpack
+ - roxygen2
+ - testthat
+
+before_script:
+  - R -e "devtools::document()"
