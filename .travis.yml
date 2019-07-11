@@ -11,9 +11,9 @@ r_check_args: --as-cran
 git:
   depth: 1
 
-#r_github_packages:
+r_github_packages:
 # - ms609/TreeSearch
-# - ms609/TreeDistData
+ - ms609/TreeDist
 # - r-lib/pkgload
 # - r-lib/devtools
 
