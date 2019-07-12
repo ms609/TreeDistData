@@ -22,15 +22,19 @@ RandomDistances <- function (nLeaves, repls) {
                             phangorn::SPR.dist(tr1, tr2) / (n / 2) # crude normalization!
                             )
                         },
-                        double(9))
-    cbind(rowMeans(distances), apply(distances, 1, sd))
-    }, matrix(0, ncol=2, nrow=9, dimnames=list(c('vai', 'vpi', 'vci', 'qd', 'nts',
-                                                 'msd', 'rf', 'path', 'spr'), c('mean', 'sd')))
+                        double(9L))
+    cbind(mean = rowMeans(distances), sd = apply(distances, 1, sd),
+          min = apply(distances, 1, min),
+          max = apply(distances, 1, max))
+    }, matrix(0, ncol=4L, nrow=9L)
   )
-  dimnames(ret)[[3]] <- nLeaves
+  dimnames(ret) <- list(c('vai', 'vpi', 'vci', 'qd', 'nts', 'msd', 'rf',
+                          'path', 'spr'),
+                        c('mean', 'sd', 'min', 'max'),
+                        nLeaves)
   ret
 }
 
-nLeaves <- c(seq(5, 50, by=5), seq(60, 90, by=10), seq(100, 200, by=20))
-randomTreeDistances <- RandomDistances(nLeaves, repls=3L)
-#usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
+nLeaves <- 4:200
+randomTreeDistances <- RandomDistances(nLeaves, repls=1000L)
+usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)

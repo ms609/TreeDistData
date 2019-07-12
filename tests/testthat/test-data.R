@@ -10,8 +10,8 @@ test_that("Data dimensions are correct", {
     expect_equal(c(945L, 945L), dim(item)), integer(2))
 
   data("randomTreeDistances", package='TreeDistData')
-  nLeafMeasurements <- 20L
-  expect_equal(c(nMetrics, 2L, nLeafMeasurements), dim(randomTreeDistances))
+  nLeafMeasurements <- 197L
+  expect_equal(c(nMetrics, 4L, nLeafMeasurements), dim(randomTreeDistances))
 
   data("distanceDistribution25", package='TreeDistData')
   expect_equal(c(nMetrics, 10000L), dim(distanceDistribution25))
