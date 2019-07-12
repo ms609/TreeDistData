@@ -28,4 +28,5 @@ distanceDistribution25 <- vapply(seq_len(repls), function (i) {
        spr = 0)
 )
 
-usethis::use_data(randomTreePairs25, distanceDistribution25, compress='xz', overwrite=TRUE)
+usethis::use_data(randomTreePairs25, compress='bzip2', overwrite=TRUE)
+usethis::use_data(distanceDistribution25, compress='xz', overwrite=TRUE)
