@@ -24,8 +24,23 @@
 #'
 #' Each column lists the calculated distances between each pair of trees.
 #'
+#' The pairs of trees are saved as data object [`randomTreePairs25`].
+#'
 #' @keywords datasets
 "distanceDistribution25"
+
+#' Pairs of random 25-tip trees
+#'
+#' A list of 10 000 25-tip trees drawn from the uniform distribution using
+#' `ape::rtree(nTip, br=NULL)`.
+#'
+#' The distances between these pairs of trees are recorded in
+#' the data object [`distanceDistribution25`].
+#'
+#' @keywords datasets
+"randomTreePairs25"
+
+
 
 #' Distances between unrooted seven-tip trees
 #'
