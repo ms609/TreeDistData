@@ -5,7 +5,9 @@
 #' `ape::rtree(nTip, br=NULL)`.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric.
+#'
 #' Columns list the mean and standard deviation of calculated tree distances.
+#'
 #' The third dimension lists the number of tips in the trees compared.
 #'
 #' @keywords datasets
