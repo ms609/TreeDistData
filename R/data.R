@@ -4,12 +4,21 @@
 #' pairs of trees drawn from the uniform distribution using
 #' `ape::rtree(nTip, br=NULL)`.
 #'
+#' Normalization is against the maximum possible value obtainable on a pair
+#' of trees of the shapes given, with the exception of the SPR distance,
+#' which is normalized against the upper bound (`spr`) and lower bound (`sprLB`)
+#' of its diameter on a tree with _n_ tips.  The path and matching split
+#' distances are not normalized.
+#'
 #' Rows are named with an abbreviation of the tree comparison metric.
 #'
 #' Columns list the mean and standard deviation of calculated tree distances.
 #'
 #' The third dimension lists the number of tips in the trees compared.
 #'
+#'
+#' @references
+#' \insertRef{Allen2001}{TreeDist}
 #' @keywords datasets
 "randomTreeDistances"
 

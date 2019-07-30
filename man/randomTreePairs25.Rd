@@ -4,7 +4,7 @@
 \name{randomTreePairs25}
 \alias{randomTreePairs25}
 \title{Pairs of random 25-tip trees}
-\format{An object of class \code{list} of length 1000.}
+\format{An object of class \code{list} of length 10000.}
 \usage{
 randomTreePairs25
 }
