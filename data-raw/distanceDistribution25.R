@@ -24,7 +24,7 @@ AllDists <- function (tr1, tr2) {
 distanceDistribution25 <- vapply(seq_len(repls), function (i) {
     treePair <- randomTreePairs25[[i]]
     AllDists(treePair[[1]], treePair[[2]])
-  }, c(vai = 0, vpi = 0, vci = 0, qd = 0, nts = 0, msd = 0, rf = 0, path = 0,
+  }, c(vpi = 0, vmsi = 0, vci = 0, qd = 0, nts = 0, msd = 0, rf = 0, path = 0,
        spr = 0)
 )
 
