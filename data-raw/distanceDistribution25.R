@@ -10,8 +10,8 @@ cat("Generated random trees.")
 
 AllDists <- function (tr1, tr2) {
   cat('.')
-  c(VariationOfArborealInfo(tr1, tr2, normalize=TRUE),
-    VariationOfPartitionInfo(tr1, tr2, normalize=TRUE),
+  c(VariationOfPhylogeneticInfo(tr1, tr2, normalize=TRUE),
+    VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
     VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
     Quartet::QuartetDivergence(Quartet::QuartetStatus(tr1, tr2), similarity = FALSE),
     1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),

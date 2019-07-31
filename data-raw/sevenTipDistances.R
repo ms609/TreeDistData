@@ -20,8 +20,8 @@ treeDists <- vapply(trees, function (tr1) vapply(trees, function (tr2) {
 }, double(3)), matrix(0, nrow=3, ncol=length(trees)))
 
 sevenTipDistances <- list(
- vai = VariationOfArborealInfo(trees, trees, normalize=TRUE),
- vpi = VariationOfPartitionInfo(trees, trees, normalize=TRUE),
+ vpi = VariationOfPhylogeneticInfo(trees, trees, normalize=TRUE),
+ vmsi = VariationOfMatchingSplitInfo(trees, trees, normalize=TRUE),
  vci = VariationOfClusteringInfo(trees, trees, normalize=TRUE),
  qd = qd,
  nts = 1 - NyeTreeSimilarity(trees, trees, normalize=TRUE),

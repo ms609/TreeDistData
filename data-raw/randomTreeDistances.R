@@ -13,26 +13,26 @@ RandomDistances <- function (nLeaves, repls) {
                           cat('.')
                           sprDist <- phangorn::SPR.dist(tr1, tr2)
 
-                          c(VariationOfArborealInfo(tr1, tr2, normalize=TRUE),
-                            #VariationOfPartitionInfo(tr1, tr2, normalize=TRUE),
+                          c(VariationOfPhylogeneticInfo(tr1, tr2, normalize=TRUE),
+                            VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
                             VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
                             Quartet::QuartetDivergence(Quartet::QuartetStatus(tr1, tr2), similarity = FALSE),
                             1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
                             MatchingSplitDistance(tr1, tr2, normalize=FALSE),
                             phangorn::treedist(tr1, tr2) / c(n + n - 6L, 1), # No norm for path
                             sprDist / (n - 3),
-                            sprDist / ((n - 2) / 2),
+                            sprDist / ((n - 2) / 2)
                             # Upper and lower bound for SPR diameter
                             # (Allen & Steel 2001)
                             )
                         },
-                        double(9L))
+                        double(10L))
     cbind(mean = rowMeans(distances), sd = apply(distances, 1, sd),
           min = apply(distances, 1, min),
           max = apply(distances, 1, max))
-    }, matrix(0, ncol=4L, nrow=9L)
+    }, matrix(0, ncol=4L, nrow=10L)
   )
-  dimnames(ret) <- list(c('vai', 'vci', 'qd', 'nts', 'msd', 'rf',
+  dimnames(ret) <- list(c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf',
                           'path', 'spr', 'sprLB'),
                         c('mean', 'sd', 'min', 'max'),
                         nLeaves)
