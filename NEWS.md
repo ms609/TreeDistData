@@ -1,3 +1,6 @@
+# TreeDist 0.0.0.9002 (development)
+
+- Regenerate datasets to match new function names
 
 # TreeDist 0.0.0.9001 (development)
 
