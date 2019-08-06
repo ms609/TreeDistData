@@ -15,6 +15,11 @@ test_that("Data dimensions are correct", {
   expect_equal(c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf',
                  'path', 'spr', 'sprLB'), dimnames(randomTreeDistances)[[1]])
 
+  nTip <- seq_len(nLeafMeasurements) + 3L
+  expect_equal(randomTreeDistances['spr', 'mean', ] * (nTip - 3L),
+               randomTreeDistances['sprLB', 'mean', ] * ((nTip - 2L) / 2),
+               tolerance = 1e-07)
+
   data("distanceDistribution25", package='TreeDistData')
   expect_equal(c(nMetrics, 10000L), dim(distanceDistribution25))
 })
