@@ -12,7 +12,39 @@ sevenTipDistances
 Distances between each possible pairing of the 945 unrooted seven-tip trees
 (equivalent to rooted 6-tip trees).  Following Kendall and Colijn (2016).
 }
+\details{
+The list entries are named with an abbreviation of the tree comparison metric.
+Variation of information measures are normalized against the maximum
+possible variation of information for trees of the corresponding topologies.
+The quartet distance and Nye \emph{et al.} measures are normalized against their
+maximum possible values.  The remaining measures are unnormalized.
+\itemize{
+\item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
+\item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
+\item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
+\item \code{qd}: Quartet divergence (Smith, 2019)
+\item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{msd}: Matching Split Distance (Bogdanowicz & Giaro, 2012), unnormalized
+\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
+\item \code{path}: Path distance (Steel & Penny 1993), unnormalized
+\item \code{spr}: SPR distance, unnormalized
+}
+
+Each item in the list contains a 945×945 matrix reporting the distance
+between each pair of seven-tip trees.
+
+The final entry of the list is \code{shapes}, whose value is an integer vector.
+Each unique tree topology is represented by a distinct vector, whose digits
+denote the number of nodes in the tree that possess 6, 5, 4, 3, 2 and 1
+descendant nodes.
+}
 \references{
+\insertRef{Bogdanowicz2012}{TreeDist}
 \insertRef{Kendall2016}{TreeDistData}
+\insertRef{Nye2006}{TreeDist}
+\insertRef{Robinson1981}{TreeDist}
+\insertRef{SmithTern}{TreeSearch}
+\insertRef{SmithDist}{TreeDist}
+\insertRef{Steel1993}{TreeDist}
 }
 \keyword{datasets}

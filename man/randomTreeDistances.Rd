@@ -4,7 +4,7 @@
 \name{randomTreeDistances}
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
-\format{An object of class \code{array} of dimension 9 x 4 x 197.}
+\format{An object of class \code{array} of dimension 10 x 4 x 197.}
 \usage{
 randomTreeDistances
 }
@@ -20,13 +20,31 @@ which is normalized against the upper bound (\code{spr}) and lower bound (\code{
 of its diameter on a tree with \emph{n} tips.  The path and matching split
 distances are not normalized.
 
-Rows are named with an abbreviation of the tree comparison metric.
+Rows are named with an abbreviation of the tree comparison metric:
+\itemize{
+\item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
+\item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
+\item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
+\item \code{qd}: Quartet divergence (Smith, 2019)
+\item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{msd}: Matching Split Distance (Bogdanowicz & Giaro, 2012)
+\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981)
+\item \code{path}: Path distance (Steel & Penny 1993)
+\item \code{spr}: SPR distance, normalized against upper bound of diameter (Allen & Steel, 2001)
+\item \code{sprLB}: SPR distance, normalized against lower bound of diameter (Allen & Steel, 2001)
+}
 
 Columns list the mean and standard deviation of calculated tree distances.
 
 The third dimension lists the number of tips in the trees compared.
 }
 \references{
-\insertRef{Allen2001}{TreeDist}
+\insertRef{Allen2001}{TreeSearch}
+\insertRef{Bogdanowicz2012}{TreeDist}
+\insertRef{Nye2006}{TreeDist}
+\insertRef{Robinson1981}{TreeDist}
+\insertRef{SmithTern}{TreeSearch}
+\insertRef{SmithDist}{TreeDist}
+\insertRef{Steel1993}{TreeDist}
 }
 \keyword{datasets}
