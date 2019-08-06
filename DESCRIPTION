@@ -1,6 +1,6 @@
 Package: TreeDistData
 Title: Data used to build vignettes in TreeDist package
-Version: 0.0.0.9002
+Version: 0.0.0.9003
 Date: 2019-08-06
 Authors@R: c(person("Martin R.", 'Smith',
                   email="martin.smith@durham.ac.uk", 
