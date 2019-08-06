@@ -39,11 +39,14 @@
 #' @keywords datasets
 "randomTreeDistances"
 
-#' Distances between random pairs of 25-tip trees
+#' Distances between random pairs of trees
 #'
-#' A two-dimensional matrix listing the normalized distances between random
-#' pairs of 25-tip trees drawn from the uniform distribution using
+#' Two-dimensional matrices listing the normalized distances between random
+#' pairs of 11- and 25-tip trees drawn from the uniform distribution using
 #' `ape::rtree(nTip, br=NULL)`.
+#'
+#' `pectinateDistances11` reports distances between random trees and a pectinate
+#' 11-tip tree.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric.
 #' Variation of information measures are normalized against the maximum
@@ -63,7 +66,7 @@
 #'
 #' Each column lists the calculated distances between each pair of trees.
 #'
-#' The pairs of trees are saved as data object [`randomTreePairs25`].
+#' The pairs of 25-tip trees are saved as data object [`randomTreePairs25`].
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
@@ -75,6 +78,8 @@
 #'
 #' @keywords datasets
 "distanceDistribution25"
+"distanceDistribution11"
+"pectinateDistances11"
 
 #' Pairs of random 25-tip trees
 #'
@@ -86,7 +91,6 @@
 #'
 #' @keywords datasets
 "randomTreePairs25"
-
 
 
 #' Distances between unrooted seven-tip trees

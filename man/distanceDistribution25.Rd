@@ -3,17 +3,20 @@
 \docType{data}
 \name{distanceDistribution25}
 \alias{distanceDistribution25}
-\title{Distances between random pairs of 25-tip trees}
+\title{Distances between random pairs of trees}
 \format{An object of class \code{matrix} with 9 rows and 10000 columns.}
 \usage{
 distanceDistribution25
 }
 \description{
-A two-dimensional matrix listing the normalized distances between random
-pairs of 25-tip trees drawn from the uniform distribution using
+Two-dimensional matrices listing the normalized distances between random
+pairs of 11- and 25-tip trees drawn from the uniform distribution using
 \code{ape::rtree(nTip, br=NULL)}.
 }
 \details{
+\code{pectinateDistances11} reports distances between random trees and a pectinate
+11-tip tree.
+
 Rows are named with an abbreviation of the tree comparison metric.
 Variation of information measures are normalized against the maximum
 possible variation of information for trees of the corresponding topologies.
@@ -33,7 +36,7 @@ maximum possible values.  The remaining measures are unnormalized.
 
 Each column lists the calculated distances between each pair of trees.
 
-The pairs of trees are saved as data object \code{\link{randomTreePairs25}}.
+The pairs of 25-tip trees are saved as data object \code{\link{randomTreePairs25}}.
 }
 \references{
 \insertRef{Bogdanowicz2012}{TreeDist}
