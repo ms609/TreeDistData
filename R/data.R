@@ -76,9 +76,15 @@
 #' \insertRef{SmithDist}{TreeDist}
 #' \insertRef{Steel1993}{TreeDist}
 #'
+#' @name distanceDistributions
 #' @keywords datasets
+NULL
+
+#' @rdname distanceDistributions
 "distanceDistribution25"
+#' @rdname distanceDistributions
 "distanceDistribution11"
+#' @rdname distanceDistributions
 "pectinateDistances11"
 
 #' Pairs of random 25-tip trees
