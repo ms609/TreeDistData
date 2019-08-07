@@ -1,3 +1,7 @@
+# TreeDist 0.0.0.9005 (development)
+
+- Percentiles for randomTreeDistances
+
 # TreeDist 0.0.0.9004 (development)
 
 - Add pectinateDistance11

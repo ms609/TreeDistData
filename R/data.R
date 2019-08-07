@@ -1,6 +1,6 @@
 #' Mean distances between random pairs of trees
 #'
-#' A three-dimensional array listing the normalized distances between 100 random
+#' A three-dimensional array listing the normalized distances between 1000 random
 #' pairs of trees drawn from the uniform distribution using
 #' `ape::rtree(nTip, br=NULL)`.
 #'
@@ -23,7 +23,9 @@
 #' - `spr`: SPR distance, normalized against upper bound of diameter (Allen & Steel, 2001)
 #' - `sprLB`: SPR distance, normalized against lower bound of diameter (Allen & Steel, 2001)
 #'
-#' Columns list the mean and standard deviation of calculated tree distances.
+#' Columns list the summary statistics of calculated tree distances: the
+#' minimum (`min`), 1%, 5%, 25%, 50% (i.e. median), 75%, 95%, 99% percentiles,
+#' maximum (`max`), mean (`mean`) and standard deviation (`sd`).
 #'
 #' The third dimension lists the number of tips in the trees compared.
 #'
