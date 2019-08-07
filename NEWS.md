@@ -1,4 +1,8 @@
-# TreeDist 0.0.0.9002 (development)
+# TreeDist 0.0.0.9004 (development)
+
+- Add pectinateDistance11
+
+# TreeDist 0.0.0.9003 (development)
 
 - Add distanceDistribution11
 
