@@ -10,12 +10,12 @@ distanceDistribution25
 }
 \description{
 Two-dimensional matrices listing the normalized distances between random
-pairs of 11- and 25-tip trees drawn from the uniform distribution using
-\code{ape::rtree(nTip, br=NULL)}.
+pairs of bifurcating 11- and 25-tip trees drawn from the uniform distribution
+using \code{ape::rtree(nTip, br=NULL)}.
 }
 \details{
-\code{pectinateDistances11} reports distances between random trees and a pectinate
-11-tip tree.
+\code{pectinateDistances11} reports distances between a pectinate 11-tip tree
+and 100 000 random bifurcating trees.
 
 Rows are named with an abbreviation of the tree comparison metric.
 Variation of information measures are normalized against the maximum
