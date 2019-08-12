@@ -24,6 +24,7 @@ Suggests:
     testthat,
     TreeSearch
 Remotes:
+    ms609/TreeSearch,
     ms609/TreeDist
 RdMacros: Rdpack
 LazyData: true
