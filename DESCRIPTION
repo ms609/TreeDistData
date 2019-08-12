@@ -1,7 +1,7 @@
 Package: TreeDistData
 Title: Data used to build vignettes in TreeDist package
 Version: 0.0.0.9005
-Date: 2019-08-07
+Date: 2019-08-12
 Authors@R: c(person("Martin R.", 'Smith',
                   email="martin.smith@durham.ac.uk", 
                   role=c("aut", "cre", "cph"), 
@@ -20,7 +20,10 @@ Suggests:
     Rdpack,
     rmarkdown,
     testthat,
-    TreeDist
+    TreeDist,
+    TreeSearch
+Remotes:
+    ms609/TreeDist
 RdMacros: Rdpack
 LazyData: true
 ByteCompile: true
