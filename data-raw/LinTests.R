@@ -1,5 +1,6 @@
 library('TreeSearch')
-devtools::load_all()
+library('TreeDist')
+library('TreeDistData')
 
 # Lin use nTrees = 100L, nTip = 100L, replicates=1000L
 # k1 = 40, 50, 60, 70
