@@ -7,7 +7,7 @@
 AllDists(tr1, tr2)
 }
 \arguments{
-\item{tr1, tr2}{Phylogenetic trees of class \code{phylo}}
+\item{tr1, tr2}{Phylogenetic trees of class \code{phylo}.}
 }
 \description{
 All distances between a pair of trees
