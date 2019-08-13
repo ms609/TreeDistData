@@ -41,12 +41,14 @@ maximum (\code{max}), mean (\code{mean}) and standard deviation (\code{sd}).
 The third dimension lists the number of tips in the trees compared.
 }
 \references{
-\insertRef{Allen2001}{TreeSearch}
-\insertRef{Bogdanowicz2012}{TreeDist}
-\insertRef{Nye2006}{TreeDist}
-\insertRef{Robinson1981}{TreeDist}
-\insertRef{SmithTern}{TreeSearch}
-\insertRef{SmithDist}{TreeDist}
-\insertRef{Steel1993}{TreeDist}
+\itemize{
+\item \insertRef{Allen2001}{TreeSearch}
+\item \insertRef{Bogdanowicz2012}{TreeDist}
+\item \insertRef{Nye2006}{TreeDist}
+\item \insertRef{Robinson1981}{TreeDist}
+\item \insertRef{SmithTern}{TreeSearch}
+\item \insertRef{SmithDist}{TreeDist}
+\item \insertRef{Steel1993}{TreeDist}
+}
 }
 \keyword{datasets}

@@ -31,13 +31,19 @@
 #'
 #'
 #' @references
-#' \insertRef{Allen2001}{TreeSearch}
-#' \insertRef{Bogdanowicz2012}{TreeDist}
-#' \insertRef{Nye2006}{TreeDist}
-#' \insertRef{Robinson1981}{TreeDist}
-#' \insertRef{SmithTern}{TreeSearch}
-#' \insertRef{SmithDist}{TreeDist}
-#' \insertRef{Steel1993}{TreeDist}
+#' - \insertRef{Allen2001}{TreeSearch}
+#' 
+#' - \insertRef{Bogdanowicz2012}{TreeDist}
+#' 
+#' - \insertRef{Nye2006}{TreeDist}
+#' 
+#' - \insertRef{Robinson1981}{TreeDist}
+#' 
+#' - \insertRef{SmithTern}{TreeSearch}
+#' 
+#' - \insertRef{SmithDist}{TreeDist}
+#' 
+#' - \insertRef{Steel1993}{TreeDist}
 #' @keywords datasets
 "randomTreeDistances"
 
