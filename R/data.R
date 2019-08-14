@@ -24,7 +24,8 @@
 #' - `sprLB`: SPR distance, normalized against lower bound of diameter (Allen & Steel, 2001)
 #'
 #' Columns list the summary statistics of calculated tree distances: the
-#' minimum (`min`), 1%, 5%, 25%, 50% (i.e. median), 75%, 95%, 99% percentiles,
+#' minimum (`min`),
+#' 1%, 5%, 10%, 25%, 50% (i.e. median), 75%, 90%, 95%, 99% percentiles,
 #' maximum (`max`), mean (`mean`) and standard deviation (`sd`).
 #'
 #' The third dimension lists the number of tips in the trees compared.
@@ -32,17 +33,17 @@
 #'
 #' @references
 #' - \insertRef{Allen2001}{TreeSearch}
-#' 
+#'
 #' - \insertRef{Bogdanowicz2012}{TreeDist}
-#' 
+#'
 #' - \insertRef{Nye2006}{TreeDist}
-#' 
+#'
 #' - \insertRef{Robinson1981}{TreeDist}
-#' 
+#'
 #' - \insertRef{SmithTern}{TreeSearch}
-#' 
+#'
 #' - \insertRef{SmithDist}{TreeDist}
-#' 
+#'
 #' - \insertRef{Steel1993}{TreeDist}
 #' @keywords datasets
 "randomTreeDistances"

@@ -1,5 +1,9 @@
 # TreeDist 0.0.0.9005 (development)
 
+- Fix: median and 75%ile misnamed in randomTreeDistances
+
+# TreeDist 0.0.0.9005 (development)
+
 - Percentiles for randomTreeDistances
 
 # TreeDist 0.0.0.9004 (development)

@@ -1,14 +1,14 @@
 Package: TreeDistData
-Title: Data used to build vignettes in TreeDist package
-Version: 0.0.0.9005
-Date: 2019-08-12
+Title: Large data files to accompany `TreeDist`.
+Version: 0.0.0.9006
+Date: 2019-08-14
 Authors@R: c(person("Martin R.", 'Smith',
                   email="martin.smith@durham.ac.uk", 
                   role=c("aut", "cre", "cph"), 
                   comment=c(ORCID = "0000-0001-5660-1727"))
             )
 License: GPL (>= 3)
-Description: Large data files to accompany `TreeDist`.
+Description: Data used to build vignettes in TreeDist package, and figures in Smith (20XX).
 URL: https://github.com/ms609/TreeDistData
 BugReports: https://github.com/ms609/TreeDist/issues
 Depends: 

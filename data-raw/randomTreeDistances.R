@@ -23,14 +23,14 @@ RandomDistances <- function (nLeaves, repls) {
                         },
                         double(10L))
     t(rbind(apply(distances, 1L, summary),
-          apply(distances, 1L, quantile, probs=c(0.01, 0.05, 0.95, 0.99)),
+          apply(distances, 1L, quantile, probs=c(0.01, 0.05, 0.1, 0.9, 0.95, 0.99)),
           sd = apply(distances, 1L, sd)
-    )[c(1, 7, 8, 2, 3, 4, 9, 10, 6, 5, 11), ])
+    )[c(1, 7:9, 2, 3, 5, 10:12, 6, 4, 13), ])
     }, matrix(0, ncol=11L, nrow=10L)
   )
   dimnames(ret) <- list(c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf',
                           'path', 'spr', 'sprLB'),
-                        c('min', '1%', '5%', '25%', '50%', '75%', '95%', '99%',
+                        c('min', '1%', '5%', '10%', '25%', '50%', '75%', '90%', '95%', '99%',
                           'max', 'mean', 'sd'),
                         nLeaves)
   ret
