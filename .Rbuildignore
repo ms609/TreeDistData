@@ -13,9 +13,9 @@ vignettes/.RData
 /^\.git/
 ^.*\.o$
 ^.*\.dll$
-^.*\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+\.tre$
 \.yml$
 ^\.Rdata$
 ^\.?R+prof.*$
