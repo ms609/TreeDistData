@@ -84,32 +84,4 @@ for (trees in treesNames) {
     )
   }, matrix(0, nrow = 10L, ncol=9L))
 }
-
-
-
-  rhos <- apply(allScores, 3L, function (scores) apply(scores, 2, function (x)
-    cor.test(x,  y = seq_len(10L), method='spearman', exact=FALSE)$estimate))
-
-  rowMeans(rhos, na.rm=TRUE)
-
-
-  pairwise <- apply(allScores, 2L, function (scores) {
-    rowSums(scores[10:4, ] > scores[7:1, ])
-  })
-
-  apply(pairwise, 1, sum)
-
-  treeMeans <- apply(allScores, 1L, rowMeans)
-
-
-
-  par(mar=c(1,1, 1, 1))
-  plot(type='n', xlim=c(0, 10), ylim=0:1, axes=F, x=0, y=0)
-  lapply(1:9, function (i) {
-    iScores <- treeMeans[i, ] / max(treeMeans[i, ])
-    lines(iScores, col=i)
-  }
-  ) -> XX
-  legend('topright', legend=rownames(treeMeans), col=1:9, lty=1, bty='n')
-
-
+usethis::use_data(bullseyeScores, compress='xz', overwrite=TRUE)

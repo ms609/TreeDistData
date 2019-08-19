@@ -1,6 +1,7 @@
-# TreeDist 0.0.0.9005 (development)
+# TreeDist 0.0.0.9006 (development)
 
 - Fix: median and 75%ile misnamed in randomTreeDistances
+- Add: Bullseye test data
 
 # TreeDist 0.0.0.9005 (development)
 
