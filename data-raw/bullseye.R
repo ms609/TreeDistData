@@ -1,4 +1,5 @@
 library('phangorn')
+library('TreeDist')
 library('TreeSearch')
 set.seed(0)
 nTrees <- 100L
@@ -58,10 +59,12 @@ for (trees in treesNames) {
 }
 usethis::use_data(bullseyeInferred, compress='xz', overwrite=TRUE)
 
+bullseyeScores <- vector('list', length(nTips))
+names(bullseyeScores) <- treesNames
 for (trees in treesNames) {
   inferred <- bullseyeInferred[[trees]]
   theseTrees <- bullseyeTrees[[trees]]
-  allScores <- vapply(seq_along(inferred), function (i) {
+  bullseyeScores[[trees]] <- vapply(seq_along(inferred), function (i) {
     trueTree <- theseTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
@@ -80,7 +83,7 @@ for (trees in treesNames) {
       spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
     )
   }, matrix(0, nrow = 10L, ncol=9L))
-
+}
 
 
 
@@ -110,4 +113,3 @@ for (trees in treesNames) {
   legend('topright', legend=rownames(treeMeans), col=1:9, lty=1, bty='n')
 
 
-}
