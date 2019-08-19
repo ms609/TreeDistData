@@ -7,9 +7,10 @@ src/*.dll
 .Rdata
 .Rprofile
 *.gcno
+*.log
 *.out
 *.Rhistory
-*.log
+*.tre
 /* *.Rd */
 revdep/
 vignettes/*.html
