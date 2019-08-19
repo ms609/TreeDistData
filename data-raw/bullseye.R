@@ -1,8 +1,9 @@
 library('phangorn')
+library('phylosim')
 library('TreeDist')
 library('TreeSearch')
-set.seed(0)
-nTrees <- 100L
+set.seed(1)
+nTrees <- 10L
 nTips <- c(5L, 10L, 20L, 50L)
 treesNames <- paste(nTips, 'tips')
 subsamples <- 10:1 * 20
@@ -14,49 +15,35 @@ bullseyeTrees <- lapply(nTips, function (nTip)
 names(bullseyeTrees) <- treesNames
 usethis::use_data(bullseyeTrees, overwrite=TRUE)
 
-
-# Define functions:
-SubSampleSic <- function (dat, n) {
-  at <- attributes(dat)
-  chosenInd <- at$index[seq_len(n)]
-  indexedChosen <- seq_len(max(chosenInd))
-  ret <- lapply(dat, function (x) x[indexedChosen])
-  attributes(ret) <- at
-  attr(ret, 'weight') <- as.integer(table(chosenInd))
-  attr(ret, 'index') <- indexedChosen
-  attr(ret, 'nr') <- n
-  ret
-}
-
-SubSample <- function (dat, n) {
-  at <- attributes(dat)
-  tokens <- t(vapply(seq_along(dat), function(taxon) {
-    dat[[taxon]][at$index[seq_len(n)]]
-  }, double(n)))
-  rownames(tokens) <- names(dat)
-  ret <- MatrixToPhyDat(tokens)
-  attr(ret, 'levels') <- at$levels
-  ret
-}
-
-
 # Infer trees:
 bullseyeInferred <- vector('list', length(nTips))
 names(bullseyeInferred) <- treesNames
+kimura <- list(list(K80(Alpha = 1, Beta = 2)))
 for (trees in treesNames) {
   theseTrees <- bullseyeTrees[[trees]]
-  seqs <- lapply(theseTrees, simSeq, l = 2000)
+  seqs <- lapply(theseTrees, function (tree) {
+    nTip <- length(tree$tip.label)
+    states <- Simulate(PhyloSim(root.seq=sampleStates(
+      NucleotideSequence(len=2000, proc=kimura)),
+      phylo=tree
+    ))$alignment
+    states[paste0('t', seq_len(nTip)), ]
+  })
 
   bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
     tr <- theseTrees[[i]]
     sq <- seqs[[i]]
 
     lapply(subsamples, function (n) {
-      dm <- dist.ml(SubSample(sq, n))
-      upgma(dm)
+      dists <- dist.dna(as.DNAbin(sq[, seq_len(n)]))
+      if (any(is.nan(dists)) || any(is.infinite(dists)) || any(is.na(dists))) {
+        dists <- dist.ml(MatrixToPhyDat(sq[, seq_len(n)]))
+      }
+      upgma(dists)
     })
   })
 }
+
 usethis::use_data(bullseyeInferred, compress='xz', overwrite=TRUE)
 
 bullseyeScores <- vector('list', length(nTips))
@@ -64,7 +51,7 @@ names(bullseyeScores) <- treesNames
 for (trees in treesNames) {
   inferred <- bullseyeInferred[[trees]]
   theseTrees <- bullseyeTrees[[trees]]
-  bullseyeScores[[trees]] <- vapply(seq_along(inferred), function (i) {
+  theseScores <- vapply(seq_along(inferred), function (i) {
     trueTree <- theseTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
@@ -82,6 +69,10 @@ for (trees in treesNames) {
       t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
       spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
     )
-  }, matrix(0, nrow = 10L, ncol=9L))
+  }, matrix(0, nrow = 10L, ncol=9L, dimnames=list(
+    10:1 * 200,
+    c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
+  )))
+  bullseyeScores[[trees]] <- theseScores
 }
 usethis::use_data(bullseyeScores, compress='xz', overwrite=TRUE)

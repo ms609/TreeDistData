@@ -19,6 +19,19 @@ WriteTNTData <- function (dataset, fileName) {
         fileName)
 }
 
+# Define functions:
+SubSample <- function (dat, n) {
+  at <- attributes(dat)
+  tokens <- t(vapply(seq_along(dat), function(taxon) {
+    dat[[taxon]][at$index[seq_len(n)]]
+  }, double(n)))
+  rownames(tokens) <- names(dat)
+  ret <- MatrixToPhyDat(tokens)
+  attr(ret, 'levels') <- at$levels
+  ret
+}
+
+
 seqs <- lapply(bullseyeTrees, simSeq, l = 2000, type='USER', levels=1:4)
 bullseyeMorphInferred <- vector(mode='list', length = nTrees)
 
