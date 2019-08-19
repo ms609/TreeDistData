@@ -3,8 +3,9 @@ library('phylosim')
 library('TreeDist')
 library('TreeSearch')
 set.seed(1)
-nTrees <- 10L
+nTrees <- 1000L
 nTips <- c(5L, 10L, 20L, 50L)
+useML <- c(1, 2)
 treesNames <- paste(nTips, 'tips')
 subsamples <- 10:1 * 20
 
@@ -16,8 +17,8 @@ names(bullseyeTrees) <- treesNames
 usethis::use_data(bullseyeTrees, overwrite=TRUE)
 
 # Infer trees:
-bullseyeInferred <- vector('list', length(nTips))
-names(bullseyeInferred) <- treesNames
+bullseyeSeqs <- vector('list', length(nTips))
+names(bullseyeSeqs) <- treesNames
 kimura <- list(list(K80(Alpha = 1, Beta = 2)))
 for (trees in treesNames) {
   theseTrees <- bullseyeTrees[[trees]]
@@ -29,7 +30,29 @@ for (trees in treesNames) {
     ))$alignment
     states[paste0('t', seq_len(nTip)), ]
   })
+  bullseyeSeqs[[trees]] <- seqs
+}
+usethis::use_data(bullseyeSeqs, compress='xz', overwrite=TRUE)
 
+bullseyeInferred <- vector('list', length(nTips))
+names(bullseyeInferred) <- treesNames
+for (trees in treesNames[seq_len(useML)]) {
+  seqs <- bullseyeSeqs[[trees]]
+  theseTrees <- bullseyeTrees[[trees]]
+  bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
+    tr <- theseTrees[[i]]
+    sq <- seqs[[i]]
+
+    lapply(subsamples, function (n) {
+      fitStart <- pml(unroot(tr), MatrixToPhyDat(sq[, seq_len(n)]))
+      optim.pml(fitStart, model="K80", optNni=TRUE, rearrangement="stochastic",
+                control=pml.control(epsilon=1e-06, trace = 0))$tree
+    })
+  })
+}
+
+for (trees in treesNames[-seq_len(useML)]) {
+  seqs <- bullseyeSeqs[[trees]]
   bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
     tr <- theseTrees[[i]]
     sq <- seqs[[i]]
@@ -43,7 +66,6 @@ for (trees in treesNames) {
     })
   })
 }
-
 usethis::use_data(bullseyeInferred, compress='xz', overwrite=TRUE)
 
 bullseyeScores <- vector('list', length(nTips))
