@@ -46,7 +46,7 @@ for (trees in treesNames) {
   theseTrees <- bullseyeTrees[[trees]]
   seqs <- lapply(theseTrees, simSeq, l = 2000)
 
-  inferred <- lapply(seq_len(nTrees), function (i) {
+  bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
     tr <- theseTrees[[i]]
     sq <- seqs[[i]]
 
@@ -58,13 +58,15 @@ for (trees in treesNames) {
 }
 usethis::use_data(bullseyeInferred, compress='xz', overwrite=TRUE)
 
-
-  allScores <- vapply(seq_along(bullseyeInferred), function (i) {
-    trueTree <- bullseyeTrees[[i]]
+for (trees in treesNames) {
+  inferred <- bullseyeInferred[[trees]]
+  theseTrees <- bullseyeTrees[[trees]]
+  allScores <- vapply(seq_along(inferred), function (i) {
+    trueTree <- theseTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
     tr$edge.length  <- NULL
-    trs <- lapply(bullseyeInferred[[i]], root, rootTip, resolve.root=TRUE)
+    trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
 
     normInfo <- PartitionInfo(tr)
     cbind(
