@@ -11,7 +11,8 @@ test_that("Data dimensions are correct", {
 
   data("randomTreeDistances", package='TreeDistData')
   nLeafMeasurements <- 197L
-  expect_equal(c(nMetrics + 1L, 13L, nLeafMeasurements), dim(randomTreeDistances))
+  expect_equal(c(nMetrics + 1L, 13L, nLeafMeasurements),
+               dim(randomTreeDistances))
   expect_equal(c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf',
                  'path', 'spr', 'sprLB'), dimnames(randomTreeDistances)[[1]])
 
