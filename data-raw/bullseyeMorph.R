@@ -2,8 +2,6 @@ library('phangorn')
 library('TreeSearch')
 library('TreeDist')
 
-#data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
-nTips <- names(bullseyeTrees)
 
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
@@ -17,8 +15,8 @@ WriteTNTData <- function (dataset, fileName) {
         fileName)
 }
 
-bullseyeMorphInferred <- vector('list', length(nTips))
-names(bullseyeMorphInferred) <- treesNames
+bullseyeMorphInferred <- vector('list', length(tipsNames))
+names(bullseyeMorphInferred) <- tipsNames
 
 for (nTip in names(bullseyeTrees)) {
   theseTrees <- bullseyeTrees[[nTip]][seq_len(nTrees)]
@@ -70,7 +68,7 @@ for (nTip in names(bullseyeTrees)) {
     }
 
     inferred[[i]] <- iInferred <-
-      lapply(formatC(1:10 * 200, width=4, flag='0'),
+      lapply(formatC(10:10 * 200, width=4, flag='0'),
              function (nChar) {
                tr <- ReadTntTree(FilePattern(nChar),
                                  relativePath = '.',
@@ -84,9 +82,9 @@ for (nTip in names(bullseyeTrees)) {
 usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 
 
-bullseyeMorphScores <- vector('list', length(nTips))
-names(bullseyeMorphScores) <- treesNames
-for (nTip in treesNames) {
+bullseyeMorphScores <- vector('list', length(tipsNames))
+names(bullseyeMorphScores) <- tipsNames
+for (nTip in tipsNames) {
   inferred <- bullseyeMorphInferred[[nTip]]
   trueTrees <- bullseyeTrees[[nTip]]
   theseScores <- vapply(seq_along(inferred), function (i) {
@@ -99,17 +97,19 @@ for (nTip in treesNames) {
     normInfo <- PartitionInfo(tr)
     cbind(
       vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=normInfo),
+      vpiB = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
       vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=normInfo),
       vci = VariationOfClusteringInfo(tr, trs, normalize=normInfo),
+      vciB = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
       qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
       nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
       msd = MatchingSplitDistance(tr, trs),
       t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
       spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
     )
-  }, matrix(0, nrow = 10L, ncol=9L, dimnames=list(
+  }, matrix(0, nrow = 10L, ncol=11L, dimnames=list(
     10:1 * 200,
-    c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
+    c('vpi', 'vpiB', 'vmsi', 'vci', 'vciB', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
   )))
   bullseyeMorphScores[[nTip]] <- theseScores
 }
