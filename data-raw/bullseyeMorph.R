@@ -38,48 +38,53 @@ for (nTip in names(bullseyeTrees)) {
 
 
   for (i in seq_along(seqs)) {
-    seq00 <- formatC(i, width=ceiling(log10(nTrees)), flag='0')
-    seqFile <- paste0(tempdir(), '\\seq-', seq00, '.tnt')
-    WriteTNTData(seqs[[i]], file = seqFile)
+    seq00 <- formatC(i - 1, width=3, flag='0')
+    filePattern <- paste0(substr(nTip, 0, nchar(nTip) - 5),
+                       't-', seq00, '-k6-%s.tre')
 
-    runFile <- 'doscript.run'
-    file.create(runFile)
-    write(paste("macro =;
-     xmult:hits 3 level 4 chklevel 5 rat10 drift10;
-     sect:slack 8;
-     keep 0; hold 10000;\n",
-     "piwe=6 ;xmult;tsav *%1-k06-2000.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(1801:2000, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-1800.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(1601:1800, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-1600.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(1401:1600, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-1400.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(1201:1400, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-1200.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(1001:1200, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-1000.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(801:1000, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-0800.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(601:800, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-0600.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(401:600, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-0400.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "ccode ] ", paste(201:400, collapse=' '), ";\n",
-     "piwe=6 ;xmult;tsav *%1-k06-0200.tre;sav;tsav/;keep 0;hold 10000;\n",
-     "quit;"), runFile)
+    if (!file.exists(sprintf(filePattern, 2000))) {
+      seqFile <- paste0(tempdir(), '\\seq-', seq00, '.tnt')
+      WriteTNTData(seqs[[i]], file = seqFile)
+      Line <- function (n) {
+        paste0("piwe=6 ;xmult;tsav *",
+               sprintf(filePattern, formatC(n, width=4, flag='0')),
+        ";sav;tsav/;keep 0;hold 10000;\n",
+        "ccode ] ", paste(seq_len(200) + n - 200L, collapse=' '), ";\n"
+        )
+      }
 
-    # Install TNT and add to system path to make the next line work...
-    system(paste('tnt proc', seqFile, '; doscript', seq00, ';'))
-    file.remove(seqFile)
-    file.remove(runFile)
+      runFile <- 'doscript.run'
+      file.create(runFile)
+      write(paste("macro =;
+       xmult:hits 1 level 4 chklevel 5 rat5 drift5;
+       sect:slack 8;
+       keep 0; hold 10000;\n",
+       Line(2000),
+       Line(1800),
+       Line(1600),
+       Line(1400),
+       Line(1200),
+       Line(1000),
+       Line(0800),
+       Line(0600),
+       Line(0400),
+       Line(0200),
+       "quit;"), runFile)
+      # Install TNT and add to the PATH environment variable before running:
+      system(paste('tnt proc', seqFile, '; doscript;'))
+      file.remove(seqFile)
+      file.remove(runFile)
+    }
 
-    inferred[[i]] <- iInferred <- lapply(formatC(1:10 * 200, width=4, flag='0'), function (nChar) {
-      treeFile <- paste0(seq00, '-k06-', nChar, '.tre')
-      on.exit(file.remove(treeFile))
-      ReadTntTree(treeFile, relativePath = '.',
+    inferred[[i]] <- iInferred <-
+      lapply(formatC(1:10 * 200, width=4, flag='0'),
+             function (nChar) {
+               tr <- ReadTntTree(sprintf(filePattern, nChar),
+                                 relativePath = '.',
                   tipLabels = theseTrees[[i]]$tip.label)
-    })
+               # Return:
+               if (class(tr) == 'multiPhylo') tr[[1]] else tr
+               })
     bullseyeMorphInferred[[nTip]] <- inferred
   }
 }
