@@ -3,7 +3,7 @@ library('phylosim')
 library('TreeDist')
 library('TreeSearch')
 set.seed(1)
-nTrees <- 1000L
+nTrees <- 100L
 nTips <- c(5L, 10L, 20L, 50L)
 useML <- c(1, 2)
 treesNames <- paste(nTips, 'tips')
