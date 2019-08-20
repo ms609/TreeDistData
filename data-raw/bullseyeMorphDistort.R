@@ -54,7 +54,7 @@ for (tipName in names(bullseyeTrees)) {
              '.tre')
     }
 
-    if (!file.exists(FilePattern(00))) {
+    if (!file.exists(FilePattern(subsamples[(length(subsamples))]))) {
       seqFile <- paste0(tempdir(), '\\bullMoDi-', seq00, '.tnt')
       runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
       runFile <- paste0(runRoot, '.run', collapse='')
@@ -71,11 +71,11 @@ for (tipName in names(bullseyeTrees)) {
         switch <- sample(seq_len(nData), nData * sub / 100L)
         sq[switch] <- 1L - as.integer(sq[switch])
         WriteTNTData(MatrixToPhyDat(sq), file = seqFile)
+        # Install TNT and add to the PATH environment variable before running:
         system(paste('tnt proc', seqFile, '; ', runRoot,
                      formatC(sub, width=2, flag='0'), ';'))
       }
 
-      # Install TNT and add to the PATH environment variable before running:
       file.remove(seqFile)
       file.remove(runFile)
     }
