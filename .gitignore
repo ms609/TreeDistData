@@ -10,6 +10,7 @@ src/*.dll
 *.log
 *.out
 *.Rhistory
+*.run
 *.tre
 /* *.Rd */
 revdep/
