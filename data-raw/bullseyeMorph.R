@@ -67,8 +67,8 @@ for (tipName in names(bullseyeTrees)) {
       file.remove(runFile)
     }
 
-    inferred[[i]] <- iInferred <-
-      lapply(formatC(10:1 * 200, width=4, flag='0'),
+    inferred[[i]] <-
+      lapply(formatC(subsamples, width=4, flag='0'),
              function (nChar) {
                tr <- ReadTntTree(FilePattern(nChar),
                                  relativePath = '.',
@@ -76,8 +76,8 @@ for (tipName in names(bullseyeTrees)) {
                # Return:
                if (class(tr) == 'multiPhylo') tr[[1]] else tr
                })
-    bullseyeMorphInferred[[tipName]] <- inferred
   }
+  bullseyeMorphInferred[[tipName]] <- inferred
 }
 usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 
@@ -96,20 +96,22 @@ for (tipName in tipsNames) {
 
     normInfo <- PartitionInfo(tr)
     cbind(
-      vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=normInfo),
-      vpiB = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
-      vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=normInfo),
-      vci = VariationOfClusteringInfo(tr, trs, normalize=normInfo),
-      vciB = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
+      mpi = 1 - MutualPhylogeneticInfo(tr, trs, normalize=normInfo),
+      vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
+      mmsi = 1 - MutualMatchingSplitInfo(tr, trs, normalize=normInfo),
+      vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=TRUE),
+      mci = 1 - MutualClusteringInfo(tr, trs, normalize=normInfo),
+      vci = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
       qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
       nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
       msd = MatchingSplitDistance(tr, trs),
       t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
       spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
     )
-  }, matrix(0, nrow = 10L, ncol=11L, dimnames=list(
-    10:1 * 200,
-    c('vpi', 'vpiB', 'vmsi', 'vci', 'vciB', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
+  }, matrix(0, nrow = 10L, ncol=12L,
+            dimnames=list(subsamples,
+                          c('mpi', 'vpi', 'mmsi', 'vmsi', 'mci', 'vci',
+                            'qd', 'nts', 'msd', 'rf', 'path', 'spr')
   )))
   bullseyeMorphScores[[tipName]] <- theseScores
 }
