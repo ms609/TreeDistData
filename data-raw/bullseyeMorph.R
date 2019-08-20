@@ -88,11 +88,12 @@ usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 
 bullseyeMorphScores <- vector('list', length(nTips))
 names(bullseyeMorphScores) <- nTips
-for (trees in treesNames) {
-  inferred <- bullseyeInferred[[trees]]
-  theseTrees <- bullseyeTrees[[trees]]
+for (nTip in nTips) {
+  inferred <- bullseyeMorphInferred[[nTip]]
+  trueTrees <- bullseyeTrees[[nTip]]
   theseScores <- vapply(seq_along(inferred), function (i) {
     trueTree <- theseTrees[[i]]
+    trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
     tr$edge.length  <- NULL
@@ -113,6 +114,6 @@ for (trees in treesNames) {
     10:1 * 200,
     c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
   )))
-  bullseyeScores[[trees]] <- theseScores
+  bullseyeMorphScores[[nTip]] <- theseScores
 }
-usethis::use_data(bullseyeScores, compress='xz', overwrite=TRUE)
+usethis::use_data(bullseyeMorphScores, compress='xz', overwrite=TRUE)
