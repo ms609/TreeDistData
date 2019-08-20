@@ -17,38 +17,30 @@ WriteTNTData <- function (dataset, fileName) {
         fileName)
 }
 
-SubSample <- function (dat, n) {
-  at <- attributes(dat)
-  tokens <- t(vapply(seq_along(dat), function(taxon) {
-    dat[[taxon]][at$index[seq_len(n)]]
-  }, double(n)))
-  rownames(tokens) <- names(dat)
-  ret <- MatrixToPhyDat(tokens)
-  attr(ret, 'levels') <- at$levels
-  ret
-}
-
 bullseyeMorphInferred <- vector('list', length(nTips))
-names(bullseyeMorphInferred) <- nTips
-nTip = '5 tips'
+names(bullseyeMorphInferred) <- treesNames
+
 for (nTip in names(bullseyeTrees)) {
-  theseTrees <- bullseyeTrees[[nTip]]
+  theseTrees <- bullseyeTrees[[nTip]][seq_len(nTrees)]
   seqs <- lapply(theseTrees, simSeq, l = 2000, type='USER', levels=1:4)
-  inferred <- vector(mode='list', length(theseTrees))
+  inferred <- vector(mode='list', nTrees)
 
 
   for (i in seq_along(seqs)) {
     seq00 <- formatC(i - 1, width=3, flag='0')
-    filePattern <- paste0(substr(nTip, 0, nchar(nTip) - 5),
-                       't-', seq00, '-k6-%s.tre')
+    FilePattern <- function (n) {
+      paste0(substr(nTip, 0, nchar(nTip) - 5),
+             't-', seq00, '-k6-',
+             formatC(n, width=4, flag='0'),
+             '.tre')
+    }
 
-    if (!file.exists(sprintf(filePattern, 2000))) {
+    if (!file.exists(FilePattern(200))) {
       seqFile <- paste0(tempdir(), '\\seq-', seq00, '.tnt')
       WriteTNTData(seqs[[i]], file = seqFile)
       Line <- function (n) {
-        paste0("piwe=6 ;xmult;tsav *",
-               sprintf(filePattern, formatC(n, width=4, flag='0')),
-        ";sav;tsav/;keep 0;hold 10000;\n",
+        paste0("piwe=6 ;xmult;tsav *", FilePattern(n),
+               ";sav;tsav/;keep 0;hold 10000;\n",
         "ccode ] ", paste(seq_len(200) + n - 200L, collapse=' '), ";\n"
         )
       }
@@ -79,7 +71,7 @@ for (nTip in names(bullseyeTrees)) {
     inferred[[i]] <- iInferred <-
       lapply(formatC(1:10 * 200, width=4, flag='0'),
              function (nChar) {
-               tr <- ReadTntTree(sprintf(filePattern, nChar),
+               tr <- ReadTntTree(FilePattern(nChar),
                                  relativePath = '.',
                   tipLabels = theseTrees[[i]]$tip.label)
                # Return:
@@ -92,8 +84,8 @@ usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 
 
 bullseyeMorphScores <- vector('list', length(nTips))
-names(bullseyeMorphScores) <- nTips
-for (nTip in nTips) {
+names(bullseyeMorphScores) <- treesNames
+for (nTip in treesNames) {
   inferred <- bullseyeMorphInferred[[nTip]]
   trueTrees <- bullseyeTrees[[nTip]]
   theseScores <- vapply(seq_along(inferred), function (i) {
