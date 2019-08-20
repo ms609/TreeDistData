@@ -18,8 +18,8 @@ WriteTNTData <- function (dataset, fileName) {
 bullseyeMorphInferred <- vector('list', length(tipsNames))
 names(bullseyeMorphInferred) <- tipsNames
 
-for (nTip in names(bullseyeTrees)) {
-  theseTrees <- bullseyeTrees[[nTip]][seq_len(nTrees)]
+for (tipName in names(bullseyeTrees)) {
+  theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
   seqs <- lapply(theseTrees, simSeq, l = 2000, type='USER', levels=1:4)
   inferred <- vector(mode='list', nTrees)
 
@@ -27,7 +27,7 @@ for (nTip in names(bullseyeTrees)) {
   for (i in seq_along(seqs)) {
     seq00 <- formatC(i - 1, width=3, flag='0')
     FilePattern <- function (n) {
-      paste0(substr(nTip, 0, nchar(nTip) - 5),
+      paste0(substr(tipName, 0, nchar(tipName) - 5),
              't-', seq00, '-k6-',
              formatC(n, width=4, flag='0'),
              '.tre')
@@ -68,7 +68,7 @@ for (nTip in names(bullseyeTrees)) {
     }
 
     inferred[[i]] <- iInferred <-
-      lapply(formatC(10:10 * 200, width=4, flag='0'),
+      lapply(formatC(10:1 * 200, width=4, flag='0'),
              function (nChar) {
                tr <- ReadTntTree(FilePattern(nChar),
                                  relativePath = '.',
@@ -76,7 +76,7 @@ for (nTip in names(bullseyeTrees)) {
                # Return:
                if (class(tr) == 'multiPhylo') tr[[1]] else tr
                })
-    bullseyeMorphInferred[[nTip]] <- inferred
+    bullseyeMorphInferred[[tipName]] <- inferred
   }
 }
 usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
@@ -84,9 +84,9 @@ usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
-for (nTip in tipsNames) {
-  inferred <- bullseyeMorphInferred[[nTip]]
-  trueTrees <- bullseyeTrees[[nTip]]
+for (tipName in tipsNames) {
+  inferred <- bullseyeMorphInferred[[tipName]]
+  trueTrees <- bullseyeTrees[[tipName]]
   theseScores <- vapply(seq_along(inferred), function (i) {
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
@@ -111,6 +111,6 @@ for (nTip in tipsNames) {
     10:1 * 200,
     c('vpi', 'vpiB', 'vmsi', 'vci', 'vciB', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
   )))
-  bullseyeMorphScores[[nTip]] <- theseScores
+  bullseyeMorphScores[[tipName]] <- theseScores
 }
 usethis::use_data(bullseyeMorphScores, compress='xz', overwrite=TRUE)
