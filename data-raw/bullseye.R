@@ -7,7 +7,7 @@ nTrees <- 100L
 nTips <- c(5L, 10L, 20L, 50L)
 useML <- c(1, 2)
 treesNames <- paste(nTips, 'tips')
-subsamples <- 10:1 * 20
+subsamples <- 10:1 * 200
 
 # Generate trees:
 bullseyeTrees <- lapply(nTips, function (nTip)
