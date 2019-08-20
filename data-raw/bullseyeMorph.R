@@ -92,7 +92,6 @@ for (nTip in nTips) {
   inferred <- bullseyeMorphInferred[[nTip]]
   trueTrees <- bullseyeTrees[[nTip]]
   theseScores <- vapply(seq_along(inferred), function (i) {
-    trueTree <- theseTrees[[i]]
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
