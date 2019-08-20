@@ -1,6 +1,5 @@
 library('phangorn')
-#library('TreeSearch')
-devtools::load_all('C:/research/R/TreeSearch')
+library('TreeSearch')
 library('TreeDist')
 
 data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
