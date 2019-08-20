@@ -85,9 +85,11 @@ usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
 for (tipName in tipsNames) {
+  cat('\u2714 Calculating tree distances:', tipName, ':\n')
   inferred <- bullseyeMorphInferred[[tipName]]
   trueTrees <- bullseyeTrees[[tipName]]
   theseScores <- vapply(seq_along(inferred), function (i) {
+    cat('.')
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
@@ -116,3 +118,4 @@ for (tipName in tipsNames) {
   bullseyeMorphScores[[tipName]] <- theseScores
 }
 usethis::use_data(bullseyeMorphScores, compress='xz', overwrite=TRUE)
+cat(" # # # COMPLETE # # # ")
