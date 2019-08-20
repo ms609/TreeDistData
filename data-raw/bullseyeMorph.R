@@ -45,7 +45,8 @@ for (nTip in names(bullseyeTrees)) {
         )
       }
 
-      runFile <- 'doscript.run'
+      runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
+      runFile <- paste0(runRoot, '.run', collapse='')
       file.create(runFile)
       write(paste("macro =;
        xmult:hits 1 level 4 chklevel 5 rat5 drift5;
@@ -63,7 +64,7 @@ for (nTip in names(bullseyeTrees)) {
        Line(0200),
        "quit;"), runFile)
       # Install TNT and add to the PATH environment variable before running:
-      system(paste('tnt proc', seqFile, '; doscript;'))
+      system(paste('tnt proc', seqFile, '; ', runRoot, ';'))
       file.remove(seqFile)
       file.remove(runFile)
     }
