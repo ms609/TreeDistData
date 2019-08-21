@@ -2,6 +2,9 @@ library('phangorn')
 library('TreeSearch')
 library('TreeDist')
 
+data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
+tipsNames <- names(bullseyeTrees)
+subsamples <- 10:1 * 200
 
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
