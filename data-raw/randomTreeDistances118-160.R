@@ -1,5 +1,5 @@
+RNGversion("3.6.0")
 library('TreeDist')
-suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 
 RandomDistances <- function (nLeaves, repls) {
   set.seed(0)
@@ -34,9 +34,6 @@ RandomDistances <- function (nLeaves, repls) {
   ret
 }
 
-#nLeaves <- 4:200
-#randomTreeDistances <- RandomDistances(nLeaves, repls=1000L)
-#usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
-
-# Running all at once leads to a memory allocation error in Quartet.
-# Instead, combine the results of the three separate runs.
+nLeaves <- 118:160
+randomTreeDistances118 <- RandomDistances(nLeaves, repls=1000L)
+usethis::use_data(randomTreeDistances118, compress='gzip', overwrite=TRUE)
