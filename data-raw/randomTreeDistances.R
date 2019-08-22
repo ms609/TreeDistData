@@ -49,11 +49,11 @@ RandomDistances <- function (nLeaves, repls) {
 # and so that progress is not lost if script interrupted.
 while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
   cat(sum(empty), 'to go...\n')
-  doNext <- sample(names(empty), 1)
+  doNext <- sample(names(empty)[empty], 1L)
   cat('\n', doNext, 'Leaves ')
   dists <- RandomDistances(as.integer(doNext), repls)
   load(proj_path(paths))
-  cat(ifelse(empty, '-', 'X'))
+  cat('\n', ifelse(empty, '-', 'X'))
   randomTreeDistances[, , doNext] <- dists
   usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
 }
