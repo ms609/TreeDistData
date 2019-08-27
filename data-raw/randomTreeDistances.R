@@ -30,7 +30,8 @@ RandomDistances <- function (nLeaves, repls) {
                         tr2 <- RandomTree(nLeaves)
                         dists <- TreeDistData:::AllDists(tr1, tr2)
                         dists[c(1:9, 9)] /
-                          c(rep(1L, 6L), rf = nLeaves + nLeaves - 6L,
+                          c(rep(1L, 6L),
+                            rf = nLeaves + nLeaves - 6L,
                             path = 1L,
                             sprUpper = nLeaves - 3L,
                             sprLower = (nLeaves - 2L) / 2L
