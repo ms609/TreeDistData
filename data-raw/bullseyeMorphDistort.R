@@ -54,7 +54,7 @@ for (tipName in names(bullseyeTrees)) {
              '.tre')
     }
 
-    if (!file.exists(FilePattern(subsamples[(length(subsamples))]))) {
+    if (!all(file.exists(FilePattern(subsamples)))) {
       seqFile <- paste0(tempdir(), '\\bullMoDi-', seq00, '.tnt')
       runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
       runFile <- paste0(runRoot, '.run', collapse='')
@@ -129,4 +129,4 @@ for (tipName in tipsNames) {
   bullMoDiScores[[tipName]] <- theseScores
 }
 usethis::use_data(bullMoDiScores, compress='xz', overwrite=TRUE)
-cat('# # # COMPLETE # # #')
+cat('# # # BullseyeMorphDistort COMPLETE # # #')
