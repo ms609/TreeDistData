@@ -11,8 +11,6 @@ if (substr(wd, nchar(wd) - 7, nchar(wd)) != 'data-raw') setwd('data-raw')
 ###################
 
 # Get results for a subset of trees:
-tipsNames <- tipsNames[1:3]
-bullseyeTrees <- bullseyeTrees[tipsNames]
 nTrees <- 1000
 
 
@@ -38,6 +36,7 @@ bullMoDiInferred <- vector('list', length(tipsNames))
 names(bullMoDiInferred) <- tipsNames
 
 for (tipName in names(bullseyeTrees)) {
+  cat("\n ***", tipName, "*** \n")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
   simChar <- 2000L
   seqs <- lapply(theseTrees, simSeq, l = simChar, type='USER', levels=0:1)
@@ -47,6 +46,7 @@ for (tipName in names(bullseyeTrees)) {
 
   for (i in seq_along(seqs)) {
     seq00 <- formatC(i - 1, width=3, flag='0')
+    cat ("", seq00)
     FilePattern <- function (n) {
       paste0('bullMoDi/', substr(tipName, 0, nchar(tipName) - 5),
              't-', seq00, '-k6-',
@@ -100,7 +100,9 @@ names(bullMoDiScores) <- tipsNames
 for (tipName in tipsNames) {
   inferred <- bullMoDiInferred[[tipName]]
   trueTrees <- bullseyeTrees[[tipName]]
+  cat ("\n *** Scoring:", tipName, '***\n')
   theseScores <- vapply(seq_along(inferred), function (i) {
+    cat('', i)
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
@@ -125,7 +127,7 @@ for (tipName in tipsNames) {
             dimnames=list(subsamples,
                           c('mpi', 'vpi', 'mmsi', 'vmsi', 'mci', 'vci',
                             'qd', 'nts', 'msd', 'rf', 'path', 'spr')
-  )))
+            )))
   bullMoDiScores[[tipName]] <- theseScores
 }
 usethis::use_data(bullMoDiScores, compress='xz', overwrite=TRUE)
