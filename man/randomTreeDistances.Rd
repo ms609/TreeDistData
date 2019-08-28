@@ -4,7 +4,7 @@
 \name{randomTreeDistances}
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
-\format{An object of class \code{array} of dimension 10 x 11 x 197.}
+\format{An object of class \code{array} of dimension 10 x 13 x 197.}
 \usage{
 randomTreeDistances
 }
@@ -35,7 +35,8 @@ Rows are named with an abbreviation of the tree comparison metric:
 }
 
 Columns list the summary statistics of calculated tree distances: the
-minimum (\code{min}), 1%, 5%, 25%, 50% (i.e. median), 75%, 95%, 99% percentiles,
+minimum (\code{min}),
+1%, 5%, 10%, 25%, 50% (i.e. median), 75%, 90%, 95%, 99% percentiles,
 maximum (\code{max}), mean (\code{mean}) and standard deviation (\code{sd}).
 
 The third dimension lists the number of tips in the trees compared.
