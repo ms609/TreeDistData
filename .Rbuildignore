@@ -10,6 +10,7 @@ man-roxygen
 data-raw
 revdep
 vignettes/.RData
+vignettes
 /^\.git/
 ^.*\.o$
 ^.*\.dll$
