@@ -2,25 +2,21 @@ library('phangorn')
 library('phylosim')
 library('TreeDist')
 library('TreeSearch')
-set.seed(1)
-nTrees <- 100L
-nTips <- c(5L, 10L, 20L, 50L)
-useML <- c(1, 2)
-treesNames <- paste(nTips, 'tips')
-subsamples <- 10:1 * 200
 
-# Generate trees:
-bullseyeTrees <- lapply(nTips, function (nTip)
-  lapply(seq_len(nTrees), function (XX) ape::rtree(nTip))
-)
-names(bullseyeTrees) <- treesNames
-usethis::use_data(bullseyeTrees, overwrite=TRUE)
+
+data("bullseyeTrees", package='TreeDistData') # Generated in bullseyeTrees.R
+tipsNames <- names(bullseyeTrees)
+
+set.seed(1)
+nTrees <- 1000L
+useML <- c(1, 2)
+subsamples <- 10:1 * 200
 
 # Infer trees:
 bullseyeSeqs <- vector('list', length(nTips))
-names(bullseyeSeqs) <- treesNames
+names(bullseyeSeqs) <- tipsNames
 kimura <- list(list(K80(Alpha = 1, Beta = 2)))
-for (trees in treesNames) {
+for (trees in tipsNames) {
   theseTrees <- bullseyeTrees[[trees]]
   seqs <- lapply(theseTrees, function (tree) {
     nTip <- length(tree$tip.label)
@@ -35,8 +31,8 @@ for (trees in treesNames) {
 usethis::use_data(bullseyeSeqs, compress='xz', overwrite=TRUE)
 
 bullseyeInferred <- vector('list', length(nTips))
-names(bullseyeInferred) <- treesNames
-for (trees in treesNames[seq_len(useML)]) {
+names(bullseyeInferred) <- tipsNames
+for (trees in tipsNames[seq_len(useML)]) {
   seqs <- bullseyeSeqs[[trees]]
   theseTrees <- bullseyeTrees[[trees]]
   bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
@@ -51,7 +47,7 @@ for (trees in treesNames[seq_len(useML)]) {
   })
 }
 
-for (trees in treesNames[-seq_len(useML)]) {
+for (trees in tipsNames[-seq_len(useML)]) {
   seqs <- bullseyeSeqs[[trees]]
   bullseyeInferred[[trees]] <- lapply(seq_len(nTrees), function (i) {
     tr <- theseTrees[[i]]
@@ -69,8 +65,8 @@ for (trees in treesNames[-seq_len(useML)]) {
 usethis::use_data(bullseyeInferred, compress='xz', overwrite=TRUE)
 
 bullseyeScores <- vector('list', length(nTips))
-names(bullseyeScores) <- treesNames
-for (trees in treesNames) {
+names(bullseyeScores) <- tipsNames
+for (trees in tipsNames) {
   inferred <- bullseyeInferred[[trees]]
   theseTrees <- bullseyeTrees[[trees]]
   theseScores <- vapply(seq_along(inferred), function (i) {
