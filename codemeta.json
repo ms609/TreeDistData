@@ -1,0 +1,174 @@
+{
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@type": "SoftwareSourceCode",
+  "identifier": "TreeDistData",
+  "description": "Data used to build vignettes in TreeDist package, and figures in Smith (20XX).",
+  "name": "TreeDistData: Large data files to accompany `TreeDist`",
+  "codeRepository": "https://github.com/ms609/TreeDistData",
+  "issueTracker": "https://github.com/ms609/TreeDist/issues",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.0.0.9006",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "3.6.0",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 3.6.0 (2019-04-26)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Martin R.",
+      "familyName": "Smith",
+      "email": "martin.smith@durham.ac.uk",
+      "@id": "https://orcid.org/0000-0001-5660-1727"
+    }
+  ],
+  "contributor": {},
+  "copyrightHolder": [
+    {
+      "@type": "Person",
+      "givenName": "Martin R.",
+      "familyName": "Smith",
+      "email": "martin.smith@durham.ac.uk",
+      "@id": "https://orcid.org/0000-0001-5660-1727"
+    }
+  ],
+  "funder": {},
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Martin R.",
+      "familyName": "Smith",
+      "email": "martin.smith@durham.ac.uk",
+      "@id": "https://orcid.org/0000-0001-5660-1727"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ape",
+      "name": "ape",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ape"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Rdpack",
+      "name": "Rdpack",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Rdpack"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "TreeSearch",
+      "name": "TreeSearch",
+      "version": ">= 0.3.2.9007",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://github.com/ms609/TreeSearch"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.4.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "phangorn",
+      "name": "phangorn",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=phangorn"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Quartet",
+      "name": "Quartet",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Quartet"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "TreeDist",
+      "name": "TreeDist",
+      "sameAs": "https://github.com/ms609/TreeDist"
+    }
+  ],
+  "releaseNotes": "https://github.com/ms609/TreeDistData/blob/master/NEWS.md",
+  "readme": "https://github.com/ms609/TreeDistData/blob/master/README.md",
+  "contIntegration": "https://travis-ci.com/ms609/TreeDistData",
+  "developmentStatus": "http://www.repostatus.org/#inactive",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "20XX",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": ["Martin", "R."],
+          "familyName": "Smith"
+        }
+      ],
+      "name": "Untitled",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "20XX",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "Unsubmitted"
+        }
+      }
+    }
+  ]
+}
