@@ -149,3 +149,50 @@ NULL
 #'
 #' @keywords datasets
 "sevenTipDistances"
+
+#' Bullseye test results
+#'
+#' Trees used to implement a 'Bullseye' test, after that proposed by Kuhner
+#' and Yamato (2015).
+#'
+#' `bullseyeTrees` is a list with four elements, named `5 tips`, `10 tips`,
+#' `20 tips` and `50 tips`.  Each element contains 1&nbsp;000 trees with _n_
+#' tips, randomly sampled from the uniform distribution using `ape::rtree`.
+#'
+#' `bullXXInferred` is a list with four elements, named as in `bullseyeTrees`.
+#' Each element contains 1000 subelements. Each subelement is a list of ten
+#' trees, which have been inferred from progressively more degraded datasets,
+#' originally simulated from the corresponding tree in `bullseyeTrees`.
+#'
+#' `bullXXScores` is a list with four elements, named as in `bullseyeTrees`.
+#' Each element contains a three dimensional array, in which the first dimension
+#' corresponds to the progressive degrees of degradation, labelled according to
+#' the number of characters present or the percentage of tokens switched;
+#' the second dimension is named with an abbreviation of the tree similarity /
+#' distance metric used to score the trees, and the third dimension contains
+#' 1&nbsp;000 entries corresponding to the trees in `bullseyeTrees`.
+#' Each cell contains the distance between the inferred tree and the generative
+#' tree under the stated tree distance metric.
+#'
+#' The `bullseyeMorph` prefix refers to the 'subsampling' experiment
+#' described by Smith (forthcoming); the `bullMoDi` prefix refers to the
+#' 'miscoding' experiment.
+#'
+#'
+#' @references
+#' - \insertRef{Kuhner2015}{TreeDistData}
+#'
+#' - \insertRef{SmithDist}{TreeDist}
+#'
+#' @name bullseye
+
+#' @rdname bullseye
+'bullseyeTrees'
+#' @rdname bullseye
+'bullMoDiInferred'
+#' @rdname bullseye
+'bullMoDiScores'
+#' @rdname bullseye
+'bullseyeMorphInferred'
+#' @rdname bullseye
+'bullseyeMorphScores'
