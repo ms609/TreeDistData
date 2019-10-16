@@ -4,7 +4,7 @@ bullseyeDistances <- lapply(bullseyeTrees, function(x) NULL)
 
 for (tips in names(bullseyeTrees)) {
   message(tips)
-  trees <- bullseyeTrees[[tips]][1:100]
+  trees <- bullseyeTrees[[tips]]
   elementStatus <- Quartet::ManyToManyQuartetAgreement(trees)
   qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 1]
   message("Calculated Quartet Distances")
