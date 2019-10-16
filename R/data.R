@@ -1,7 +1,7 @@
 #' Mean distances between random pairs of trees
 #'
-#' A three-dimensional array listing the normalized distances between 1000 random
-#' pairs of trees drawn from the uniform distribution using
+#' A three-dimensional array listing the normalized distances between 1&nbsp;000
+#' random pairs of trees drawn from the uniform distribution using
 #' `ape::rtree(nTip, br=NULL)`.
 #'
 #' Normalization is against the maximum possible value obtainable on a pair
@@ -160,8 +160,8 @@ NULL
 #' tips, randomly sampled from the uniform distribution using `ape::rtree`.
 #'
 #' `bullXXInferred` is a list with four elements, named as in `bullseyeTrees`.
-#' Each element contains 1000 subelements. Each subelement is a list of ten
-#' trees, which have been inferred from progressively more degraded datasets,
+#' Each element contains 1&nbsp;000 subelements. Each subelement is a list of
+#' ten trees, which have been inferred from progressively more degraded datasets,
 #' originally simulated from the corresponding tree in `bullseyeTrees`.
 #'
 #' `bullXXScores` is a list with four elements, named as in `bullseyeTrees`.
