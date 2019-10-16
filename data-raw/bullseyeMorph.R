@@ -82,7 +82,7 @@ for (tipName in names(bullseyeTrees)) {
   }
   bullseyeMorphInferred[[tipName]] <- inferred
 }
-usethis::use_data(bullseyeMorphInferred, compress='xz', overwrite=TRUE)
+usethis::use_data(bullseyeMorphInferred, compress='bzip2', overwrite=TRUE)
 
 
 bullseyeMorphScores <- vector('list', length(tipsNames))

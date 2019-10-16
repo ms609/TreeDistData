@@ -92,7 +92,7 @@ for (tipName in names(bullseyeTrees)) {
   }
   bullMoDiInferred[[tipName]] <- inferred
 }
-usethis::use_data(bullMoDiInferred, compress='xz', overwrite=TRUE)
+usethis::use_data(bullMoDiInferred, compress='bzip2', overwrite=TRUE)
 
 
 bullMoDiScores <- vector('list', length(tipsNames))
