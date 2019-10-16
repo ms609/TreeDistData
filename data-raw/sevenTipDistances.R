@@ -1,6 +1,6 @@
 library('TreeDist')
-trees <- phangorn::allTrees(7, rooted=FALSE, tip.label=letters[1:7])
-trees <- lapply(trees, ape::root, 'a', resolve.root=TRUE)
+trees <- phangorn::allTrees(7, rooted = FALSE, tip.label = letters[1:7])
+trees <- lapply(trees, ape::root, 'a', resolve.root = TRUE)
 TreeShape7 <- function (tree) {
   edge <- tree$edge
   parent <- edge[, 1]
@@ -17,14 +17,14 @@ qd <- elementStatus[, , 'd'] / 35L
 treeDists <- vapply(trees, function (tr1) vapply(trees, function (tr2) {
   c(phangorn::treedist(tr1, tr2)[c('symmetric.difference', 'path.difference')],
     phangorn::SPR.dist(tr1, tr2))
-}, double(3)), matrix(0, nrow=3, ncol=length(trees)))
+}, double(3)), matrix(0, nrow = 3, ncol = length(trees)))
 
 sevenTipDistances <- list(
- vpi = VariationOfPhylogeneticInfo(trees, trees, normalize=TRUE),
- vmsi = VariationOfMatchingSplitInfo(trees, trees, normalize=TRUE),
- vci = VariationOfClusteringInfo(trees, trees, normalize=TRUE),
+ vpi = VariationOfPhylogeneticInfo(trees, trees, normalize = TRUE),
+ vmsi = VariationOfMatchingSplitInfo(trees, trees, normalize = TRUE),
+ vci = VariationOfClusteringInfo(trees, trees, normalize = TRUE),
  qd = qd,
- nts = 1 - NyeTreeSimilarity(trees, trees, normalize=TRUE),
+ nts = 1 - NyeTreeSimilarity(trees, trees, normalize = TRUE),
  msd = MatchingSplitDistance(trees, trees),
  rf = treeDists['symmetric.difference', , ],
  path = treeDists['path.difference', , ],
@@ -32,4 +32,4 @@ sevenTipDistances <- list(
  shapes = treeShapes[order(treeShapes)]
 )
 
-usethis::use_data(sevenTipDistances, compress='xz', overwrite=TRUE)
+usethis::use_data(sevenTipDistances, compress='xz', overwrite = TRUE)
