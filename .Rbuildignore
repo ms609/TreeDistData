@@ -23,3 +23,6 @@ vignettes
 ^vignettes/.*_cache$
 ^codemeta\.json$
 ^CODE_OF_CONDUCT\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
