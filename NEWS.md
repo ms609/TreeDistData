@@ -1,28 +1,33 @@
-# TreeDist 0.0.0.9006 (development)
+# TreeDistData 0.0.0.9007 (development)
 
-- Fix: median and 75%ile misnamed in randomTreeDistances
+- Add: Bullseye distances
+
+# TreeDistData 0.0.0.9006 (development)
+
+- Fix: median and 75%ile misnamed in `randomTreeDistances`
 - Add: Bullseye test data
 
-# TreeDist 0.0.0.9005 (development)
+# TreeDistData 0.0.0.9005 (development)
 
 - Percentiles for randomTreeDistances
 
-# TreeDist 0.0.0.9004 (development)
+# TreeDistData 0.0.0.9004 (development)
 
 - Add pectinateDistance11
 
-# TreeDist 0.0.0.9003 (development)
+# TreeDistData 0.0.0.9003 (development)
 
 - Add distanceDistribution11
 
-# TreeDist 0.0.0.9002 (development)
+# TreeDistData 0.0.0.9002 (development)
 
 - Regenerate datasets to match new function names
 
-# TreeDist 0.0.0.9001 (development)
+# TreeDistData 0.0.0.9001 (development)
 
-- Update to use new function names MutualPhylogeneticInfo, MutualMatchingSplitInfo
+- Update to use new function names MutualPhylogeneticInfo, 
+  MutualMatchingSplitInfo
 
-# TreeDist 0.0.0.9000 (development)
+# TreeDistData 0.0.0.9000 (development)
 
  - Extracted package from `TreeSearch` 0.3.2.9005.
