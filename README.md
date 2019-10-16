@@ -5,12 +5,14 @@
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/TreeDistData)](https://cran.r-project.org/package=TreeDistData)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/TreeDistData)](https://cran.r-project.org/package=TreeDistData)
 
-This package provides data files used to build the vignettes in the `TreeDist` package.
+This package provides data files used to build the vignettes in the `TreeDist` 
+[package](https://ms609.github.io/TreeDist).
 Because the data files are large, they are not installed with `TreeDist`.
 
 # Installation
 
 (#TODO submit to CRAN!)
+
 Install and load the library from CRAN as follows:
 ```
 install.packages('TreeDistData')
