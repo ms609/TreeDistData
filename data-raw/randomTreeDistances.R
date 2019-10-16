@@ -56,5 +56,5 @@ while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
   load(proj_path(paths))
   cat('\n', ifelse(empty, '-', 'X'))
   randomTreeDistances[, , doNext] <- dists
-  usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
+  usethis::use_data(randomTreeDistances, compress='xz', overwrite=TRUE)
 }
