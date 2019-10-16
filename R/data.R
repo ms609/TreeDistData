@@ -140,11 +140,17 @@ NULL
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
+#'
 #' \insertRef{Kendall2016}{TreeDistData}
+#'
 #' \insertRef{Nye2006}{TreeDist}
+#'
 #' \insertRef{Robinson1981}{TreeDist}
+#'
 #' \insertRef{SmithTern}{TreeSearch}
+#'
 #' \insertRef{SmithDist}{TreeDist}
+#'
 #' \insertRef{Steel1993}{TreeDist}
 #'
 #' @keywords datasets
@@ -178,6 +184,10 @@ NULL
 #' described by Smith (forthcoming); the `bullMoDi` prefix refers to the
 #' 'miscoding' experiment.
 #'
+#' `bullseyeDistances` contains four elements, each tabulating the distance
+#' between each pair of _n_-tip trees in `bullseyeTrees`.  For details, see
+#' \code{\link{sevenTipDistances}}.
+#'
 #'
 #' @references
 #' - \insertRef{Kuhner2015}{TreeDistData}
@@ -196,3 +206,5 @@ NULL
 'bullseyeMorphInferred'
 #' @rdname bullseye
 'bullseyeMorphScores'
+#' @rdname bullseye
+'bullseyeDistances'
