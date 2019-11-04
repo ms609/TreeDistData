@@ -1,6 +1,6 @@
 language: R
 cache: packages
-sudo: required # required if r_binary_packages; false otherwise
+sudo: false
 warnings_are_errors: true
 r_check_args: --as-cran
 git:
@@ -9,8 +9,19 @@ git:
 matrix:
   include:
     - r: 3.5.0
+      r_packages:
+       - devtools
+       - Rdpack
+       - roxygen2
+       - testthat
     - r: release
       before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+      sudo: required
+      r_binary_packages:
+       - devtools
+       - Rdpack
+       - roxygen2
+       - testthat
       deploy:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github()'
@@ -20,6 +31,11 @@ matrix:
         on:
           branch: master
     - r: devel
+      sudo: required
+      r_binary_packages:
+       - devtools
+       - Rdpack
+       - roxygen2
       after_success:
         - Rscript -e "covr::codecov()"
     - os: osx
@@ -35,16 +51,9 @@ matrix:
 #  allow_failures:
 #    r: devel # Incompatible with devtools?
 
-
 r_github_packages:
  - ms609/TreeDist # Remove once available via CRAN
- - ms609/TreeSearch
-
-r_binary_packages:
- - devtools
- - Rdpack
- - roxygen2
- - testthat
+ - ms609/TreeTools
 
 before_script:
-  - R -e "devtools::document()"
+  - R -e "pkgdown::load_all(); devtools::document()"
