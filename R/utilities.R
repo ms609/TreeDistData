@@ -52,7 +52,7 @@ PairwiseDistances <- function (trees, Func) {
 #' @importFrom TreeTools as.Splits
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
-#' VariationOfClusteringInfo
+#' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #' @importFrom phangorn path.dist SPR.dist
 #' @family pairwise tree distances
@@ -60,6 +60,7 @@ PairwiseDistances <- function (trees, Func) {
 CompareAllTrees <- function (trees) {
   elementStatus <- ManyToManyQuartetAgreement(trees)
   qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 's']
+
   splits <- as.Splits(trees)
 
   list(
