@@ -2,7 +2,6 @@
 
 export(AllDists)
 export(CompareAllTrees)
-export(PairwiseDistances)
 importFrom(Quartet,ManyToManyQuartetAgreement)
 importFrom(Quartet,QuartetDivergence)
 importFrom(Quartet,QuartetStatus)

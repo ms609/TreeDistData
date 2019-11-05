@@ -22,30 +22,6 @@ AllDists <- function (tr1, tr2) {
   )
 }
 
-#' Distances between each pair of trees
-#'
-#' @param trees List of trees of class `phylo`.
-#' @param Func distance function returning distance between two trees,
-#' e.g. [phangorn::treedist][path.dist].
-#' @return Matrix detailing distance between each pair of trees.
-#' Identical trees are assumed to have zero distance.
-#' @author Martin R. Smith
-#' @family pairwise tree distances
-#' @export
-PairwiseDistances <- function (trees, Func) {
-  ret <- matrix(0, length(trees), length(trees))
-  for (i in seq_along(trees)) {
-    trI <- trees[[i]]
-    for (j in i + seq_len(length(trees) - i)) {
-      ret[i, j] <- Func(trI, trees[[j]])
-    }
-  }
-  ret[lower.tri(ret)] <- t(ret)[lower.tri(ret)]
-
-  # Return:
-  ret
-}
-
 #' All distances between each pair of trees
 #' @param trees List of bifurcating trees of class `phylo`.
 #' @author Martin R. Smith
@@ -62,6 +38,9 @@ CompareAllTrees <- function (trees) {
   qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 's']
 
   splits <- as.Splits(trees)
+  if(!inherits(trees, 'multiPhylo')) {
+    trees <- structure(trees, class='multiPhylo')
+  }
 
   list(
     vpi = VariationOfPhylogeneticInfo(splits, normalize=TRUE),
@@ -71,7 +50,7 @@ CompareAllTrees <- function (trees) {
     nts = 1 - NyeTreeSimilarity(splits, normalize=TRUE),
     msd = MatchingSplitDistance(splits),
     rf = RobinsonFoulds(splits),
-    path = PairwiseDistances(trees, path.dist),
-    spr = PairwiseDistances(trees, SPR.dist)
+    path = as.matrix(path.dist(trees)),
+    spr = as.matrix(SPR.dist(trees))
   )
 }
