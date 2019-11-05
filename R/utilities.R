@@ -29,8 +29,9 @@ AllDists <- function (tr1, tr2) {
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
-#' @importFrom Quartet ManyToManyQuartetAgreement
+#' @importFrom ape reorder.phylo
 #' @importFrom phangorn path.dist SPR.dist
+#' @importFrom Quartet ManyToManyQuartetAgreement
 #' @family pairwise tree distances
 #' @export
 CompareAllTrees <- function (trees) {
@@ -39,7 +40,9 @@ CompareAllTrees <- function (trees) {
 
   splits <- as.Splits(trees)
   if(!inherits(trees, 'multiPhylo')) {
-    trees <- structure(trees, class='multiPhylo')
+    # Safest to re-order, as postordering can crash in path.dist
+    trees <- structure(lapply(trees, reorder.phylo, 'postorder'),
+                       class='multiPhylo')
   }
 
   list(
