@@ -40,11 +40,17 @@ descendant nodes.
 }
 \references{
 \insertRef{Bogdanowicz2012}{TreeDist}
+
 \insertRef{Kendall2016}{TreeDistData}
+
 \insertRef{Nye2006}{TreeDist}
+
 \insertRef{Robinson1981}{TreeDist}
+
 \insertRef{SmithTern}{TreeSearch}
+
 \insertRef{SmithDist}{TreeDist}
+
 \insertRef{Steel1993}{TreeDist}
 }
 \keyword{datasets}

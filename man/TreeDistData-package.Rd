@@ -13,7 +13,7 @@ Useful links:
 \itemize{
   \item \url{https://ms609.github.io/TreeDistData}
   \item \url{https://github.com/ms609/TreeDistData}
-  \item Report bugs at \url{https://github.com/ms609/TreeDist/issues}
+  \item Report bugs at \url{https://github.com/ms609/TreeDistData/issues}
 }
 
 }

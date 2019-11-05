@@ -9,8 +9,8 @@
 randomTreeDistances
 }
 \description{
-A three-dimensional array listing the normalized distances between 1000 random
-pairs of trees drawn from the uniform distribution using
+A three-dimensional array listing the normalized distances between 1 000
+random pairs of trees drawn from the uniform distribution using
 \code{ape::rtree(nTip, br=NULL)}.
 }
 \details{

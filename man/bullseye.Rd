@@ -8,6 +8,7 @@
 \alias{bullMoDiScores}
 \alias{bullseyeMorphInferred}
 \alias{bullseyeMorphScores}
+\alias{bullseyeDistances}
 \title{Bullseye test results}
 \format{An object of class \code{list} of length 4.}
 \usage{
@@ -20,6 +21,8 @@ bullMoDiScores
 bullseyeMorphInferred
 
 bullseyeMorphScores
+
+bullseyeDistances
 }
 \description{
 Trees used to implement a 'Bullseye' test, after that proposed by Kuhner
@@ -31,8 +34,8 @@ and Yamato (2015).
 tips, randomly sampled from the uniform distribution using \code{ape::rtree}.
 
 \code{bullXXInferred} is a list with four elements, named as in \code{bullseyeTrees}.
-Each element contains 1000 subelements. Each subelement is a list of ten
-trees, which have been inferred from progressively more degraded datasets,
+Each element contains 1 000 subelements. Each subelement is a list of
+ten trees, which have been inferred from progressively more degraded datasets,
 originally simulated from the corresponding tree in \code{bullseyeTrees}.
 
 \code{bullXXScores} is a list with four elements, named as in \code{bullseyeTrees}.
@@ -48,6 +51,10 @@ tree under the stated tree distance metric.
 The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
 described by Smith (forthcoming); the \code{bullMoDi} prefix refers to the
 'miscoding' experiment.
+
+\code{bullseyeDistances} contains four elements, each tabulating the distance
+between each pair of \emph{n}-tip trees in \code{bullseyeTrees}.  For details, see
+\code{\link{sevenTipDistances}}.
 }
 \references{
 \itemize{

@@ -12,7 +12,11 @@ CompareAllTrees(trees)
 \description{
 All distances between each pair of trees
 }
+\seealso{
+Other pairwise tree distances: \code{\link{AllDists}},
+  \code{\link{PairwiseDistances}}
+}
 \author{
 Martin R. Smith
 }
-\keyword{internal}
+\concept{pairwise tree distances}
