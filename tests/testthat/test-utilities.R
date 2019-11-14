@@ -6,6 +6,11 @@ test_that('Pairwise distances calculated correctly', {
 
   set.seed(0)
   trees <- lapply(rep(nTip, nTrees), ape::rtree, br=NULL)
+
+  dists <- PairwiseDistances(trees, phangorn::RF.dist)
+  expect_equal(dists, t(dists))
+  expect_equivalent(TreeDist::RobinsonFoulds(trees), dists)
+
   lapply(CompareAllTrees(trees), function (dist) {
     expect_equal(c(nTrees, nTrees), dim(dist))
   })

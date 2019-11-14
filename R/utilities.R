@@ -22,6 +22,30 @@ AllDists <- function (tr1, tr2) {
   )
 }
 
+#' Distances between each pair of trees
+#'
+#' @param trees List of trees of class `phylo`.
+#' @param Func distance function returning distance between two trees,
+#' e.g. [phangorn::treedist][path.dist].
+#' @return Matrix detailing distance between each pair of trees.
+#' Identical trees are assumed to have zero distance.
+#' @author Martin R. Smith
+#' @family pairwise tree distances
+#' @export
+PairwiseDistances <- function (trees, Func) {
+  ret <- matrix(0, length(trees), length(trees))
+  for (i in seq_along(trees)) {
+    trI <- trees[[i]]
+    for (j in i + seq_len(length(trees) - i)) {
+      ret[i, j] <- Func(trI, trees[[j]])
+    }
+  }
+  ret[lower.tri(ret)] <- t(ret)[lower.tri(ret)]
+
+  # Return:
+  ret
+}
+
 #' All distances between each pair of trees
 #' @param trees List of bifurcating trees of class `phylo`.
 #' @author Martin R. Smith
