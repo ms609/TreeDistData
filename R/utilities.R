@@ -5,7 +5,7 @@
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
-#' @importFrom phangorn treedist SPR.dist
+#' @importFrom phangorn treedist mast SPR.dist
 #' @family pairwise tree distances
 #' @export
 AllDists <- function (tr1, tr2) {
@@ -18,6 +18,7 @@ AllDists <- function (tr1, tr2) {
     MatchingSplitDistance(tr1, tr2),
     RobinsonFoulds(tr1, tr2),
     path.dist(tr1, tr2),
+    length(mast(tr1, tr2, tree=FALSE)),
     SPR.dist(tr1, tr2)
   )
 }
@@ -32,12 +33,12 @@ AllDists <- function (tr1, tr2) {
 #' @author Martin R. Smith
 #' @family pairwise tree distances
 #' @export
-PairwiseDistances <- function (trees, Func) {
+PairwiseDistances <- function (trees, Func, ...) {
   ret <- matrix(0, length(trees), length(trees))
   for (i in seq_along(trees)) {
     trI <- trees[[i]]
     for (j in i + seq_len(length(trees) - i)) {
-      ret[i, j] <- Func(trI, trees[[j]])
+      ret[i, j] <- Func(trI, trees[[j]], ...)
     }
   }
   ret[lower.tri(ret)] <- t(ret)[lower.tri(ret)]
@@ -53,7 +54,7 @@ PairwiseDistances <- function (trees, Func) {
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
-#' @importFrom phangorn path.dist SPR.dist
+#' @importFrom phangorn path.dist SPR.dist mast
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #' @family pairwise tree distances
 #' @export
@@ -76,6 +77,8 @@ CompareAllTrees <- function (trees) {
     msd = MatchingSplitDistance(splits),
     rf = RobinsonFoulds(splits),
     path = as.matrix(path.dist(trees)),
+    mast = PairwiseDistances(trees, function (tree1, tree2)
+      length(mast(tree1, tree2, tree = FALSE))),
     spr = as.matrix(SPR.dist(trees))
   )
 }
