@@ -13,7 +13,8 @@ AllDists(tr1, tr2)
 All distances between a pair of trees
 }
 \seealso{
-Other pairwise tree distances: \code{\link{CompareAllTrees}}
+Other pairwise tree distances: \code{\link{CompareAllTrees}},
+  \code{\link{PairwiseDistances}}
 }
 \author{
 Martin R. Smith
