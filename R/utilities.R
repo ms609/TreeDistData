@@ -25,11 +25,10 @@ AllDists <- function (tr1, tr2) {
 #' All distances between each pair of trees
 #' @param trees List of bifurcating trees of class `phylo`.
 #' @author Martin R. Smith
-#' @importFrom TreeTools as.Splits
+#' @importFrom TreeTools as.Splits Postorder
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
-#' @importFrom ape reorder.phylo
 #' @importFrom phangorn path.dist SPR.dist
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #' @family pairwise tree distances
@@ -40,9 +39,8 @@ CompareAllTrees <- function (trees) {
 
   splits <- as.Splits(trees)
   if(!inherits(trees, 'multiPhylo')) {
-    # Safest to re-order, as postordering can crash in path.dist
-    trees <- structure(lapply(trees, reorder.phylo, 'postorder'),
-                       class='multiPhylo')
+    # Safest to re-order, as postordering avoids crash in path.dist
+    trees <- structure(lapply(trees, Postorder), class='multiPhylo')
   }
 
   list(
