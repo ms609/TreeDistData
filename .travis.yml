@@ -1,6 +1,6 @@
-language: R
+language: r
+os: linux
 cache: packages
-sudo: false
 warnings_are_errors: true
 r_check_args: --as-cran
 git:
@@ -26,10 +26,6 @@ matrix:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github()'
         skip_cleanup: true
-        local_dir: "docs"
-        keep-history: true
-        on:
-          branch: master
     - r: devel
       sudo: required
       r_binary_packages:
