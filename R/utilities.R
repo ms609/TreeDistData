@@ -48,17 +48,27 @@ PairwiseDistances <- function (trees, Func, ...) {
 }
 
 #' All distances between each pair of trees
+#'
 #' @param trees List of bifurcating trees of class `phylo`.
+#' @param exact Logical specifying whether to calculate exact rearrangement
+#' distances.
 #' @author Martin R. Smith
 #' @importFrom TreeTools as.Splits Postorder
+#' @importFrom TBRDist TBRDist SPRDist
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom phangorn path.dist SPR.dist mast
 #' @importFrom Quartet ManyToManyQuartetAgreement
+#'
+#' @examples
+#'   trees <- lapply(rep(8, 5), ape::rtree, br = NULL)
+#'   CompareAllTrees(trees)
+#'
+#' @template MRS
 #' @family pairwise tree distances
 #' @export
-CompareAllTrees <- function (trees) {
+CompareAllTrees <- function (trees, exact = FALSE) {
   elementStatus <- ManyToManyQuartetAgreement(trees)
   qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 's']
 
@@ -68,7 +78,14 @@ CompareAllTrees <- function (trees) {
     trees <- structure(lapply(trees, Postorder), class='multiPhylo')
   }
 
-  list(
+  tbr <- TBRDist(trees, exact = exact)
+  tbr <- if (exact) {
+    list(tbr = as.matrix(tbr))
+  } else {
+    lapply(tbr, as.matrix)
+  }
+
+  c(list(
     vpi = VariationOfPhylogeneticInfo(splits, normalize=TRUE),
     vmsi = VariationOfMatchingSplitInfo(splits, normalize=TRUE),
     vci = VariationOfClusteringInfo(splits, normalize=TRUE),
@@ -79,6 +96,7 @@ CompareAllTrees <- function (trees) {
     path = as.matrix(path.dist(trees)),
     mast = PairwiseDistances(trees, function (tree1, tree2)
       length(mast(tree1, tree2, tree = FALSE))),
-    spr = as.matrix(SPR.dist(trees))
-  )
+    spr = as.matrix(SPR.dist(trees)),
+    uspr = as.matrix(USPRDist(trees))
+  ), tbr)
 }

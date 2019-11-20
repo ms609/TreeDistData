@@ -15,6 +15,7 @@ Depends:
 Imports:
     phangorn,
     Quartet,
+    TBRDist,
     TreeDist
 Suggests:
     ape,
@@ -23,6 +24,7 @@ Suggests:
     testthat,
     TreeSearch (>= 0.3.2.9007)
 Remotes:
+    ms609/TBRDist,
     ms609/TreeSearch,
     ms609/TreeDist
 RdMacros: Rdpack
