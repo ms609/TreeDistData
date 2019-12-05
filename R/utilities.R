@@ -33,18 +33,24 @@ AllDists <- function (tr1, tr2) {
 #' @author Martin R. Smith
 #' @family pairwise tree distances
 #' @export
-PairwiseDistances <- function (trees, Func, ...) {
-  ret <- matrix(0, length(trees), length(trees))
+PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
+  ret <- array(0, c(length(trees), length(trees), valueLength))
   for (i in seq_along(trees)) {
     trI <- trees[[i]]
     for (j in i + seq_len(length(trees) - i)) {
-      ret[i, j] <- Func(trI, trees[[j]], ...)
+      val <- Func(trI, trees[[j]])#, ...)
+      ret[j, i, ] <- unlist(val)
     }
   }
-  ret[lower.tri(ret)] <- t(ret)[lower.tri(ret)]
 
   # Return:
-  ret
+  if (valueLength > 1L) {
+    structure(lapply(seq_len(valueLength), function (i) {
+      as.dist(ret[, , i], upper = TRUE)
+    }), names = names(val))
+  } else {
+    as.dist(ret[, , 1], upper = TRUE)
+  }
 }
 
 #' All distances between each pair of trees
