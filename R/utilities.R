@@ -60,9 +60,9 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' distances.
 #' @author Martin R. Smith
 #' @importFrom TreeTools as.Splits Postorder
-#' @importFrom TBRDist TBRDist SPRDist
+#' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
-#' NyeTreeSimilarity MatchingSplitDistance
+#' NyeTreeSimilarity MatchingSplitDistance MASTSize
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom phangorn path.dist SPR.dist mast
 #' @importFrom Quartet ManyToManyQuartetAgreement
@@ -92,17 +92,16 @@ CompareAllTrees <- function (trees, exact = FALSE) {
   }
 
   c(list(
-    vpi = VariationOfPhylogeneticInfo(splits, normalize=TRUE),
-    vmsi = VariationOfMatchingSplitInfo(splits, normalize=TRUE),
-    vci = VariationOfClusteringInfo(splits, normalize=TRUE),
+    vpi = VariationOfPhylogeneticInfo(splits, normalize = TRUE),
+    vmsi = VariationOfMatchingSplitInfo(splits, normalize = TRUE),
+    vci = VariationOfClusteringInfo(splits, normalize = TRUE),
     qd = qd,
-    nts = 1 - NyeTreeSimilarity(splits, normalize=TRUE),
+    nts = 1 - NyeTreeSimilarity(splits, normalize = TRUE),
     msd = MatchingSplitDistance(splits),
     rf = RobinsonFoulds(splits),
     path = as.matrix(path.dist(trees)),
-    mast = PairwiseDistances(trees, function (tree1, tree2)
-      length(mast(tree1, tree2, tree = FALSE))),
-    spr = as.matrix(SPR.dist(trees)),
-    uspr = as.matrix(USPRDist(trees))
+    mast = PairwiseDistances(trees, MASTSize),
+    nni = PairwiseDistances(trees, NNIDist, 3L),
+    spr = as.matrix(SPR.dist(trees))
   ), tbr)
 }
