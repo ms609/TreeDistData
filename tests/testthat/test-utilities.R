@@ -8,10 +8,10 @@ test_that('Pairwise distances calculated correctly', {
   trees <- lapply(rep(nTip, nTrees), ape::rtree, br=NULL)
   trees[[1]] <- TreeTools::BalancedTree(nTip)
   trees[[nTrees - 1L]] <- TreeTools::PectinateTree(nTip)
+  class(trees) <- 'multiPhylo'
 
   dists <- PairwiseDistances(trees, phangorn::RF.dist)
-  expect_equal(dists, t(dists))
-  expect_equivalent(as.matrix(phangorn::RF.dist(trees)), dists)
+  expect_equivalent(phangorn::RF.dist(trees), dists)
 
   lapply(CompareAllTrees(trees), function (dist) {
     expect_equal(c(nTrees, nTrees), dim(dist))
