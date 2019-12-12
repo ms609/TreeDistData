@@ -26,8 +26,8 @@ msd <- MatchingSplitDistance(pectinateTree, randomTrees)
 message('MAST... ')
 mast <- MASTSize(pectinateTree, randomTrees)
 message('NNI... ')
-nni <- NNIDist(pectinateTree, randomTrees)
-rownames(nni) <- c('nni_l', 'nni_t', 'nni_u')
+nni <- matrix(unlist(NNIDist(pectinateTree, randomTrees)), nrow = 3,
+              dimnames = list(c('nni_l', 'nni_t', 'nni_u'), NULL))
 message('SPR... ')
 spr <- phangorn::SPR.dist(pectinateTree, randomTrees)
 message('TBR... ')
@@ -40,7 +40,7 @@ message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 
 pectinateDistances11 <- rbind(vpi = vpi, vmsi = vmsi, vci = vci, qd = qd,
-                              nts = nts, mst = msd,
+                              nts = nts, msd = msd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
                               tbr_l = tbr$tbr_min, tbr_u = tbr$tbr_max,
