@@ -24,7 +24,7 @@ nts <- 1 - NyeTreeSimilarity(pectinateTree, randomTrees, normalize=TRUE)
 message('MSD... ')
 msd <- MatchingSplitDistance(pectinateTree, randomTrees)
 message('MAST... ')
-mast <- MASTSize(pectinateTree, randomTrees)
+mast <- MASTSize(pectinateTree, randomTrees, rooted = FALSE)
 message('NNI... ')
 nni <- matrix(unlist(NNIDist(pectinateTree, randomTrees)), nrow = 3,
               dimnames = list(c('nni_l', 'nni_t', 'nni_u'), NULL))
