@@ -30,7 +30,7 @@ AllDists <- function (tr1, tr2) {
 #' e.g. [phangorn::treedist][path.dist].
 #' @return Matrix detailing distance between each pair of trees.
 #' Identical trees are assumed to have zero distance.
-#' @author Martin R. Smith
+#' @template MRS
 #' @family pairwise tree distances
 #' @export
 PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {

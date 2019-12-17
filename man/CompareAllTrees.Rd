@@ -4,13 +4,21 @@
 \alias{CompareAllTrees}
 \title{All distances between each pair of trees}
 \usage{
-CompareAllTrees(trees)
+CompareAllTrees(trees, exact = FALSE)
 }
 \arguments{
 \item{trees}{List of bifurcating trees of class \code{phylo}.}
+
+\item{exact}{Logical specifying whether to calculate exact rearrangement
+distances.}
 }
 \description{
 All distances between each pair of trees
+}
+\examples{
+  trees <- lapply(rep(8, 5), ape::rtree, br = NULL)
+  CompareAllTrees(trees)
+
 }
 \seealso{
 Other pairwise tree distances: \code{\link{AllDists}},
@@ -18,5 +26,7 @@ Other pairwise tree distances: \code{\link{AllDists}},
 }
 \author{
 Martin R. Smith
+
+Martin R. Smith (\href{mailto:martin.smith@durham.ac.uk}{martin.smith@durham.ac.uk})
 }
 \concept{pairwise tree distances}

@@ -4,7 +4,7 @@
 \alias{PairwiseDistances}
 \title{Distances between each pair of trees}
 \usage{
-PairwiseDistances(trees, Func, ...)
+PairwiseDistances(trees, Func, valueLength = 1L, ...)
 }
 \arguments{
 \item{trees}{List of trees of class \code{phylo}.}
@@ -24,6 +24,6 @@ Other pairwise tree distances: \code{\link{AllDists}},
   \code{\link{CompareAllTrees}}
 }
 \author{
-Martin R. Smith
+Martin R. Smith (\href{mailto:martin.smith@durham.ac.uk}{martin.smith@durham.ac.uk})
 }
 \concept{pairwise tree distances}
