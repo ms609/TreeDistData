@@ -1,4 +1,5 @@
-library('TreeSearch')
+library('ape')
+library('TreeTools')
 library('TreeDist')
 library('TreeDistData')
 
@@ -6,12 +7,18 @@ library('TreeDistData')
 # k1 = 40, 50, 60, 70
 # k2 = 10, 20, 30, 40
 
+nTrees = 50 # Quadratic effect on runtime
+nTip = 20 # Hyperexponential effect on runtime
+replicates = 10 # Linear effect on runtime
+message("Running tests on ", nTrees, ' ', nTip, "-leaf trees; ",
+        replicates, " replicates.")
+
 LinTestOneSet <- function (nTip, k, nTrees) {
-  skeleton <- ape::rtree(k, br=NULL, tip.label = seq_len(k))
+  skeleton <- RandomTree(seq_len(k))
   structure(lapply(seq_len(nTrees), function (XX) {
     tr <- skeleton
     for (i in k + seq_len(nTip - k))
-      tr <- AddTip(tr, sample(tr$edge[, 2], 1L), label = i)
+      tr <- AddTip(tr, label = i)
     tr
   }), class='multiPhylo')
 }
@@ -32,7 +39,8 @@ LinTestTwoSet <- function (nTip, k, nTrees) {
     tr
   }
 
-  structure(lapply(seq_len(nTrees), function (XX) RepeatLLI(startTree, k)), class='multiPhylo')
+  structure(lapply(seq_len(nTrees), function (XX) RepeatLLI(startTree, k)),
+            class='multiPhylo')
 }
 
 SpectralClustering <- function (dat, nClusters) {
@@ -48,27 +56,31 @@ SpectralClustering <- function (dat, nClusters) {
 LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
   cat (".")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
-  comparison <- CompareAllTrees(trees)
-  maxDist <- c(
-        vpi = 1,
-        vci = 1,
-        qd = 1,
-        nts = 1,
-        msd = nTip * nTip, # crude
-        rf = nTip + nTip - 6,
-        path = max(comparison[['path']]), # crude
-        spr = nTip + nTip - 2 # crude
-      )
+  comparison <- CompareAllTrees(trees, slow = FALSE, verbose = TRUE)
+  # Too slow to compute
+  comparison$mast <- NULL
+  comparison$masti <- NULL
+  comparison$qd <- NULL
+
+  # NAs not supported
+  comparison$nni_t <- NULL
+
   ClusterOK <- function (Func, ...) apply(
     vapply(comparison, Func, FUN.VALUE = integer(nTrees + nTrees), ...), 2L,
     identical, y = rep(1:2, each=nTrees))
+
   HClusters <- function (dat, method) {
     clusters <- hclust(as.dist(dat), method)
     cutree(clusters, k = 2L)
   }
+
   SClusters <- function(dat) {
-    if (max(dat) <= 1L) dat <- 1 - dat else dat <- max(dat) - dat
-    SpectralClustering(dat, 2L)
+    if (!is.null(dat)) {
+      if (max(dat) <= 1L) dat <- 1 - dat else dat <- max(dat) - dat
+      SpectralClustering(as.matrix(dat), 2L)
+    } else {
+      rep(0L, nTrees + nTrees)
+    }
   }
 
   cbind(spc = ClusterOK(SClusters),
@@ -78,20 +90,30 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
         h.avg = ClusterOK(HClusters, method='average')
         )
 }
-linTestReturn <- matrix(FALSE, nrow=9L, ncol=5L)
+linTestReturn <- matrix(FALSE, nrow=12L, ncol=5L,
+                        dimnames = list(c('vpi', 'vmsi', 'vci', 'nts',
+                                          'msd', 'nni_l', 'nni_u', 'spr',
+                                          'tbr_l', 'tbr_u', 'rf', 'path'),
+                                        c('spc', 'pam', 'h.cmp', 'h.sng', 'h.avg')))
+runLinTestReturn <- t(0 * linTestReturn)
 
-RunLinTest <- function (k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L, replicates= 1000L) {
-  cat("\n", k, " ")
-  colSums(aperm(vapply(seq_len(replicates), function (XX) LinTest(k, TestSet, nTip, nTrees),
-                linTestReturn)), c(3, 1, 2))
+RunLinTest <- function (percent, TestSet = LinTestOneSet,
+                        nTip = 100L, nTrees = 100L, replicates= 1000L) {
+  message("\n  k = ", percent, "% ")
+  colSums(aperm(vapply(seq_len(replicates), function (XX)
+    LinTest(percent * nTip / 100, TestSet, nTip, nTrees), linTestReturn)), c(3, 1, 2))
 }
 
+message("Lin et al. (2012) test one")
 linTestOneResults <-
-vapply(seq(40L, 70L, by=10L), RunLinTest, TestSet=LinTestOneSet,
-       nTip=100L, nTrees=100L, replicates=25L, FUN.VALUE = linTestReturn)
+vapply(seq(40L, 70L, by = 10L), RunLinTest, TestSet = LinTestOneSet,
+       nTip = nTip, nTrees = nTrees, replicates = replicates,
+       FUN.VALUE = runLinTestReturn)
 usethis::use_data(linTestOneResults, compress='xz', overwrite=TRUE)
 
+message("Lin et al. (2012) test two")
 linTestTwoResults <-
-vapply(seq(10L, 40L, by=10L), RunLinTest, TestSet=LinTestTwoSet,
-       nTip=100L, nTrees=100L, replicates=25L, FUN.VALUE = linTestReturn)
+vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
+       nTip = nTip, nTrees = nTrees, replicates = replicates,
+       FUN.VALUE = runLinTestReturn)
 usethis::use_data(linTestTwoResults, compress='xz', overwrite=TRUE)
