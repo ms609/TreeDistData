@@ -4,13 +4,19 @@
 \alias{CompareAllTrees}
 \title{All distances between each pair of trees}
 \usage{
-CompareAllTrees(trees, exact = FALSE)
+CompareAllTrees(trees, exact = FALSE, slow = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{trees}{List of bifurcating trees of class \code{phylo}.}
 
 \item{exact}{Logical specifying whether to calculate exact rearrangement
 distances.}
+
+\item{slow}{Logical specifying whether to report distance measures that are
+slow to calculate (quartet distance and maximum agreement subtree).}
+
+\item{verbose}{Logical specifying whether to report which calculation
+is presently being performed.}
 }
 \description{
 All distances between each pair of trees
@@ -25,8 +31,6 @@ Other pairwise tree distances: \code{\link{AllDists}},
   \code{\link{PairwiseDistances}}
 }
 \author{
-Martin R. Smith
-
 Martin R. Smith (\href{mailto:martin.smith@durham.ac.uk}{martin.smith@durham.ac.uk})
 }
 \concept{pairwise tree distances}

@@ -30,6 +30,8 @@ AllDists <- function (tr1, tr2) {
 #' e.g. [phangorn::treedist][path.dist].
 #' @param valueLength Integer specifying expected length of the value returned
 #' by `Func`.
+#' @param \dots Additional arguments to `Func`.
+#'
 #' @return Matrix detailing distance between each pair of trees.
 #' Identical trees are assumed to have zero distance.
 #' @template MRS
@@ -60,7 +62,11 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' @param trees List of bifurcating trees of class `phylo`.
 #' @param exact Logical specifying whether to calculate exact rearrangement
 #' distances.
-#' @author Martin R. Smith
+#' @param slow Logical specifying whether to report distance measures that are
+#' slow to calculate (quartet distance and maximum agreement subtree).
+#' @param verbose Logical specifying whether to report which calculation
+#' is presently being performed.
+#'
 #' @importFrom TreeTools as.Splits Postorder LnUnrooted
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
@@ -76,9 +82,9 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' @template MRS
 #' @family pairwise tree distances
 #' @export
-CompareAllTrees <- function (trees, exact = FALSE) {
-  elementStatus <- ManyToManyQuartetAgreement(trees)
-  qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 's']
+CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
+                             verbose = FALSE) {
+  MSG <- function (...) if (verbose) message(Sys.time(), ': ', ...)
 
   splits <- as.Splits(trees)
   if(!inherits(trees, 'multiPhylo')) {
@@ -86,6 +92,29 @@ CompareAllTrees <- function (trees, exact = FALSE) {
     trees <- structure(lapply(trees, Postorder), class='multiPhylo')
   }
 
+  if (slow) {
+    MSG('QD')
+    elementStatus <- ManyToManyQuartetAgreement(trees)
+    qd <- elementStatus[, , 'd'] / elementStatus[1, 1, 's']
+
+    MSG('MAST')
+    mast <- as.matrix(PairwiseDistances(trees, MASTSize, rooted = FALSE))
+    diag(mast) <- length(trees[[1]]$tip.label)
+    masti <-  LnUnrooted(mast) / log(2)
+    attributes(masti) <- attributes(mast)
+  } else {
+    qd <- NULL
+
+    mast <- masti <- NULL
+  }
+
+  MSG('NNI')
+  nni <- PairwiseDistances(trees, NNIDist, 3L)
+
+  MSG('SPR')
+  sprDist <- as.matrix(SPR.dist(trees))
+
+  MSG('TBR')
   tbr <- TBRDist(trees, exact = exact)
   tbr <- if (exact) {
     list(tbr = as.matrix(tbr))
@@ -93,17 +122,44 @@ CompareAllTrees <- function (trees, exact = FALSE) {
     lapply(tbr, as.matrix)
   }
 
-  c(list(
-    vpi = VariationOfPhylogeneticInfo(splits, normalize = TRUE),
-    vmsi = VariationOfMatchingSplitInfo(splits, normalize = TRUE),
-    vci = VariationOfClusteringInfo(splits, normalize = TRUE),
+  MSG('path')
+  pathDist <- as.matrix(path.dist(trees))
+
+  MSG('VpI')
+  vpi <- VariationOfPhylogeneticInfo(splits, normalize = TRUE)
+
+  MSG('VmsI')
+  vmsi <- VariationOfMatchingSplitInfo(splits, normalize = TRUE)
+
+  MSG('VcI')
+  vci <- VariationOfClusteringInfo(splits, normalize = TRUE)
+
+  MSG('Nye')
+  nts <- 1 - NyeTreeSimilarity(splits, normalize = TRUE)
+
+  MSG('MSD')
+  msd <- MatchingSplitDistance(splits)
+
+  MSG('RF')
+  rf <- RobinsonFoulds(splits)
+
+  MSG('Complete; listing.')
+  list(
+    vpi = vpi,
+    vmsi = vmsi,
+    vci = vci,
     qd = qd,
-    nts = 1 - NyeTreeSimilarity(splits, normalize = TRUE),
-    msd = MatchingSplitDistance(splits),
-    rf = RobinsonFoulds(splits),
-    path = as.matrix(path.dist(trees)),
-    mast = PairwiseDistances(trees, MASTSize),
-    nni = PairwiseDistances(trees, NNIDist, 3L),
-    spr = as.matrix(SPR.dist(trees))
-  ), tbr)
+    nts = nts,
+    msd = msd,
+    mast = mast,
+    masti = masti,
+    nni_l = nni$lower,
+    nni_t = nni$tight_upper,
+    nni_u = nni$loose_upper,
+    spr = sprDist,
+    tbr_l = tbr$tbr_min,
+    tbr_u = tbr$tbr_max,
+    rf = rf,
+    path = pathDist
+  )
 }

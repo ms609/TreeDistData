@@ -11,6 +11,11 @@ PairwiseDistances(trees, Func, valueLength = 1L, ...)
 
 \item{Func}{distance function returning distance between two trees,
 e.g. \link[=path.dist]{phangorn::treedist}.}
+
+\item{valueLength}{Integer specifying expected length of the value returned
+by \code{Func}.}
+
+\item{\dots}{Additional arguments to \code{Func}.}
 }
 \value{
 Matrix detailing distance between each pair of trees.
