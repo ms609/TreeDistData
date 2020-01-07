@@ -28,6 +28,8 @@ AllDists <- function (tr1, tr2) {
 #' @param trees List of trees of class `phylo`.
 #' @param Func distance function returning distance between two trees,
 #' e.g. [phangorn::treedist][path.dist].
+#' @param valueLength Integer specifying expected length of the value returned
+#' by `Func`.
 #' @return Matrix detailing distance between each pair of trees.
 #' Identical trees are assumed to have zero distance.
 #' @template MRS
@@ -38,7 +40,7 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
   for (i in seq_along(trees)) {
     trI <- trees[[i]]
     for (j in i + seq_len(length(trees) - i)) {
-      val <- Func(trI, trees[[j]])#, ...)
+      val <- Func(trI, trees[[j]], ...)
       ret[j, i, ] <- unlist(val)
     }
   }
@@ -59,7 +61,7 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' @param exact Logical specifying whether to calculate exact rearrangement
 #' distances.
 #' @author Martin R. Smith
-#' @importFrom TreeTools as.Splits Postorder
+#' @importFrom TreeTools as.Splits Postorder LnUnrooted
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance MASTSize
