@@ -150,6 +150,12 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
     vci = vci,
     qd = qd,
     nts = nts,
+
+    ja2 =  JaccardRobinsonFoulds(splits, k = 2, arboreal = TRUE, normalize = TRUE),
+    ja4 =  JaccardRobinsonFoulds(splits, k = 4, arboreal = TRUE, normalize = TRUE),
+    jna2 = JaccardRobinsonFoulds(splits, k = 2, arboreal = FALSE, normalize = TRUE),
+    jna4 = JaccardRobinsonFoulds(splits, k = 4, arboreal = FALSE, normalize = TRUE),
+
     msd = msd,
     mast = mast,
     masti = masti,
