@@ -92,6 +92,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
 }
 linTestReturn <- matrix(FALSE, nrow=12L, ncol=5L,
                         dimnames = list(c('vpi', 'vmsi', 'vci', 'nts',
+                                          'ja2', 'ja4', 'jna2', 'jna4',
                                           'msd', 'nni_l', 'nni_u', 'spr',
                                           'tbr_l', 'tbr_u', 'rf', 'path'),
                                         c('spc', 'pam', 'h.cmp', 'h.sng', 'h.avg')))
