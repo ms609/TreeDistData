@@ -74,7 +74,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
     cutree(clusters, k = 2L)
   }
 
-  SClusters <- function(dat) {
+  SClusters <- function (dat) {
     if (!is.null(dat)) {
       if (max(dat) <= 1L) dat <- 1 - dat else dat <- max(dat) - dat
       SpectralClustering(as.matrix(dat), 2L)
@@ -106,14 +106,14 @@ RunLinTest <- function (percent, TestSet = LinTestOneSet,
 
 message("Lin et al. (2012) test one")
 linTestOneResults <-
-vapply(seq(40L, 70L, by = 10L), RunLinTest, TestSet = LinTestOneSet,
+vapply(seq(30L, 70L, by = 10L), RunLinTest, TestSet = LinTestOneSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
-usethis::use_data(linTestOneResults, compress='xz', overwrite=TRUE)
+usethis::use_data(linTestOneResults, compress = 'xz', overwrite = TRUE)
 
 message("Lin et al. (2012) test two")
 linTestTwoResults <-
 vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
-usethis::use_data(linTestTwoResults, compress='xz', overwrite=TRUE)
+usethis::use_data(linTestTwoResults, compress = 'xz', overwrite = TRUE)
