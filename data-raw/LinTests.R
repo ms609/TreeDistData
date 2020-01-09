@@ -7,9 +7,9 @@ library('TreeDistData')
 # k1 = 40, 50, 60, 70
 # k2 = 10, 20, 30, 40
 
-nTrees = 50 # Quadratic effect on runtime
-nTip = 20 # Hyperexponential effect on runtime
 replicates = 10 # Linear effect on runtime
+nTrees = 20 # Quadratic effect on runtime
+nTip = 40 # Hyperexponential effect on runtime
 message("Running tests on ", nTrees, ' ', nTip, "-leaf trees; ",
         replicates, " replicates.")
 
