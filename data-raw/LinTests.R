@@ -65,7 +65,9 @@ SpectralClustering <- function (dat, nClusters) {
 }
 
 
-LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
+LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
+                    i = 1L) {
+  if (i %% 50L == 0L) cat(' ', i, "\n")
   cat (".")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
   comparison <- CompareAllTrees(trees, slow = FALSE, verbose = FALSE)
@@ -114,7 +116,7 @@ RunLinTest <- function (percent, TestSet = LinTestOneSet,
                         nTip = 100L, nTrees = 100L, replicates= 1000L) {
   message("\n  k = ", percent, "% ")
   colSums(aperm(vapply(seq_len(replicates), function (XX)
-    LinTest(percent * nTip / 100, TestSet, nTip, nTrees), linTestReturn)), c(3, 1, 2))
+    LinTest(percent * nTip / 100, TestSet, nTip, nTrees, XX), linTestReturn)), c(3, 1, 2))
 }
 
 message("Lin et al. (2012) test one")
