@@ -133,7 +133,7 @@ usethis::use_data(linTestTwoResults, compress = 'xz', overwrite = TRUE)
 
 message("SPR cluster recovery test")
 linTestSPRResults <-
-vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
+vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestSPRSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
 usethis::use_data(linTestSPRResults, compress = 'xz', overwrite = TRUE)
