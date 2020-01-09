@@ -43,6 +43,18 @@ LinTestTwoSet <- function (nTip, k, nTrees) {
             class='multiPhylo')
 }
 
+LinTestSPRSet <- function (nTip, k, nTrees) {
+  startTree <- ape::rtree(nTip, br=NULL)
+
+  RepeatSPR <- function (tr, k) {
+    for (i in seq_len(k)) tr <- TreeSearch::SPR(tr)
+    tr
+  }
+
+  structure(lapply(seq_len(nTrees), function (XX) RepeatSPR(startTree, k)),
+            class='multiPhylo')
+}
+
 SpectralClustering <- function (dat, nClusters) {
   # More efficient version of anocva::spectralClustering
   n <- ncol(dat)
@@ -56,7 +68,7 @@ SpectralClustering <- function (dat, nClusters) {
 LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
   cat (".")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
-  comparison <- CompareAllTrees(trees, slow = FALSE, verbose = TRUE)
+  comparison <- CompareAllTrees(trees, slow = FALSE, verbose = FALSE)
   # Too slow to compute
   comparison$mast <- NULL
   comparison$masti <- NULL
@@ -90,7 +102,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L) {
         h.avg = ClusterOK(HClusters, method='average')
         )
 }
-linTestReturn <- matrix(FALSE, nrow=12L, ncol=5L,
+linTestReturn <- matrix(FALSE, nrow=16L, ncol=5L,
                         dimnames = list(c('vpi', 'vmsi', 'vci', 'nts',
                                           'ja2', 'ja4', 'jna2', 'jna4',
                                           'msd', 'nni_l', 'nni_u', 'spr',
@@ -118,3 +130,10 @@ vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
 usethis::use_data(linTestTwoResults, compress = 'xz', overwrite = TRUE)
+
+message("SPR cluster recovery test")
+linTestSPRResults <-
+vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
+       nTip = nTip, nTrees = nTrees, replicates = replicates,
+       FUN.VALUE = runLinTestReturn)
+usethis::use_data(linTestSPRResults, compress = 'xz', overwrite = TRUE)
