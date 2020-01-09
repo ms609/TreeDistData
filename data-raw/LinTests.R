@@ -112,11 +112,12 @@ linTestReturn <- matrix(FALSE, nrow=16L, ncol=5L,
                                         c('spc', 'pam', 'h.cmp', 'h.sng', 'h.avg')))
 runLinTestReturn <- t(0 * linTestReturn)
 
-RunLinTest <- function (percent, TestSet = LinTestOneSet,
+RunLinTest <- function (k, TestSet = LinTestOneSet,
                         nTip = 100L, nTrees = 100L, replicates= 1000L) {
-  message("\n  k = ", percent, "% ")
+  message("\n  k = ", k)
   colSums(aperm(vapply(seq_len(replicates), function (XX)
-    LinTest(percent * nTip / 100, TestSet, nTip, nTrees, XX), linTestReturn)), c(3, 1, 2))
+    LinTest(k * nTip / 100, TestSet, nTip, nTrees, XX), linTestReturn)),
+                c(3, 1, 2))
 }
 
 message("Lin et al. (2012) test one")
@@ -135,7 +136,7 @@ usethis::use_data(linTestTwoResults, compress = 'xz', overwrite = TRUE)
 
 message("SPR cluster recovery test")
 linTestSPRResults <-
-vapply(seq(20L, 100L, by = 20L), RunLinTest, TestSet = LinTestSPRSet,
+vapply(seq(30L, 70L, by = 10L), RunLinTest, TestSet = LinTestSPRSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
 usethis::use_data(linTestSPRResults, compress = 'xz', overwrite = TRUE)
