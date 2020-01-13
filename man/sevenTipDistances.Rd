@@ -16,18 +16,28 @@ Distances between each possible pairing of the 945 unrooted seven-tip trees
 The list entries are named with an abbreviation of the tree comparison metric.
 Variation of information measures are normalized against the maximum
 possible variation of information for trees of the corresponding topologies.
-The quartet distance and Nye \emph{et al.} measures are normalized against their
-maximum possible values.  The remaining measures are unnormalized.
+The quartet distance, Nye \emph{et al.} and Jaccard-Robinson-Foulds measures
+are normalized against their maximum possible values.
+The remaining measures are unnormalized.
 \itemize{
 \item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
 \item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
 \item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
 \item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{ja2}, \code{ja4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4
+\item \code{jna2}, \code{jna4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+with non-arboreal matchings permitted
 \item \code{msd}: Matching Split Distance (Bogdanowicz & Giaro, 2012), unnormalized
+\item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009)
+\item \code{masti}: Information content of Maximum Agreement Subtree
+\item \code{nni_l}, \code{nni_t}, \code{nni_u}: Lower bound, tight upper bound, and upper bound
+for  nearest-neighbour interchange distance (Li \emph{et al.} 1996)
+\item \code{spr}: Approximate SPR distance, unnormalized
+\item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
+(TBR) distance
 \item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
 \item \code{path}: Path distance (Steel & Penny 1993), unnormalized
-\item \code{spr}: SPR distance, unnormalized
 }
 
 Each item in the list contains a 945×945 matrix reporting the distance
@@ -41,6 +51,8 @@ descendant nodes.
 \references{
 \insertRef{Bogdanowicz2012}{TreeDist}
 
+\insertRef{Li1996}{TreeDist}
+
 \insertRef{Kendall2016}{TreeDistData}
 
 \insertRef{Nye2006}{TreeDist}
@@ -52,5 +64,7 @@ descendant nodes.
 \insertRef{SmithDist}{TreeDist}
 
 \insertRef{Steel1993}{TreeDist}
+
+\insertRef{Valiente2009}{TreeDist}
 }
 \keyword{datasets}

@@ -89,12 +89,19 @@
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
+#'
 #' \insertRef{Li1996}{TreeDist}
+#'
 #' \insertRef{Nye2006}{TreeDist}
+#'
 #' \insertRef{Robinson1981}{TreeDist}
+#'
 #' \insertRef{SmithTern}{TreeSearch}
+#'
 #' \insertRef{SmithDist}{TreeDist}
+#'
 #' \insertRef{Steel1993}{TreeDist}
+#'
 #' \insertRef{Valiente2009}{TreeDist}
 #'
 #' @name distanceDistributions
@@ -129,18 +136,28 @@ NULL
 #' The list entries are named with an abbreviation of the tree comparison metric.
 #' Variation of information measures are normalized against the maximum
 #' possible variation of information for trees of the corresponding topologies.
-#' The quartet distance and Nye _et al._ measures are normalized against their
-#' maximum possible values.  The remaining measures are unnormalized.
+#' The quartet distance, Nye _et al._ and Jaccard-Robinson-Foulds measures
+#' are normalized against their maximum possible values.
+#' The remaining measures are unnormalized.
 #'
 #' - `vpi`: Variation of Phylogenetic Information (Smith, forthcoming)
 #' - `vmsi`: Variation of Matching Split Information (Smith, forthcoming)
 #' - `vci`: Variation of Clustering Information (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)
 #' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
+#' - `ja2`, `ja4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4
+#' - `jna2`, `jna4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4,
+#'            with non-arboreal matchings permitted
 #' - `msd`: Matching Split Distance (Bogdanowicz & Giaro, 2012), unnormalized
+#' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009)
+#' - `masti`: Information content of Maximum Agreement Subtree
+#' - `nni_l`, `nni_t`, `nni_u`: Lower bound, tight upper bound, and upper bound
+#'         for  nearest-neighbour interchange distance (Li _et al._ 1996)
+#' - `spr`: Approximate SPR distance, unnormalized
+#' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
+#'          (TBR) distance
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
 #' - `path`: Path distance (Steel & Penny 1993), unnormalized
-#' - `spr`: SPR distance, unnormalized
 #'
 #' Each item in the list contains a 945&times;945 matrix reporting the distance
 #' between each pair of seven-tip trees.
@@ -153,6 +170,8 @@ NULL
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
 #'
+#' \insertRef{Li1996}{TreeDist}
+#'
 #' \insertRef{Kendall2016}{TreeDistData}
 #'
 #' \insertRef{Nye2006}{TreeDist}
@@ -164,6 +183,8 @@ NULL
 #' \insertRef{SmithDist}{TreeDist}
 #'
 #' \insertRef{Steel1993}{TreeDist}
+#'
+#' \insertRef{Valiente2009}{TreeDist}
 #'
 #' @keywords datasets
 "sevenTipDistances"
