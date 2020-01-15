@@ -9,12 +9,15 @@ paths <- fs::path('data', 'randomTreeDistances', ext='rda')
 if (file.exists(proj_path(paths))) {
   load(proj_path(paths))
 } else {
+  methodAc <- c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'ja2', 'ja4', 'jna2', 'jna4',
+                'msd', 'mast', 'masti',
+                'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
+                'rf', 'path')
   randomTreeDistances <- array(NA, #dim=c(197, 10, 13),
-                               dim = c(10, 13, 197),
+                               dim = c(length(methodAc), 13, 197),
                                dimnames =
                                  list(
-                                   c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'msd', 'rf',
-                                     'path', 'spr', 'sprLB'),
+                                   methodAc,
                                    c('min', '1%', '5%', '10%', '25%', '50%', '75%',
                                      '90%', '95%', '99%', 'max', 'mean', 'sd'),
                                    4:200))
@@ -23,9 +26,10 @@ if (file.exists(proj_path(paths))) {
 
 RandomDistances <- function (nLeaves, repls) {
   set.seed(0)
-  RandomTree <- function(nTip) ape::rtree(nTip, br=NULL)
+  RandomTree <- function (nTip) ape::rtree(nTip, br = NULL)
   distances <- vapply(seq_len(repls),
                       function (XX) {
+                        if (XX %% 72 == 0) cat("\n           ")
                         tr1 <- RandomTree(nLeaves)
                         tr2 <- RandomTree(nLeaves)
                         dists <- TreeDistData:::AllDists(tr1, tr2)
