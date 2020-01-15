@@ -7,9 +7,9 @@ library('TreeDistData')
 # k1 = 40, 50, 60, 70
 # k2 = 10, 20, 30, 40
 
-nTrees = 20 # Quadratic effect on runtime
+nTrees = 50 # Quadratic effect on runtime
 nTip = 40 # Hyperexponential effect on runtime
-replicates = 50 # Linear effect on runtime
+replicates = 500 # Linear effect on runtime
 message("Running tests on ", nTrees, ' ', nTip, "-leaf trees; ",
         replicates, " replicates.")
 
@@ -67,8 +67,8 @@ SpectralClustering <- function (dat, nClusters) {
 
 LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
                     i = 1L) {
-  if (i %% 50L == 0L) cat(' ', i, "\n")
   cat (".")
+  if (i %% 50L == 0L) cat(' ', i, "\n")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
   comparison <- CompareAllTrees(trees, slow = FALSE, verbose = FALSE)
   # Too slow to compute
@@ -98,7 +98,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
   }
 
   cbind(spc = ClusterOK(SClusters),
-        pam = ClusterOK(cluster::pam, k=2L, diss=TRUE, cluster.only=TRUE),
+        pam = ClusterOK(cluster::pam, k = 2L, diss = TRUE, cluster.only = TRUE),
         h.cmp = ClusterOK(HClusters, method='complete'),
         h.sng = ClusterOK(HClusters, method='single'),
         h.avg = ClusterOK(HClusters, method='average')
