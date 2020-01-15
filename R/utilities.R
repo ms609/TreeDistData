@@ -86,7 +86,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
                              verbose = FALSE) {
   MSG <- function (...) if (verbose) message(Sys.time(), ': ', ...)
 
-  # Safest to re-order, as postordering avoids crash in path.dist
+  # Safest to re-order, as postordering avoids crash in path.dist and SPR.dist
   trees <- structure(lapply(trees, Postorder), class='multiPhylo')
 
   splits <- as.Splits(trees)
