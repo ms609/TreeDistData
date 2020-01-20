@@ -23,7 +23,6 @@ if (file.exists(proj_path(paths))) {
                                    4:200))
   usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
 }
-
 RandomDistances <- function (nLeaves, repls) {
   set.seed(0)
   RandomTree <- function (nTip) ape::rtree(nTip, br = NULL)
@@ -33,10 +32,6 @@ RandomDistances <- function (nLeaves, repls) {
                         tr1 <- RandomTree(nLeaves)
                         tr2 <- RandomTree(nLeaves)
                         TreeDistData:::AllDists(tr1, tr2)
-                            # Upper and lower bound for SPR diameter:
-                            # sprUpper = nLeaves - 3L
-                            # sprLower = (nLeaves - 2L) / 2L
-                            # (Allen & Steel 2001)
                       },
                       double(20L))
   t(rbind(apply(distances, 1L, summary),
@@ -58,3 +53,10 @@ while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
   # Compress=xz was better, but encoding errors kept wiping the file |-:
   usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
 }
+
+cat("\n # # # COMPLETE # # # \n")
+
+# Upper and lower bound for SPR diameter:
+# sprUpper = nLeaves - 3L
+# sprLower = (nLeaves - 2L) / 2L
+# (Allen & Steel 2001)
