@@ -4,10 +4,12 @@
 \alias{AllDists}
 \title{All distances between a pair of trees}
 \usage{
-AllDists(tr1, tr2)
+AllDists(tr1, tr2, verbose = FALSE)
 }
 \arguments{
 \item{tr1, tr2}{Phylogenetic trees of class \code{phylo}.}
+
+\item{verbose}{Logical specifying whether to notify user of progress.}
 }
 \description{
 All distances between a pair of trees
@@ -17,6 +19,6 @@ Other pairwise tree distances: \code{\link{CompareAllTrees}},
   \code{\link{PairwiseDistances}}
 }
 \author{
-Martin R. Smith
+Martin R. Smith (\href{mailto:martin.smith@durham.ac.uk}{martin.smith@durham.ac.uk})
 }
 \concept{pairwise tree distances}

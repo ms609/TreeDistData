@@ -1,25 +1,54 @@
 #' All distances between a pair of trees
 #' @param tr1,tr2 Phylogenetic trees of class `phylo`.
-#' @author Martin R. Smith
-#' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
+#' @param verbose Logical specifying whether to notify user of progress.
+#'
+#' @template MRS
+#' @importFrom TreeDist MASTSize NNIDist
+#' VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
-#' @importFrom phangorn treedist mast SPR.dist
+#' @importFrom phangorn SPR.dist
+#' @importFrom TBRDist TBRDist
 #' @family pairwise tree distances
 #' @export
-AllDists <- function (tr1, tr2) {
-  cat('.')
-  c(VariationOfPhylogeneticInfo(tr1, tr2, normalize=TRUE),
-    VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
-    VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
-    QuartetDivergence(QuartetStatus(tr1, tr2), similarity = FALSE),
-    1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
-    MatchingSplitDistance(tr1, tr2),
-    RobinsonFoulds(tr1, tr2),
-    path.dist(tr1, tr2),
-    length(mast(tr1, tr2, tree=FALSE)),
-    SPR.dist(tr1, tr2)
+AllDists <- function (tr1, tr2, verbose = FALSE) {
+  if (verbose) cat('q')
+  qd <- QuartetDivergence(QuartetStatus(tr1, tr2), similarity = FALSE)
+
+  if (verbose) cat('m')
+  mast <- MASTSize(tr1, tr2, rooted = FALSE)
+  masti <-  LnUnrooted(mast) / log(2)
+  attributes(masti) <- attributes(mast)
+
+  if (verbose) cat('r')
+  nni <- NNIDist(tr1, tr2)
+  tbr <- TBRDist(tr1, tr2)
+
+  if (verbose) cat('.')
+  c(
+    vpi = VariationOfPhylogeneticInfo(tr1, tr2, normalize=TRUE),
+    vmsi = VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
+    vci = VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
+    qd = qd,
+    nts = 1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
+
+    ja2 = 1 - JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
+    ja4 = 1 - JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = TRUE, normalize = TRUE),
+    jna2 =1 - JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = FALSE, normalize = TRUE),
+    jna4 =1 - JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = FALSE, normalize = TRUE),
+
+    msd = MatchingSplitDistance(tr1, tr2),
+    mast = mast,
+    masti = masti,
+    nni_l = nni[['lower']],
+    nni_t = nni[['tight_upper']],
+    nni_u = nni[['loose_upper']],
+    spr = SPR.dist(tr1, tr2)[['spr']],
+    tbr_l = tbr$tbr_min,
+    tbr_u = tbr$tbr_max,
+    rf = RobinsonFoulds(tr1, tr2),
+    path = path.dist(tr1, tr2)
   )
 }
 

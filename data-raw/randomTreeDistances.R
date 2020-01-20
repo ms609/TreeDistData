@@ -32,18 +32,13 @@ RandomDistances <- function (nLeaves, repls) {
                         if (XX %% 72 == 0) cat("\n           ")
                         tr1 <- RandomTree(nLeaves)
                         tr2 <- RandomTree(nLeaves)
-                        dists <- TreeDistData:::AllDists(tr1, tr2)
-                        dists[c(1:9, 9)] /
-                          c(rep(1L, 6L),
-                            rf = nLeaves + nLeaves - 6L,
-                            path = 1L,
-                            sprUpper = nLeaves - 3L,
-                            sprLower = (nLeaves - 2L) / 2L
-                            # Upper and lower bound for SPR diameter
+                        TreeDistData:::AllDists(tr1, tr2)
+                            # Upper and lower bound for SPR diameter:
+                            # sprUpper = nLeaves - 3L
+                            # sprLower = (nLeaves - 2L) / 2L
                             # (Allen & Steel 2001)
-                          )
                       },
-                      double(10L))
+                      double(20L))
   t(rbind(apply(distances, 1L, summary),
           apply(distances, 1L, quantile, probs=c(0.01, 0.05, 0.1, 0.9, 0.95, 0.99)),
           sd = apply(distances, 1L, sd)
