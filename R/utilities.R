@@ -4,11 +4,12 @@
 #'
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist
+#' JaccardRobinsonFoulds
 #' VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
-#' @importFrom phangorn SPR.dist
+#' @importFrom phangorn SPR.dist path.dist
 #' @importFrom TBRDist TBRDist
 #' @family pairwise tree distances
 #' @export
