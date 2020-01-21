@@ -5,7 +5,7 @@
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist
 #' JaccardRobinsonFoulds
-#' DifferentPhylogeneticInfo VariationOfMatchingSplitInfo
+#' DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
@@ -29,7 +29,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
   if (verbose) cat('.')
   c(
     vpi = DifferentPhylogeneticInfo(tr1, tr2, normalize=TRUE),
-    vmsi = VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
+    vmsi = MatchingSplitInfoDistance(tr1, tr2, normalize=TRUE),
     vci = VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
     qd = qd,
     nts = 1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
@@ -99,7 +99,7 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #'
 #' @importFrom TreeTools as.Splits Postorder LnUnrooted
 #' @importFrom TBRDist TBRDist USPRDist
-#' @importFrom TreeDist DifferentPhylogeneticInfo VariationOfMatchingSplitInfo
+#' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance MASTSize
 #' VariationOfClusteringInfo RobinsonFoulds
 #' @importFrom phangorn path.dist SPR.dist
@@ -158,7 +158,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   vpi <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
 
   MSG('VmsI')
-  vmsi <- VariationOfMatchingSplitInfo(splits, normalize = TRUE)
+  vmsi <- MatchingSplitInfoDistance(splits, normalize = TRUE)
 
   MSG('VcI')
   vci <- VariationOfClusteringInfo(splits, normalize = TRUE)
