@@ -14,7 +14,7 @@ test_that('Pairwise distances calculated correctly', {
   expect_equivalent(phangorn::RF.dist(trees), dists)
 
   lapply(CompareAllTrees(trees), function (dist) {
-    expect_equal(c(nTrees, nTrees), dim(dist))
+    expect_equal(c(nTrees, nTrees), dim(as.matrix(dist)))
   })
 
 
@@ -26,6 +26,6 @@ test_that('Pairwise distances calculated correctly', {
   }
 
   lapply(CompareAllTrees(sprWalk), function(dist) {
-    expect_equal(c(nTrees, nTrees), dim(dist))
+    expect_equal(c(nTrees, nTrees), dim(as.matrix(dist)))
   })
 })
