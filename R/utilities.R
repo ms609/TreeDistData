@@ -4,11 +4,12 @@
 #'
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist
-#' VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
+#' JaccardRobinsonFoulds
+#' DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance
-#' VariationOfClusteringInfo RobinsonFoulds
+#' ClusteringInfoDistance RobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
-#' @importFrom phangorn SPR.dist
+#' @importFrom phangorn SPR.dist path.dist
 #' @importFrom TBRDist TBRDist
 #' @family pairwise tree distances
 #' @export
@@ -27,9 +28,9 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 
   if (verbose) cat('.')
   c(
-    vpi = VariationOfPhylogeneticInfo(tr1, tr2, normalize=TRUE),
-    vmsi = VariationOfMatchingSplitInfo(tr1, tr2, normalize=TRUE),
-    vci = VariationOfClusteringInfo(tr1, tr2, normalize=TRUE),
+    vpi = DifferentPhylogeneticInfo(tr1, tr2, normalize=TRUE),
+    vmsi = MatchingSplitInfoDistance(tr1, tr2, normalize=TRUE),
+    vci = ClusteringInfoDistance(tr1, tr2, normalize=TRUE),
     qd = qd,
     nts = 1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
 
@@ -98,9 +99,9 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #'
 #' @importFrom TreeTools as.Splits Postorder LnUnrooted
 #' @importFrom TBRDist TBRDist USPRDist
-#' @importFrom TreeDist VariationOfPhylogeneticInfo VariationOfMatchingSplitInfo
+#' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance MASTSize
-#' VariationOfClusteringInfo RobinsonFoulds
+#' ClusteringInfoDistance RobinsonFoulds
 #' @importFrom phangorn path.dist SPR.dist
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #'
@@ -154,13 +155,13 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   pathDist <- as.matrix(path.dist(trees))
 
   MSG('VpI')
-  vpi <- VariationOfPhylogeneticInfo(splits, normalize = TRUE)
+  vpi <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
 
   MSG('VmsI')
-  vmsi <- VariationOfMatchingSplitInfo(splits, normalize = TRUE)
+  vmsi <- MatchingSplitInfoDistance(splits, normalize = TRUE)
 
   MSG('VcI')
-  vci <- VariationOfClusteringInfo(splits, normalize = TRUE)
+  vci <- ClusteringInfoDistance(splits, normalize = TRUE)
 
   MSG('Nye')
   nts <- 1 - NyeTreeSimilarity(splits, normalize = TRUE)
