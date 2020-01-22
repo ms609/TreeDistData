@@ -16,7 +16,8 @@ Imports:
     phangorn,
     Quartet,
     TBRDist,
-    TreeDist
+    TreeDist,
+    TreeTools
 Suggests:
     ape,
     Rdpack,
