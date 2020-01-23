@@ -66,6 +66,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 #' Identical trees are assumed to have zero distance.
 #' @template MRS
 #' @family pairwise tree distances
+#' @importFrom stats as.dist
 #' @export
 PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
   ret <- array(0, c(length(trees), length(trees), valueLength))
