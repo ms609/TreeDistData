@@ -28,16 +28,16 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 
   if (verbose) cat('.')
   c(
-    vpi = DifferentPhylogeneticInfo(tr1, tr2, normalize=TRUE),
-    vmsi = MatchingSplitInfoDistance(tr1, tr2, normalize=TRUE),
-    vci = ClusteringInfoDistance(tr1, tr2, normalize=TRUE),
+    vpi = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
+    vmsi = MatchingSplitInfoDistance(tr1, tr2, normalize = TRUE),
+    vci = ClusteringInfoDistance(tr1, tr2, normalize = TRUE),
     qd = qd,
-    nts = 1 - NyeTreeSimilarity(tr1, tr2, normalize=TRUE),
+    nts = NyeTreeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
 
-    ja2 = 1 - JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
-    ja4 = 1 - JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = TRUE, normalize = TRUE),
-    jna2 =1 - JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = FALSE, normalize = TRUE),
-    jna4 =1 - JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = FALSE, normalize = TRUE),
+    ja2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
+    ja4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = TRUE, normalize = TRUE),
+    jna2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = FALSE, normalize = TRUE),
+    jna4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = FALSE, normalize = TRUE),
 
     msd = MatchingSplitDistance(tr1, tr2),
     mast = mast,
