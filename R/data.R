@@ -241,3 +241,17 @@ NULL
 'bullseyeMorphScores'
 #' @rdname bullseye
 'bullseyeDistances'
+
+#' Evaluating tree distance metrics with method of _Lin et al._ 2012
+#'
+#' #TODO Describe in detail.
+#'
+#' @references \insertRef{Lin2012}{TreeDistData}
+#' @name linTests
+#'
+#' @rdname linTests
+'linTestOneResults'
+#' @rdname linTests
+'linTestSPRResults'
+#' @rdname linTests
+'linTestTwoResults'
