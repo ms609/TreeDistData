@@ -13,7 +13,7 @@ test_that("Data dimensions are correct", {
   expect_equal(c(nMetrics, 10000L), dim(distanceDistribution25))
 
   #TODO update other datasets for all 20 metrics?
-  allDistMethods <- c('vpi', 'vmsi', 'vci', 'qd', 'nts', 'ja2', 'ja4', 'jna2',
+  allDistMethods <- c('dpi', 'msid', 'cid', 'qd', 'nts', 'ja2', 'ja4', 'jna2',
                       'jna4', 'msd', 'mast', 'masti', 'nni_l', 'nni_t', 'nni_u',
                       'spr', 'tbr_l', 'tbr_u', 'rf', 'path')
   metrics <- allDistMethods[!allDistMethods %in% 'nni_t']

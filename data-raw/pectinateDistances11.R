@@ -1,3 +1,4 @@
+library('ape')
 library('TreeTools')
 library('TreeDist')
 
@@ -5,9 +6,10 @@ nTip <- 11L
 tipLabel <- seq_len(nTip)
 pectinateTree <- PectinateTree(tipLabel)
 
-RNGversion("3.5.0")
+RNGversion("3.6.0")
 set.seed(0)
 repls <-  100000L
+message("Generating ", repls, " random trees")
 randomTreeIds <- unique(floor(runif(repls * 2) * NUnrooted(nTip)))[seq_len(repls)]
 randomTrees <- as.phylo(randomTreeIds, nTip, tipLabel)
 randomTrees <- structure(lapply(randomTrees, Postorder), class = 'multiPhylo')
@@ -23,6 +25,16 @@ qd <- Quartet::QuartetDivergence(
   similarity = FALSE)
 message('NTS... ')
 nts <- 1 - NyeTreeSimilarity(pectinateTree, randomTrees, normalize=TRUE)
+message('JRF... ')
+ja2 <- JaccardRobinsonFoulds(pectinateTree, randomTrees, normalize = TRUE,
+                            k = 2, arboreal = TRUE)
+jna2 <- JaccardRobinsonFoulds(pectinateTree, randomTrees, normalize = TRUE,
+                            k = 2, arboreal = FALSE)
+ja4 <- JaccardRobinsonFoulds(pectinateTree, randomTrees, normalize = TRUE,
+                            k = 4, arboreal = TRUE)
+jna4 <- JaccardRobinsonFoulds(pectinateTree, randomTrees, normalize = TRUE,
+                            k = 4, arboreal = FALSE)
+
 message('MSD... ')
 msd <- MatchingSplitDistance(pectinateTree, randomTrees)
 message('MAST... ')
@@ -44,6 +56,8 @@ message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 
 pectinateDistances11 <- rbind(dpi = dpi, msid = msid, cid = cid, qd = qd,
+                              ja2 = ja2, jna2 = jna2,
+                              ja4 = ja4, jna4 = jna4,
                               nts = nts, msd = msd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
@@ -55,10 +69,10 @@ message("Calculated and bound.")
 
 normalizers <- c(dpi = 1, msid = 1, cid = 1, qd = 1, nts = 1, msd = 1,
                  mast=nTip, masti=LnUnrooted.int(nTip) / log(2),
-                 nni_l=18, nni_t = 18, nni_u= 18,
+                 nni_l=18, nni_t = 18, nni_u = 18,
                  spr = 18, tbr_l = 18, tbr_u = 18,
                  mafi = 1,
                  rf = 1, rfi = NA, path = 1)
 
 usethis::use_data(pectinateDistances11, compress='xz', overwrite=TRUE)
-message("Used data. Complete.")
+message("Complete.")
