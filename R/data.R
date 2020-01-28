@@ -78,9 +78,9 @@
 #' are normalized against their maximum possible values.
 #' The remaining measures are unnormalized.
 #'
-#' - `vpi`: Variation of Phylogenetic Information (Smith, forthcoming)
-#' - `vmsi`: Variation of Matching Split Information (Smith, forthcoming)
-#' - `vci`: Variation of Clustering Information (Smith, forthcoming)
+#' - `dpi`: Different Phylogenetic Information (Smith, forthcoming)
+#' - `msid`: Matching Split Information Distance (Smith, forthcoming)
+#' - `cid`: Clustering Information Distance (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)
 #' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
 #' - `ja2`, `ja4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4
@@ -95,6 +95,8 @@
 #' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
 #'          (TBR) distance
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
+#' - `rfi`: Robinson-Foulds distance, splits weighted by phylogenetic
+#' information content (Smith, forthcoming)
 #' - `path`: Path distance (Steel & Penny 1993), unnormalized
 #'
 #' Each column lists the calculated distances between each pair of trees.

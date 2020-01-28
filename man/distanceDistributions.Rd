@@ -31,9 +31,9 @@ The quartet distance, Nye \emph{et al.} and Jaccard-Robinson-Foulds measures
 are normalized against their maximum possible values.
 The remaining measures are unnormalized.
 \itemize{
-\item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
-\item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
-\item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
+\item \code{dpi}: Different Phylogenetic Information (Smith, forthcoming)
+\item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
+\item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
 \item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
 \item \code{ja2}, \code{ja4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4
@@ -48,6 +48,8 @@ for  nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
 (TBR) distance
 \item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
+\item \code{rfi}: Robinson-Foulds distance, splits weighted by phylogenetic
+information content (Smith, forthcoming)
 \item \code{path}: Path distance (Steel & Penny 1993), unnormalized
 }
 

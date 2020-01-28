@@ -5,7 +5,7 @@ nTip <- 11L
 tipLabel <- seq_len(nTip)
 pectinateTree <- PectinateTree(tipLabel)
 
-RNGversion("3.6.0")
+RNGversion("3.5.0")
 set.seed(0)
 repls <-  100000L
 randomTreeIds <- unique(floor(runif(repls * 2) * NUnrooted(nTip)))[seq_len(repls)]
@@ -38,6 +38,8 @@ message('MAFi... ')
 mafi <- TBRDist::MAFInfo(pectinateTree, randomTrees)
 message('RF... ')
 rf <- RobinsonFoulds(pectinateTree, randomTrees)
+message('RFI... ')
+rfi <- RobinsonFouldsInfo(pectinateTree, randomTrees)
 message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 
@@ -46,7 +48,7 @@ pectinateDistances11 <- rbind(dpi = dpi, msid = msid, cid = cid, qd = qd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
                               tbr_l = tbr$tbr_min, tbr_u = tbr$tbr_max,
-                              mafi = mafi, rf = rf, path = path)
+                              mafi = mafi, rf = rf, rfi = rfi, path = path)
 
 
 message("Calculated and bound.")
@@ -56,7 +58,7 @@ normalizers <- c(dpi = 1, msid = 1, cid = 1, qd = 1, nts = 1, msd = 1,
                  nni_l=18, nni_t = 18, nni_u= 18,
                  spr = 18, tbr_l = 18, tbr_u = 18,
                  mafi = 1,
-                 rf = 1, path = 1)
+                 rf = 1, rfi = NA, path = 1)
 
 usethis::use_data(pectinateDistances11, compress='xz', overwrite=TRUE)
 message("Used data. Complete.")
