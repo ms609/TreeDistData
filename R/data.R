@@ -12,16 +12,25 @@
 #'
 #' Rows are named with an abbreviation of the tree comparison metric:
 #'
-#' - `vpi`: Variation of Phylogenetic Information (Smith, forthcoming)
-#' - `vmsi`: Variation of Matching Split Information (Smith, forthcoming)
-#' - `vci`: Variation of Clustering Information (Smith, forthcoming)
+#' - `dpi`: Variation of Phylogenetic Information (Smith, forthcoming)
+#' - `msid`: Variation of Matching Split Information (Smith, forthcoming)
+#' - `cid`: Variation of Clustering Information (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)
 #' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
+#' - `ja2`, `ja4`: Jaccard-Robinson-Foulds distance (B&ouml;cker _et al_. 2013),
+#'      with _k_ = 2, 4, with arboreal matchings enforced
+#' - `jna2`, `jna4`: JRF distance, non-arboreal matchings permitted
 #' - `msd`: Matching Split Distance (Bogdanowicz & Giaro, 2012)
+#' - `mast`, `masti`: Size and information content of maximum agreement subtree
+#' - `nni_l`, `nni_u`: Lower and upper bounds on the nearest neighbour
+#'      interchange distance (Li _et al._ 1996)
+#' - `spr`: Approximate subtree prune and regraft distance, calculated using
+#'     `phangorn::SPR.dist`
+#' - `tbr_l`, `tbr_u`: Lower and upper bounds on the tree bisection and
+#'      reconnection distance, calculated using
+#'      [TBRDist](https://ms609.github.io/TBRDist/)
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1981)
 #' - `path`: Path distance (Steel & Penny 1993)
-#' - `spr`: SPR distance, normalized against upper bound of diameter (Allen & Steel, 2001)
-#' - `sprLB`: SPR distance, normalized against lower bound of diameter (Allen & Steel, 2001)
 #'
 #' Columns list the summary statistics of calculated tree distances: the
 #' minimum (`min`),
@@ -34,7 +43,11 @@
 #' @references
 #' - \insertRef{Allen2001}{TreeSearch}
 #'
+#' - \insertRef{Bocker2013}{TreeDist}
+#'
 #' - \insertRef{Bogdanowicz2012}{TreeDist}
+#'
+#'   \insertRef{Li1996}{TreeDist}
 #'
 #' - \insertRef{Nye2006}{TreeDist}
 #'
@@ -45,6 +58,7 @@
 #' - \insertRef{SmithDist}{TreeDist}
 #'
 #' - \insertRef{Steel1993}{TreeDist}
+#'
 #' @keywords datasets
 "randomTreeDistances"
 

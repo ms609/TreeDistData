@@ -22,16 +22,25 @@ distances are not normalized.
 
 Rows are named with an abbreviation of the tree comparison metric:
 \itemize{
-\item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
-\item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
-\item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
+\item \code{dpi}: Variation of Phylogenetic Information (Smith, forthcoming)
+\item \code{msid}: Variation of Matching Split Information (Smith, forthcoming)
+\item \code{cid}: Variation of Clustering Information (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
 \item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{ja2}, \code{ja4}: Jaccard-Robinson-Foulds distance (Böcker \emph{et al}. 2013),
+with \emph{k} = 2, 4, with arboreal matchings enforced
+\item \code{jna2}, \code{jna4}: JRF distance, non-arboreal matchings permitted
 \item \code{msd}: Matching Split Distance (Bogdanowicz & Giaro, 2012)
+\item \code{mast}, \code{masti}: Size and information content of maximum agreement subtree
+\item \code{nni_l}, \code{nni_u}: Lower and upper bounds on the nearest neighbour
+interchange distance (Li \emph{et al.} 1996)
+\item \code{spr}: Approximate subtree prune and regraft distance, calculated using
+\code{phangorn::SPR.dist}
+\item \code{tbr_l}, \code{tbr_u}: Lower and upper bounds on the tree bisection and
+reconnection distance, calculated using
+\href{https://ms609.github.io/TBRDist/}{TBRDist}
 \item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981)
 \item \code{path}: Path distance (Steel & Penny 1993)
-\item \code{spr}: SPR distance, normalized against upper bound of diameter (Allen & Steel, 2001)
-\item \code{sprLB}: SPR distance, normalized against lower bound of diameter (Allen & Steel, 2001)
 }
 
 Columns list the summary statistics of calculated tree distances: the
@@ -44,7 +53,10 @@ The third dimension lists the number of tips in the trees compared.
 \references{
 \itemize{
 \item \insertRef{Allen2001}{TreeSearch}
+\item \insertRef{Bocker2013}{TreeDist}
 \item \insertRef{Bogdanowicz2012}{TreeDist}
+
+\insertRef{Li1996}{TreeDist}
 \item \insertRef{Nye2006}{TreeDist}
 \item \insertRef{Robinson1981}{TreeDist}
 \item \insertRef{SmithTern}{TreeSearch}

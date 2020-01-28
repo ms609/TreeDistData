@@ -2,7 +2,7 @@ library('TreeDistData')
 library('usethis')
 suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 repls <- 1000
-allDistMethods <- c('vpi', 'vmsi', 'vci', 'qd', 'nts',
+allDistMethods <- c('dpi', 'msid', 'cid', 'qd', 'nts',
                     'ja2', 'ja4', 'jna2', 'jna4',
                     'msd', 'mast', 'masti',
                     'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',

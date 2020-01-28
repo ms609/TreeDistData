@@ -28,9 +28,9 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 
   if (verbose) cat('.')
   c(
-    vpi = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
-    vmsi = MatchingSplitInfoDistance(tr1, tr2, normalize = TRUE),
-    vci = ClusteringInfoDistance(tr1, tr2, normalize = TRUE),
+    dpi = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
+    msid = MatchingSplitInfoDistance(tr1, tr2, normalize = TRUE),
+    cid = ClusteringInfoDistance(tr1, tr2, normalize = TRUE),
     qd = qd,
     nts = NyeTreeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
 
@@ -155,14 +155,14 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG('path')
   pathDist <- as.matrix(path.dist(trees))
 
-  MSG('VpI')
-  vpi <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
+  MSG('DPI')
+  dpi <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
 
-  MSG('VmsI')
-  vmsi <- MatchingSplitInfoDistance(splits, normalize = TRUE)
+  MSG('msid')
+  msid <- MatchingSplitInfoDistance(splits, normalize = TRUE)
 
-  MSG('VcI')
-  vci <- ClusteringInfoDistance(splits, normalize = TRUE)
+  MSG('cid')
+  cid <- ClusteringInfoDistance(splits, normalize = TRUE)
 
   MSG('Nye')
   nts <- 1 - NyeTreeSimilarity(splits, normalize = TRUE)
@@ -175,9 +175,9 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 
   MSG('Complete; listing.')
   list(
-    vpi = vpi,
-    vmsi = vmsi,
-    vci = vci,
+    dpi = dpi,
+    msid = msid,
+    cid = cid,
     qd = qd,
     nts = nts,
 
