@@ -1,24 +1,26 @@
 library('TreeTools')
 library('TreeDist')
-suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 
 nTip <- 11L
 tipLabel <- seq_len(nTip)
 pectinateTree <- PectinateTree(tipLabel)
 
-repls <-  100000L
+RNGversion("3.6.0")
 set.seed(0)
+repls <-  100000L
 randomTreeIds <- unique(floor(runif(repls * 2) * NUnrooted(nTip)))[seq_len(repls)]
 randomTrees <- as.phylo(randomTreeIds, nTip, tipLabel)
 randomTrees <- structure(lapply(randomTrees, Postorder), class = 'multiPhylo')
 message("Generated ", repls, " comparison trees.")
 
-message('Calculating VoI... ')
-vpi <- VariationOfPhylogeneticInfo(pectinateTree, randomTrees, normalize=TRUE)
-vmsi <- VariationOfMatchingSplitInfo(pectinateTree, randomTrees, normalize=TRUE)
-vci <- VariationOfClusteringInfo(pectinateTree, randomTrees, normalize=TRUE)
+message('Calculating info... ')
+dpi <- DifferentPhylogeneticInfo(pectinateTree, randomTrees, normalize = TRUE)
+msid <- MatchingSplitInfoDistance(pectinateTree, randomTrees, normalize = TRUE)
+cid <- ClusteringInfoDistance(pectinateTree, randomTrees, normalize = TRUE)
 message('QD... ')
-qd <- Quartet::QuartetDivergence(Quartet::QuartetStatus(randomTrees, cf=pectinateTree), similarity = FALSE)
+qd <- Quartet::QuartetDivergence(
+  Quartet::QuartetStatus(randomTrees, cf=pectinateTree),
+  similarity = FALSE)
 message('NTS... ')
 nts <- 1 - NyeTreeSimilarity(pectinateTree, randomTrees, normalize=TRUE)
 message('MSD... ')
@@ -39,7 +41,7 @@ rf <- RobinsonFoulds(pectinateTree, randomTrees)
 message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 
-pectinateDistances11 <- rbind(vpi = vpi, vmsi = vmsi, vci = vci, qd = qd,
+pectinateDistances11 <- rbind(dpi = dpi, msid = msid, cid = cid, qd = qd,
                               nts = nts, msd = msd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
@@ -49,10 +51,10 @@ pectinateDistances11 <- rbind(vpi = vpi, vmsi = vmsi, vci = vci, qd = qd,
 
 message("Calculated and bound.")
 
-normalizers <- c(vpi = 1, vmsi = 1, vci = 1, qd = 1, nts = 1, msd = 1,
+normalizers <- c(dpi = 1, msid = 1, cid = 1, qd = 1, nts = 1, msd = 1,
                  mast=nTip, masti=LnUnrooted.int(nTip) / log(2),
                  nni_l=18, nni_t = 18, nni_u= 18,
-                 spr = 18, tbr_l =18, tbr_u = 18,
+                 spr = 18, tbr_l = 18, tbr_u = 18,
                  mafi = 1,
                  rf = 1, path = 1)
 
