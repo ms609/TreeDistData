@@ -7,9 +7,13 @@
 TreeDistCol(method, opacity = "FF")
 }
 \arguments{
-\item{method}{Character specifying acronym for method; one of \code{tdMethods}.}
+\item{method}{Character specifying acronym for method: one of \code{\link{tdMethods}}.}
 
 \item{opacity}{Character specifying fex code for opacity; \code{"FF"} = opaque.}
+}
+\value{
+\code{TreeDistCol()} returns a hex code for the colour matching the
+specified method.
 }
 \description{
 Select colour from palette

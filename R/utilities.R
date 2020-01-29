@@ -210,5 +210,5 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 #'
 #' @export
 TreeDistCol <- function (method, opacity = 'FF') {
-  paste0(tdCol[method], opacity)
+  paste0(TreeDistData::tdCol[method], opacity)
 }

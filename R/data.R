@@ -271,3 +271,25 @@ NULL
 'linTestSPRResults'
 #' @rdname linTests
 'linTestTwoResults'
+
+
+#' Method parameters
+#'
+#' # TODO Describe in detail
+#'
+#' @name TreeDistMethods
+
+#' @rdname TreeDistMethods
+'tdAbbrevs'
+
+#' @rdname TreeDistMethods
+'tdMethods'
+
+#' @rdname TreeDistMethods
+'tdCol'
+
+#' @rdname TreeDistMethods
+'TDFunctions'
+
+#' @rdname TreeDistMethods
+'TDPair'
