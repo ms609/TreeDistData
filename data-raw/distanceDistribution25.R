@@ -1,19 +1,21 @@
+library('TreeTools')
 library('TreeDist')
-suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
+RNGversion("3.6.0")
 set.seed(0)
 
 repls <-  10000L
+randomTreePairs25 <- lapply(rep(25L, repls), function (nTip)
+  list(RandomTree(nTip), RandomTree(nTip)))
+cat("Generated", repls, "random tree pairs.")
 
-RandomTree <- function(nTip) ape::rtree(nTip, br=NULL)
-randomTreePairs25 <- lapply(seq_len(repls), function (i) list(RandomTree(25), RandomTree(25)))
-cat("Generated random trees.")
-
-distanceDistribution25 <- vapply(seq_len(repls), function (i) {
-    treePair <- randomTreePairs25[[i]]
+distanceDistribution25 <- vapply(randomTreePairs25, function (treePair) {
     TreeDistData:::AllDists(treePair[[1]], treePair[[2]])
-  }, c(vpi = 0, vmsi = 0, vci = 0, qd = 0, nts = 0, msd = 0, rf = 0, path = 0,
-       spr = 0)
+  }, c(dpi = 0, msid = 0, cid = 0, qd.d = 0, nts = 0, ja2 = 0, ja4 = 0,
+       jna2 = 0, jna4 = 0, msd = 0, mast = 0, masti = 0, nni_l = 0,
+       nni_t = 0, nni_u = 0, spr = 0, tbr_l = 0, tbr_u = 0, rf = 0,
+       path = 0)
 )
 
 usethis::use_data(randomTreePairs25, compress='bzip2', overwrite=TRUE)
 usethis::use_data(distanceDistribution25, compress='xz', overwrite=TRUE)
+message("Complete.")
