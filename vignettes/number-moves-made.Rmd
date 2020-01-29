@@ -23,7 +23,6 @@ topTail <- Quartet::sq_trees$top_and_tail
 pd11['qd', ] <- pd11['qd', ] * 330L
 
 BoxPlot <- function (method) {
-  message("Plotting ", method)
   distances <- pd11[method, ]
   faintCol <- TreeDistCol(method, '33')
   opaqueCol <- TreeDistCol(method)
@@ -63,7 +62,7 @@ BoxPlot <- function (method) {
 
 PlotFunc <- function() {
   par(mar=c(1, 0.2, 1, 1), xpd = NA)
-  nMethod <- length(legendSequence)
+  nMethod <- dim(pd11)[1]
   nRow <- nMethod / 2
   layout(matrix(c(rep(1:3, each = nRow),
                   3 + rep(seq_len(nMethod), each=3)), ncol=3),
@@ -85,7 +84,7 @@ PlotFunc <- function() {
          inset=c(-0.0, -0.005), pt.cex=1.5)
 
   par(mar=c(1.9, 0.2, 0.2, 0.2))
-  XX <- lapply(legendSequence, BoxPlot)
+  XX <- lapply(rownames(pd11), BoxPlot)
 }
 
 PlotFunc()
