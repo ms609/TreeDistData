@@ -52,6 +52,12 @@ par(mfrow = c(3, 7), mar = c(1, 0.1, 1, 0.1), oma=c(0, 0, 0, 0))
 XX <- lapply(plotSequence, Plotter)
 ```
 
+We then calculate the rank correlation between the measured tree distance and 
+the number of SPR moves used to generate the trees – which may not correspond 
+to the exact SPR distance, as one SPR move may 'undo' another.
+
+Higher coefficients of correlation are, to a first approximation, desirable.
+
 ```{r table, output="asis", echo = FALSE}
 Tabler <- function (method) {
   dat <- as.matrix(distances[[method]])
