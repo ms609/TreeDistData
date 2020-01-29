@@ -18,8 +18,10 @@ matrix:
       before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
       sudo: required
       r_binary_packages:
+       - bookdown
        - devtools
        - Rdpack
+       - rmarkdown
        - roxygen2
        - testthat
       deploy:
