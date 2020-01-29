@@ -209,5 +209,6 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 #'
 #' @export
 TreeDistCol <- function (method, opacity = 'FF') {
+  if (method %in% c('vpi', 'vci', 'vmsi')) .Deprecated('New abbreviations')
   paste0(TreeDistData::tdCol[method], opacity)
 }
