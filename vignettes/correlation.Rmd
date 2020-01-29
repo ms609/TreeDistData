@@ -1,0 +1,84 @@
+---
+title: "Metric correlation"
+author: "Martin R. Smith <martin.smith@durham.ac.uk>"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+  rmarkdown::html_vignette:
+    default: yes
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{Metric correlation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Correlation between metrics
+
+The information-based metrics are highly correlated with one another, and exhibit 
+strong correlation with the Nye _et al._ and Quartet metrics.  The 
+Matching Splits and Path metrics are poorly correlated with all metrics except 
+each other.  The Robinson-Foulds metric shows minimal correlation with any other 
+metric, notwithstanding a weak correlation with the Nye _et al._ measure.
+
+```{r data-load, echo=FALSE}
+library('TreeDistData')
+data("distanceDistribution25", package="TreeDistData")
+distanceDistribution25 <- distanceDistribution25[!rownames(distanceDistribution25) %in% 'nni_t', ]
+data("distanceDistribution50", package="TreeDistData")
+distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution50) %in% 'nni_t', ]
+toCorrelate <- rownames(distanceDistribution25)
+colScale <- colorspace::sequential_hcl(1000, palette='viridis')
+```
+
+```{r functions, echo=FALSE}
+CorrPlot <- function (distribution, methodA, methodB) {
+  a <- distribution[methodA, ]
+  b <- distribution[methodB, ]
+  plot(a~b, pch='.', col='#00000088', axes=FALSE, ylab='', xlab='')
+  reg <- lm(a~b)
+  #r2 <- summary(reg)$adj.r.squared
+  #regCol <- colScale[max(ceiling((r2 - 0.5) * 2000), 1L)]
+  abline(reg)
+  #legend('bottomright', legend=paste0("R² = ", signif(r2, 3)),
+  #       text.col = regCol, bty='n')
+}
+
+PlotR2 <- function (distribution, methodA, methodB) {
+  a <- distribution[methodA, ]
+  b <- distribution[methodB, ]
+  plot.new()
+  reg <- lm(a~b)
+  r2 <- summary(reg)$adj.r.squared
+  regCol <- colScale[max(ceiling((r2 - 0.5) * 2000), 1L)]
+  text(0.5, 0.5, format(round(r2, 3), nsmall = 2), col = regCol, cex=1.7)
+}
+
+PlotCorr <- function(distribution) {
+  par(mfrow = length(toCorrelate) + c(1L, 0L), mar=rep(0.2, 4))
+  lapply(seq_along(toCorrelate), function(i)
+    lapply(seq_along(toCorrelate), function(j) {
+      if (i == j) {
+        plot.new()
+        method <- toCorrelate[i]
+        text(0.5, 0.5, tdAbbrevs[method], col = TreeDistCol(method), cex = 0.9)
+        box(which='plot', col = TreeDistCol(method), lwd=3)
+      } else if (i < j) {
+        PlotR2(distribution, toCorrelate[i], toCorrelate[j])
+      } else {
+        CorrPlot(distribution, toCorrelate[i], toCorrelate[j])
+      }
+    })) -> XX
+}
+```
+
+
+```{R metric-correlation, echo=FALSE, fig.width=7, fig.asp=9/8, out.width='98%', fig.align='center', warning=FALSE}
+PlotCorr(distanceDistribution25)
+```
+
+```{R metric-correlation-50, echo=FALSE, fig.width=7, fig.asp=9/8, out.width='98%', fig.align='center', warning=FALSE}
+PlotCorr(distanceDistribution50)
+```
