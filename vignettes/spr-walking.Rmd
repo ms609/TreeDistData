@@ -18,7 +18,7 @@ vignette: >
 
 ```{r load, echo = FALSE, message=FALSE}
 # Update from data-raw/sprDistances.R
-nTrees <- 75L
+nTrees <- 100L
 nTip <- 50L
 
 moves <- abs(outer(seq_len(nTrees), seq_len(nTrees), '-'))
@@ -31,11 +31,12 @@ Plotter <- function (method) {
   dat.A <- dat[!is.na(dat)]
   moves.A <- moves[!is.na(dat)]
   col <- TreeDistCol(method)
-  boxplot(dat.A ~ moves.A, border = col, ylab = abbrevs[method],
+  boxplot(dat.A ~ moves.A, border = col, 
+          ylab = TreeDistData::tdAbbrevs[method],
           xlab = 'SPR moves', axes= F)
   tau <- cor.test(dat.A, moves.A, method="kendall", use="pairwise")$estimate
   text(max(moves.A), min(dat.A), paste('tau-b =', signif(tau, 3)), pos = 2, col = col)
-  legend('topleft', tdAbbrevs[method], bty='n', col = col)
+  legend('topleft', TreeDistData::tdAbbrevs[method], bty='n', col = col)
 }
 ```
 

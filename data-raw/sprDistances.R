@@ -1,12 +1,12 @@
 library('TreeTools')
 set.seed(0L)
-nTrees <- 75L
+nTrees <- 100L
 nTip <- 50L
 
 sprWalk <- vector('list', nTrees)
 sprWalk[[1]] <- lastTree <- PectinateTree(nTip)
 
-message('Walking')
+message('Generating ', nTrees, ' ', nTip, '-leaf trees...')
 for (i in seq_len(nTrees)[-1]) {
   sprWalk[[i]] <- lastTree <- TreeSearch::SPR(lastTree)
 }
