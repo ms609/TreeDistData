@@ -20,17 +20,11 @@ vignette: >
 # Update from data-raw/sprDistances.R
 nTrees <- 75L
 nTip <- 50L
-```
 
-SPR Walking: generating `r nTrees` trees with `r nTip` tips, from a pectinate
-starting tree.
-
-```{r distances, echo = FALSE}
 moves <- abs(outer(seq_len(nTrees), seq_len(nTrees), '-'))
 distances <- TreeDistData::sprDistances
-```
+plotSequence <- tdMethods[tdMethods %in% names(distances)]
 
-```{r plots, echo = FALSE, fig.width=7, fig.height=6}
 Plotter <- function (method) {
   dat <- as.matrix(distances[[method]])
   if (method %in% c('mast', 'masti')) dat <- nTip - dat
@@ -43,10 +37,16 @@ Plotter <- function (method) {
   text(max(moves.A), min(dat.A), paste('tau-b =', signif(tau, 3)), pos = 2, col = col)
   legend('topleft', tdAbbrevs[method], bty='n', col = col)
 }
-plotSequence <- tdMethods[tdMethods %in% names(distances)]
 ```
 
-```{r, echo = FALSE, fig.width=7, fig.height=6}
+SPR Walking: generating `r nTrees` trees with `r nTip` tips.
+Start with a pectinate `r nTip`-leaf tree.  
+Each subsequent tree is one SPR rearrangement away from the previous one.
+Trees SPR rearrangements continue until a forest of `r nTrees` trees has been
+generated.  Distances between each pair of trees are then calculated, and 
+plotted against the number of SPR moves that separate the pair.
+
+```{r plots, echo = FALSE, fig.width=7, fig.height=6}
 par(mfrow = c(3, 7), mar = c(1, 0.1, 1, 0.1), oma=c(0, 0, 0, 0))
 XX <- lapply(plotSequence, Plotter)
 ```

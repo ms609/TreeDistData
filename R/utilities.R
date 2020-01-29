@@ -102,7 +102,7 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance MASTSize
-#' ClusteringInfoDistance RobinsonFoulds
+#' ClusteringInfoDistance RobinsonFoulds RobinsonFouldsInfo
 #' @importFrom phangorn path.dist SPR.dist
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #'
