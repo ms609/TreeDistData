@@ -1,0 +1,92 @@
+---
+title: "Lin _et al_. tests"
+author: "Martin R. Smith <martin.smith@durham.ac.uk>"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+  html_document:
+    default: yes
+vignette: >
+  %\VignetteIndexEntry{Lin _et al_. tests}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE}
+library('TreeDistData')
+
+# Obtain values from TreeDistData documentation
+nLeaves <- 40
+nTrees <- 50
+replicates <- 500L
+
+data(linTestOneResults, package='TreeDistData')
+data(linTestTwoResults, package='TreeDistData')
+data(linTestSPRResults, package='TreeDistData')
+
+withText <- 2.4
+yRange <- c(0, 1)
+Panel <- function (letter, x, ...) {
+  text(x, 1.05, paste0('(', letters[letter], ')'), pos=2, offset=0, ...)
+}
+
+
+PlotFunc <- function () {
+  par(mfrow=c(2, 2), mar = c(withText, withText, 1, 0), xpd = NA,
+      mgp = c(withText - 1L, 0.5, 0), cex=0.8)
+
+  x <- seq(30, 70, 10)
+  plot(type='n', range(x) - c(5, 0), yRange, axes=FALSE,
+       ylab='Success rate', xlab='% leaves in skeleton')
+  axis(1, x)
+  yLab <- seq(0, 1, length.out = 5)
+  axis(2, yLab)
+  scores <- colMeans(linTestOneResults) / replicates
+  methods <- rownames(scores)
+  XX <- lapply(methods, function (method) {
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+  })
+  Panel(1, min(x))
+
+  par(mar = c(withText, 1, 1, 0))
+
+  x <- seq(10, 40, 10) / 100 * nLeaves
+  plot(type='n', range(x), yRange, axes=FALSE,
+       ylab='', xlab='Leaf label interchanges')
+  axis(1, x)
+  axis(2, at = yLab, labels = rep('', 5))
+  scores <- colMeans(linTestTwoResults) / replicates
+  methods <- rownames(scores)
+  XX <- lapply(methods, function (method) {
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+  })
+
+  Panel(2, min(x))
+
+
+  par(mar = c(withText, withText, 1, 0), xpd = NA)
+  x <- seq(20, 100, 20) / 100 * nLeaves
+  plot(type='n', range(x), yRange, axes=FALSE,
+       ylab='Success rate', xlab='Subtree prune and regraft operations')
+  axis(1, x)
+  yLab <- seq(0, 1, length.out = 5)
+  axis(2, yLab)
+  scores <- colMeans(linTestSPRResults) / replicates
+  XX <- lapply(rownames(scores), function (method) {
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+  })
+  Panel(3, min(x))
+
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+  legend('right', tdAbbrevs[methods], lty = 1, col = TreeDistCol(methods),
+         bty='n', lwd = 2, cex = 0.9)
+}
+
+PlotFunc()
+```
+
+```
+PlotMe(4, oneCol, 1.23, PlotFunc)
+```
