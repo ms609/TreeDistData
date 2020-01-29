@@ -1,10 +1,11 @@
 library('TreeDist')
 
 plotSequence <- c('dpi', 'cid', 'nts', 'qd',
-                  'msd', 'path', 'spr', 'rf', 'rfi',
+                  'msd', 'path', 'spr', 'rf',
+                  'rfi',
                   'ja2', 'ja4', 'jna2', 'jna4',
-                  'nni_l', 'nni_t', 'nni_u',
-                  'tbr_l', 'tbr_u',
+                  'nni_l', 'nni_t', 'nni_u', 'tbr_l',
+                  'tbr_u',
                   'mast', 'masti')
 legendSequence <- c('dpi', 'cid', 'nts', 'msd', 'qd', 'path', 'rf', 'rfi',
                     'ja2', 'ja4', 'jna2', 'jna4',
@@ -91,7 +92,9 @@ TDPair <- list(
   cid = function (tr, ref) round(ClusteringInfoDistance(tr, ref, normalize = TRUE), 4L),
   nts = function (tr, ref) round(1 - NyeTreeSimilarity(tr, ref, normalize = TRUE), 4L),
   tbr_u = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_max,
+  tbr_l = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_min,
   nni_t = function(tr, ref) NNIDist(tr, ref)['tight_upper'],
+  nni_l = function(tr, ref) NNIDist(tr, ref)['lower'],
   nni_u = function(tr, ref) NNIDist(tr, ref)['loose_upper'],
   mast = MASTSize, masti = MASTInfo, mafi = TBRDist::MAFInfo,
   msd = function (tr, ref) signif(MatchingSplitDistance(tr, ref), 4),
