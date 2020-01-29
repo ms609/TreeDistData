@@ -199,3 +199,16 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
     path = pathDist
   )
 }
+
+#' Select colour from palette
+#'
+#' @param method Character specifying acronym for method: one of [`tdMethods`].
+#' @param opacity Character specifying fex code for opacity; `"FF"` = opaque.
+#'
+#' @return `TreeDistCol()` returns a hex code for the colour matching the
+#' specified method.
+#'
+#' @export
+TreeDistCol <- function (method, opacity = 'FF') {
+  paste0(tdCol[method], opacity)
+}

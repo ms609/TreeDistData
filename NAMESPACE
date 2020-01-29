@@ -3,6 +3,7 @@
 export(AllDists)
 export(CompareAllTrees)
 export(PairwiseDistances)
+export(TreeDistCol)
 importFrom(Quartet,ManyToManyQuartetAgreement)
 importFrom(Quartet,QuartetDivergence)
 importFrom(Quartet,QuartetStatus)

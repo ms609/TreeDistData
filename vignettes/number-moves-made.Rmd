@@ -1,0 +1,94 @@
+---
+title: "Number of moves made"
+author: "Martin R. Smith"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{Number of moves made}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+pd11 <- TreeDistData::pectinateDistances11
+abbrevs <- TreeDistData::tdAbbrevs
+pectinateTree <- Quartet::sq_trees$caterpillar
+
+pm1l <- ape::read.tree(text='(((((2, 3), 4), 5), 6), (7, (8, (9, (10, (11, 1))))));')
+pm1l$edge.lengths <- c(rep(1, 4L), 2, rep(1, 12), .5, .5, 1.5)
+topTail <- Quartet::sq_trees$top_and_tail
+
+pd11['qd', ] <- pd11['qd', ] * 330L
+
+BoxPlot <- function (method) {
+  message("Plotting ", method)
+  distances <- pd11[method, ]
+  faintCol <- TreeDistCol(method, '33')
+  opaqueCol <- TreeDistCol(method)
+  if (method %in% c('rf', 'spr', 'mast', 'masti', 'mafi', 'tbr_u', 'nni_t', 'nni_u')) {
+    histy <- hist(distances - 1e-7, breaks=min(80L, length(unique(distances))), plot=FALSE)
+    histMax <- max(histy$counts)
+    xMax <- switch(method,
+                   'mafi' = LnUnrooted(11) / log(2),
+                   'mast' = 11,
+                   'masti' = LnUnrooted(11) / log(2),
+                   max(histy$breaks))
+    plot(histy, axes = FALSE, main = NA, xlab = NA, ylab = NA, cex = 0.8,
+         col = faintCol, border=NA, xlim = c(0, xMax))
+  } else {
+    dists <- sample(distances, min(1000, length(distances)))
+    kde <- kdensity::kdensity(dists, tolerance = 5, kernel = 'gamma')
+    nBins <- 1024
+    binMiddle <- max(dists) / nBins / 2
+    kRange <- seq(0, max(dists), length.out = nBins)
+    histMax <- max(kde(kRange))
+    plot(kRange, kde(kRange), col = faintCol, type='n', # main = abbrevs[method],
+         axes = FALSE, ylab = NA, xlab = NA, xlim=c(0, max(dists)))
+    rect(kRange - binMiddle, 0, kRange + binMiddle, kde(kRange), col = faintCol,
+         border = NA)
+  }
+  yAt <- histMax / 2L
+  boxplot(distances, border=opaqueCol, horizontal = TRUE,
+          axes=FALSE, add=TRUE, at=yAt, outline = FALSE, boxwex=histMax * 0.6,
+          col= '#ffffff00', lwd=2)
+  legend('left', bty='n', legend=abbrevs[method])
+  points(TDPair[[method]](pectinateTree, pm1l), histMax * 0.8,
+         pch = 25L, cex=1.5, col='black', bg = opaqueCol)
+  points(TDPair[[method]](pectinateTree, topTail), histMax * 0.2,
+         pch = 24L, cex=1.5, col='black', bg = opaqueCol)
+  axis(1, col=opaqueCol)
+}
+
+PlotFunc <- function() {
+  par(mar=c(1, 0.2, 1, 1), xpd = NA)
+  nMethod <- length(legendSequence)
+  nRow <- nMethod / 2
+  layout(matrix(c(rep(1:3, each = nRow),
+                  3 + rep(seq_len(nMethod), each=3)), ncol=3),
+         widths=c(1, 2, 2))
+
+  par(mar=c(0.2, 0, 1, 1))
+  TreeDistPlot(pectinateTree, '', leaveRoom = FALSE, 
+               cex=1, xpd=NA)
+  legend('bottomleft', legend="Pectinate reference\ntree", bty='n',
+         inset=c(-0.1, -0.04))
+
+  TreeDistPlot(pm1l, '', bold=1L, leaveRoom = FALSE, cex=1, graft=20)
+  legend('bottomleft', legend="Move one tip (A)", pch=25, bty='n',
+         inset=c(-0, -0.02), pt.cex=1.5)
+
+  TreeDistPlot(topTail, '', leaveRoom = FALSE, cex=1,
+               bold=c(1, 11), graft=c(6, 20))
+  legend('bottomleft', legend="Exchange two \ntips (A, K)", pch=24, bty='n',
+         inset=c(-0.0, -0.005), pt.cex=1.5)
+
+  par(mar=c(1.9, 0.2, 0.2, 0.2))
+  XX <- lapply(legendSequence, BoxPlot)
+}
+
+PlotFunc()
+```
+
+PlotMe(1, oneCol, 1.75, PlotFunc)
