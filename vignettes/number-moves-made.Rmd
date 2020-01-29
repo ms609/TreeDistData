@@ -69,16 +69,16 @@ PlotFunc <- function() {
          widths=c(1, 2, 2))
 
   par(mar=c(0.2, 0, 1, 1))
-  TreeDistPlot(pectinateTree, '', leaveRoom = FALSE, 
+  TreeDist::TreeDistPlot(pectinateTree, '', leaveRoom = FALSE, 
                cex=1, xpd=NA)
   legend('bottomleft', legend="Pectinate reference\ntree", bty='n',
          inset=c(-0.1, -0.04))
 
-  TreeDistPlot(pm1l, '', bold=1L, leaveRoom = FALSE, cex=1, graft=20)
+  TreeDist::TreeDistPlot(pm1l, '', bold=1L, leaveRoom = FALSE, cex=1, graft=20)
   legend('bottomleft', legend="Move one tip (A)", pch=25, bty='n',
          inset=c(-0, -0.02), pt.cex=1.5)
 
-  TreeDistPlot(topTail, '', leaveRoom = FALSE, cex=1,
+  TreeDist::TreeDistPlot(topTail, '', leaveRoom = FALSE, cex=1,
                bold=c(1, 11), graft=c(6, 20))
   legend('bottomleft', legend="Exchange two \ntips (A, K)", pch=24, bty='n',
          inset=c(-0.0, -0.005), pt.cex=1.5)
