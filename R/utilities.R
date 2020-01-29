@@ -31,7 +31,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     dpi = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
     msid = MatchingSplitInfoDistance(tr1, tr2, normalize = TRUE),
     cid = ClusteringInfoDistance(tr1, tr2, normalize = TRUE),
-    qd = qd,
+    qd = unname(qd),
     nts = NyeTreeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
 
     ja2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
