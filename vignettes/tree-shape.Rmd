@@ -10,8 +10,9 @@ output:
 ---
 
 ```{r define-parameters, echo = FALSE}
-require('TreeDist')
 require('TreeTools')
+require('TreeDist')
+require('TreeDistData')
 nSample <- 100L
 ```
 
@@ -57,10 +58,10 @@ PlotMethod <- function (method, doPlot = TRUE) {
 
   if (doPlot) {
     plot(type='n', 0, 0, xlim = c(-1, 1), ylim = c(-1, 1), axes = F)
-    text(0, 0.5, abbrevs[method], col = methodCol[method])
+    text(0, 0.5, abbrevs[method], col = TreeDistCol(method))
     text(0, -0.5, signif(reg$adj.r.squared, 3))
 
-    plot(dat, border = methodCol[method], axes = FALSE)
+    plot(dat, border = TreeDistCol(method), axes = FALSE)
   }
   reg$adj.r.squared
 }
@@ -92,36 +93,38 @@ knitr::kable(result)
 ```
 
 ```{r plot, echo = FALSE}
-  header <- cbind(c(1, 1), matrix(2:21, ncol=10, byrow=TRUE))
-  body <- matrix(rep(21 + seq_len(nMethod * 2), rep(c(1, 10), nMethod)),
-                 byrow=TRUE, ncol = 11)
-  layout(rbind(header, body), widths = c(2, rep(1, 10)))
-  par(mar = rep(0, 4L))
+cbPalette8 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", 
+"#D55E00", "#CC79A7")
+header <- cbind(c(1, 1), matrix(2:21, ncol=10, byrow=TRUE))
+body <- matrix(rep(21 + seq_len(nMethod * 2), rep(c(1, 10), nMethod)),
+               byrow=TRUE, ncol = 11)
+layout(rbind(header, body), widths = c(2, rep(1, 10)))
+par(mar = rep(0, 4L))
 
-  plot(type='n', 0, 0, xlim = c(-1, 1), ylim = c(-1, 1), axes = F)
-  text(0, 0.8, 'p(same)')
+plot(type='n', 0, 0, xlim = c(-1, 1), ylim = c(-1, 1), axes = F)
+text(0, 0.8, 'p(same)')
 
-  palette <- c( colorspace::sequential_hcl(8, h = 0, c = 0, l = c(10, 95),
-                                           power = 0.9)[3:8], '#FFFFFF')
-  alongPal <- seq_along(palette)
-  nPal <- length(palette)
+palette <- c( colorspace::sequential_hcl(8, h = 0, c = 0, l = c(10, 95),
+                                         power = 0.9)[3:8], '#FFFFFF')
+alongPal <- seq_along(palette)
+nPal <- length(palette)
 
-  xMid <- c(-0.7, 0, 0.7)
-  xWid <- 0.15
-  rect(xMid - xWid, 0.4, xMid + xWid, 0.2, col = palette[6:4])
-  text(xMid, 0.2, pos = 1, labels = c('p \u2264 1', '\u2264 0.1', '0.05'))
-  rect(xMid - xWid, -0.2, xMid + xWid, -0.4, col = palette[3:1])
-  text(xMid, -0.4, pos = 1, labels = c('0.01', '0.001', '0.0001'))
+xMid <- c(-0.7, 0, 0.7)
+xWid <- 0.15
+rect(xMid - xWid, 0.4, xMid + xWid, 0.2, col = palette[6:4])
+text(xMid, 0.2, pos = 1, labels = c('p \u2264 1', '\u2264 0.1', '0.05'))
+rect(xMid - xWid, -0.2, xMid + xWid, -0.4, col = palette[3:1])
+text(xMid, -0.4, pos = 1, labels = c('0.01', '0.001', '0.0001'))
 
-  shape1 <- c(0,0,0,0, 1,1,1, 2,2, 3)
-  shape2 <- c(0,1,2,3, 1,2,3, 2,3, 3)
+shape1 <- c(0,0,0,0, 1,1,1, 2,2, 3)
+shape2 <- c(0,1,2,3, 1,2,3, 2,3, 3)
 
-  xx <- lapply(c(shape1, shape2), function (shape) {
-    plot(UnrootedTreeWithShape(shape, nTip = nTip),
-         edge.color = cbPalette8[shape + 1L])
-    text(1, 9, shape + 1L, col = cbPalette8[shape + 1L])
-  })
+xx <- lapply(c(shape1, shape2), function (shape) {
+  plot(UnrootedTreeWithShape(shape, nTip = 8),
+       edge.color = cbPalette8[shape + 1L])
+  text(1, 9, shape + 1L, col = cbPalette8[shape + 1L])
+})
 
-  lapply(seMethods, PlotMethod) -> XX
+lapply(seMethods, PlotMethod) -> XX
 ```
 
