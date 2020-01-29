@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: 
   bookdown::pdf_document2:
     toc: no
-  rmarkdown::html_vignette
+  rmarkdown::html_vignette:
     default: yes
 bibliography: ../inst/REFERENCES.bib
 csl: ../inst/apa-old-doi-prefix.csl
