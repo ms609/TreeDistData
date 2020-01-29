@@ -1,10 +1,11 @@
 context("Loading data")
 
 test_that("Data dimensions are correct", {
-  nMetrics <- 19L
+  nMetrics <- 20L
 
   data("sevenTipDistances", package='TreeDistData')
-  expect_equal(nMetrics + 1L, length(sevenTipDistances))
+  expect_equal(nMetrics, length(sevenTipDistances))
+  expect_equal(c(945L, 945L), dim(sevenTipDistances[[1]]))
 
   data("distanceDistribution25", package='TreeDistData')
   expect_equal(c(nMetrics, 10000L), dim(distanceDistribution25))
