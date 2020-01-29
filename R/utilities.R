@@ -170,21 +170,21 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG('MSD')
   msd <- MatchingSplitDistance(splits)
 
-  MSG('RF')
-  rf <- RobinsonFoulds(splits)
-
   MSG('Complete; listing.')
   list(
-    dpi = dpi,
-    msid = msid,
-    cid = cid,
-    qd = qd,
-    nts = nts,
+    rf = RobinsonFoulds(splits),
+    rfi = RobinsonFouldsInfo(splits),
 
     ja2 =  JaccardRobinsonFoulds(splits, k = 2, arboreal = TRUE, normalize = TRUE),
     ja4 =  JaccardRobinsonFoulds(splits, k = 4, arboreal = TRUE, normalize = TRUE),
     jna2 = JaccardRobinsonFoulds(splits, k = 2, arboreal = FALSE, normalize = TRUE),
     jna4 = JaccardRobinsonFoulds(splits, k = 4, arboreal = FALSE, normalize = TRUE),
+
+    dpi = dpi,
+    msid = msid,
+    cid = cid,
+    qd = qd,
+    nts = nts,
 
     msd = msd,
     mast = mast,
@@ -195,7 +195,6 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
     spr = sprDist,
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
-    rf = rf,
     path = pathDist
   )
 }

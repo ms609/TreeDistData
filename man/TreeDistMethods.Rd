@@ -22,6 +22,6 @@ TDFunctions
 TDPair
 }
 \description{
-TODO Describe in detail
+<<#TODO Describe in detail.>>
 }
 \keyword{datasets}

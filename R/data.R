@@ -260,7 +260,7 @@ NULL
 
 #' Evaluating tree distance metrics with method of _Lin et al._ 2012
 #'
-#' #TODO Describe in detail.
+#' <<#TODO Describe in detail.>>
 #'
 #' @references \insertRef{Lin2012}{TreeDistData}
 #' @name linTests
@@ -275,7 +275,7 @@ NULL
 
 #' Method parameters
 #'
-#' # TODO Describe in detail
+#' <<#TODO Describe in detail.>>
 #'
 #' @name TreeDistMethods
 
@@ -293,3 +293,9 @@ NULL
 
 #' @rdname TreeDistMethods
 'TDPair'
+
+#' SPR walk distances
+#'
+#' <<#TODO Describe in detail.>>
+#'
+'sprDistances'

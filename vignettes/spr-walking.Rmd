@@ -1,0 +1,62 @@
+---
+title: "SPR walking"
+author: "Martin R. Smith <martin.smith@durham.ac.uk>"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+  rmarkdown::html_vignette
+    default: yes
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{SPR walking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r load, echo = FALSE, message=FALSE}
+# Update from data-raw/sprDistances.R
+nTrees <- 75L
+nTip <- 50L
+```
+
+SPR Walking: generating `r nTrees` trees with `r nTip` tips, from a pectinate
+starting tree.
+
+```{r distances, echo = FALSE}
+moves <- abs(outer(seq_len(nTrees), seq_len(nTrees), '-'))
+distances <- TreeDistData::sprDistances
+```
+
+```{r plots, echo = FALSE, fig.width=7, fig.height=6}
+Plotter <- function (method) {
+  dat <- as.matrix(distances[[method]])
+  if (method %in% c('mast', 'masti')) dat <- nTip - dat
+  dat.A <- dat[!is.na(dat)]
+  moves.A <- moves[!is.na(dat)]
+  col <- TreeDistCol(method)
+  boxplot(dat.A ~ moves.A, border = col, ylab = abbrevs[method],
+          xlab = 'SPR moves', axes= F)
+  tau <- cor.test(dat.A, moves.A, method="kendall", use="pairwise")$estimate
+  text(max(moves.A), min(dat.A), paste('tau-b =', signif(tau, 3)), pos = 2, col = col)
+  legend('topleft', tdAbbrevs[method], bty='n', col = col)
+}
+plotSequence <- tdMethods[tdMethods %in% names(distances)]
+```
+
+```{r, echo = FALSE, fig.width=7, fig.height=6}
+par(mfrow = c(3, 7), mar = c(1, 0.1, 1, 0.1), oma=c(0, 0, 0, 0))
+XX <- lapply(plotSequence, Plotter)
+```
+
+```{r table, output="asis", echo = FALSE}
+Tabler <- function (method) {
+  dat <- as.matrix(distances[[method]])
+  cor.test(dat[!is.na(dat)], moves[!is.na(dat)], method="kendall",
+           use="pairwise")$estimate
+}
+
+knitr::kable(t(abs(signif(vapply(plotSequence, Tabler, double(1)), 3))))
+```
