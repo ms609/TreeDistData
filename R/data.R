@@ -160,16 +160,18 @@ NULL
 #' (equivalent to rooted 6-tip trees).  Following Kendall and Colijn (2016).
 #'
 ## <!--Text copied from distanceDistribution25 above -->
+#'
 #' The list entries are named with an abbreviation of the tree comparison metric.
-#' Variation of information measures are normalized against the maximum
-#' possible variation of information for trees of the corresponding topologies.
+#' Information-based measures are normalized against the splitwise information
+#' content/entropy for binary trees of the corresponding topologies.
+#' <!--#TODO VERIFY-->
 #' The quartet distance, Nye _et al._ and Jaccard-Robinson-Foulds measures
 #' are normalized against their maximum possible values.
 #' The remaining measures are unnormalized.
 #'
-#' - `vpi`: Variation of Phylogenetic Information (Smith, forthcoming)
-#' - `vmsi`: Variation of Matching Split Information (Smith, forthcoming)
-#' - `vci`: Variation of Clustering Information (Smith, forthcoming)
+#' - `dpi`: Different Phylogenetic Information (Smith, forthcoming)
+#' - `msid`: Matching Split Information Distance (Smith, forthcoming)
+#' - `cid`: Clustering Information Distance (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)
 #' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
 #' - `ja2`, `ja4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4
@@ -184,15 +186,18 @@ NULL
 #' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
 #'          (TBR) distance
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
+#' - `rfi`: Robinson-Foulds distance, splits weighted by phylogenetic
+#' information content (Smith, forthcoming)
 #' - `path`: Path distance (Steel & Penny 1993), unnormalized
 #'
 #' Each item in the list contains a 945&times;945 matrix reporting the distance
-#' between each pair of seven-tip trees.
+#' between each pair of seven-tip trees.  The first 630 trees are pectinate
+#' (tree shape 0), the final 315 are balanced (tree shape 1).
 #'
-#' The final entry of the list is `shapes`, whose value is an integer vector.
-#' Each unique tree topology is represented by a distinct vector, whose digits
-#' denote the number of nodes in the tree that possess 6, 5, 4, 3, 2 and 1
-#' descendant nodes.
+#' @examples
+#' plot(TreeTools::UnrootedTreeWithShape(0, 7))
+#' plot(TreeTools::UnrootedTreeWithShape(1, 7))
+#'
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
@@ -218,8 +223,8 @@ NULL
 
 #' Bullseye test results
 #'
-#' Trees used to implement a 'Bullseye' test, after that proposed by Kuhner
-#' and Yamato (2015).
+#' Implementation and results of a 'Bullseye' test, after that proposed by
+#' Kuhner and Yamato (2015).
 #'
 #' `bullseyeTrees` is a list with four elements, named `5 tips`, `10 tips`,
 #' `20 tips` and `50 tips`.  Each element contains 1&nbsp;000 trees with _n_
