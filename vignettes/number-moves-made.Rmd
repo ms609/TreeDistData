@@ -12,7 +12,6 @@ vignette: >
 ---
 
 ```{r, echo = FALSE}
-library('TreeDist')
 library('TreeDistData')
 pd11 <- TreeDistData::pectinateDistances11
 abbrevs <- TreeDistData::tdAbbrevs
@@ -61,6 +60,10 @@ BoxPlot <- function (method) {
          pch = 24L, cex=1.5, col='black', bg = opaqueCol)
   axis(1, col=opaqueCol)
 }
+```
+
+```{r, echo = FALSE}
+library('TreeDist')
 
 PlotFunc <- function() {
   par(mar=c(1, 0.2, 1, 1), xpd = NA)
