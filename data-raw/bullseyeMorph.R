@@ -4,7 +4,11 @@ library('TreeDist')
 
 data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
 tipsNames <- names(bullseyeTrees)
+nTrees <- stop("nTrees Not set.")
 subsamples <- 10:1 * 200
+
+bullseyeMorphInferred <- vector('list', length(tipsNames))
+names(bullseyeMorphInferred) <- tipsNames
 
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
@@ -18,17 +22,20 @@ WriteTNTData <- function (dataset, fileName) {
         fileName)
 }
 
-bullseyeMorphInferred <- vector('list', length(tipsNames))
-names(bullseyeMorphInferred) <- tipsNames
+
+CacheFile <- function (name, ext = '', tmpDir = FALSE) {
+  root <- if (tmpDir) tempdir() else paste0(system.file(package='TreeDistData'), '/../data-raw/trees/')
+  paste0(root, name, ext)
+}
 
 for (tipName in names(bullseyeTrees)) {
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
   seqs <- lapply(theseTrees, simSeq, l = 2000, type='USER', levels=1:4)
-  inferred <- vector(mode='list', nTrees)
+  inferred <- vector(mode = 'list', nTrees)
 
 
   for (i in seq_along(seqs)) {
-    seq00 <- formatC(i - 1, width=3, flag='0')
+    seq00 <- formatC(i - 1L, width = 3, flag='0')
     FilePattern <- function (n) {
       paste0(substr(tipName, 0, nchar(tipName) - 5),
              't-', seq00, '-k6-',
@@ -36,8 +43,8 @@ for (tipName in names(bullseyeTrees)) {
              '.tre')
     }
 
-    if (!file.exists(FilePattern(200))) {
-      seqFile <- paste0(tempdir(), '\\seq-', seq00, '.tnt')
+    if (!file.exists(CacheFile(FilePattern(200))) {
+      seqFile <- paste0(treeCache, '\\seq-', seq00, '.tnt')
       WriteTNTData(seqs[[i]], file = seqFile)
       Line <- function (n) {
         paste0("piwe=6 ;xmult;tsav *", FilePattern(n),
@@ -101,12 +108,12 @@ for (tipName in tipsNames) {
 
     normInfo <- PartitionInfo(tr)
     cbind(
-      mpi = 1 - MutualPhylogeneticInfo(tr, trs, normalize=normInfo),
-      vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
-      mmsi = 1 - MutualMatchingSplitInfo(tr, trs, normalize=normInfo),
-      vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=TRUE),
+      spi = 1 - SharedPhylogeneticInfo(tr, trs, normalize=normInfo),
+      dpi = DifferentPhylogeneticInfo(tr, trs, normalize=TRUE),
+      msi = 1 - MatchingSplitInfo(tr, trs, normalize=normInfo),
+      msid = MatchingSplitInfoDistance(tr, trs, normalize=TRUE),
       mci = 1 - MutualClusteringInfo(tr, trs, normalize=normInfo),
-      vci = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
+      cid = ClusteringInfoDistance(tr, trs, normalize=TRUE),
       qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
       nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
       msd = MatchingSplitDistance(tr, trs),
@@ -115,7 +122,7 @@ for (tipName in tipsNames) {
     )
   }, matrix(0, nrow = 10L, ncol=12L,
             dimnames=list(subsamples,
-                          c('mpi', 'vpi', 'mmsi', 'vmsi', 'mci', 'vci',
+                          c('spi', 'dpi', 'msi', 'msid', 'mci', 'cid',
                             'qd', 'nts', 'msd', 'rf', 'path', 'spr')
   )))
   bullseyeMorphScores[[tipName]] <- theseScores
