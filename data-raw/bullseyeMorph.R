@@ -23,9 +23,10 @@ WriteTNTData <- function (dataset, fileName) {
 }
 
 
-CacheFile <- function (name, ext = '', tmpDir = FALSE) {
-  root <- if (tmpDir) tempdir() else paste0(system.file(package='TreeDistData'), '/../data-raw/trees/')
-  paste0(root, name, ext)
+CacheFile <- function (name, ..., tmpDir = FALSE) {
+  root <- if (tmpDir) tempdir() else paste0(system.file(package='TreeDistData'),
+                                            '/../data-raw/trees/')
+  paste0(root, name, ...)
 }
 
 for (tipName in names(bullseyeTrees)) {
@@ -43,8 +44,8 @@ for (tipName in names(bullseyeTrees)) {
              '.tre')
     }
 
-    if (!file.exists(CacheFile(FilePattern(200))) {
-      seqFile <- paste0(treeCache, '\\seq-', seq00, '.tnt')
+    if (!file.exists(CacheFile(FilePattern(200)))) {
+      seqFile <- CacheFile('seq-', seq00, '.tnt')
       WriteTNTData(seqs[[i]], file = seqFile)
       Line <- function (n) {
         paste0("piwe=6 ;xmult;tsav *", FilePattern(n),
@@ -54,7 +55,7 @@ for (tipName in names(bullseyeTrees)) {
       }
 
       runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
-      runFile <- paste0(runRoot, '.run', collapse='')
+      runFile <- CacheFile(runRoot, '.run')
       file.create(runFile)
       write(paste("macro =;
        xmult:hits 1 level 4 chklevel 5 rat5 drift5;
@@ -80,7 +81,7 @@ for (tipName in names(bullseyeTrees)) {
     inferred[[i]] <-
       lapply(formatC(subsamples, width=4, flag='0'),
              function (nChar) {
-               tr <- ReadTntTree(FilePattern(nChar),
+               tr <- ReadTntTree(CacheFile(FilePattern(nChar)),
                                  relativePath = '.',
                   tipLabels = theseTrees[[i]]$tip.label)
                # Return:
@@ -106,6 +107,13 @@ for (tipName in tipsNames) {
     tr$edge.length  <- NULL
     trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
 
+    mast <- lapply(trs, MASTSize, tr, rooted = FALSE)
+    masti <-  LnUnrooted(mast) / log(2)
+    attributes(masti) <- attributes(mast)
+
+    nni <- NNIDist(tr, trs)
+    tbr <- TBRDist(tr, trs)
+
     normInfo <- PartitionInfo(tr)
     cbind(
       spi = 1 - SharedPhylogeneticInfo(tr, trs, normalize=normInfo),
@@ -115,7 +123,23 @@ for (tipName in tipsNames) {
       mci = 1 - MutualClusteringInfo(tr, trs, normalize=normInfo),
       cid = ClusteringInfoDistance(tr, trs, normalize=TRUE),
       qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
-      nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
+
+      ja2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
+      ja4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = TRUE, normalize = TRUE),
+      jna2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = FALSE, normalize = TRUE),
+      jna4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = FALSE, normalize = TRUE),
+
+      mast = mast,
+      masti = masti,
+      nni_l = nni[['lower']],
+      nni_t = nni[['tight_upper']],
+      nni_u = nni[['loose_upper']],
+      spr = SPR.dist(tr1, tr2)[['spr']],
+      tbr_l = tbr$tbr_min,
+      tbr_u = tbr$tbr_max,
+      rf = RobinsonFoulds(tr1, tr2),
+      path = path.dist(tr1, tr2)
+      nts = NyeTreeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
       msd = MatchingSplitDistance(tr, trs),
       t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
       spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
