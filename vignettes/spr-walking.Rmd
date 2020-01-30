@@ -23,7 +23,7 @@ nTip <- 50L
 
 moves <- abs(outer(seq_len(nTrees), seq_len(nTrees), '-'))
 distances <- TreeDistData::sprDistances
-plotSequence <- tdMethods[tdMethods %in% names(distances)]
+plotSequence <- TreeDistData::tdMethods[TreeDistData::tdMethods %in% names(distances)]
 
 Plotter <- function (method) {
   dat <- as.matrix(distances[[method]])
