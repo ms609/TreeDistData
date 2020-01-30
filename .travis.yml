@@ -32,6 +32,7 @@ jobs:
       deploy:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github()'
+        cleanup: false
         skip_cleanup: true
     - r: devel
       r_binary_packages:
