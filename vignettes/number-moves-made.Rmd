@@ -12,6 +12,8 @@ vignette: >
 ---
 
 ```{r, echo = FALSE}
+library('Quartet')
+library('TreeDist')
 library('TreeDistData')
 pd11 <- TreeDistData::pectinateDistances11
 abbrevs <- TreeDistData::tdAbbrevs
