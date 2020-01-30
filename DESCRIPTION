@@ -20,7 +20,12 @@ Imports:
     TreeTools
 Suggests:
     ape,
+    binom,
     bookdown,
+    colorspace,
+    kdensity,
+    knitr,
+    phangorn,
     Rdpack,
     rmarkdown,
     testthat,

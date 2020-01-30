@@ -18,8 +18,13 @@ matrix:
       before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
       sudo: required
       r_binary_packages:
+       - binom
        - bookdown
+       - colorspace
        - devtools
+       - kdensity
+       - knitr
+       - phangorn
        - Rdpack
        - rmarkdown
        - roxygen2
