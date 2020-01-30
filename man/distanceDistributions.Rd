@@ -3,12 +3,15 @@
 \docType{data}
 \name{distanceDistributions}
 \alias{distanceDistributions}
+\alias{distanceDistribution50}
 \alias{distanceDistribution25}
 \alias{distanceDistribution11}
 \alias{pectinateDistances11}
 \title{Distances between random pairs of trees}
-\format{An object of class \code{matrix} with 9 rows and 10000 columns.}
+\format{An object of class \code{matrix} with 19 rows and 10000 columns.}
 \usage{
+distanceDistribution50
+
 distanceDistribution25
 
 distanceDistribution11

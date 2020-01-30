@@ -4,7 +4,7 @@
 \name{sprDistances}
 \alias{sprDistances}
 \title{SPR walk distances}
-\format{An object of class \code{list} of length 20.}
+\format{An object of class \code{list} of length 21.}
 \usage{
 sprDistances
 }

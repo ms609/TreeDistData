@@ -4,12 +4,12 @@
 \alias{TreeDistCol}
 \title{Select colour from palette}
 \usage{
-TreeDistCol(method, opacity = "FF")
+TreeDistCol(method, opacity = "")
 }
 \arguments{
 \item{method}{Character specifying acronym for method: one of \code{\link{tdMethods}}.}
 
-\item{opacity}{Character specifying fex code for opacity; \code{"FF"} = opaque.}
+\item{opacity}{Character specifying hex code for opacity; \code{"FF"} = opaque.}
 }
 \value{
 \code{TreeDistCol()} returns a hex code for the colour matching the

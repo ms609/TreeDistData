@@ -125,22 +125,31 @@
 NULL
 
 #' @rdname distanceDistributions
+"distanceDistribution50"
+#' @rdname distanceDistributions
 "distanceDistribution25"
 #' @rdname distanceDistributions
 "distanceDistribution11"
 #' @rdname distanceDistributions
 "pectinateDistances11"
 
-#' Pairs of random 25-tip trees
+#' Pairs of random trees
 #'
-#' A list of 10 000 25-tip trees drawn from the uniform distribution using
-#' `ape::rtree(nTip, br=NULL)`.
+#' Lists of 10 000 pairs of trees drawn from the uniform distribution using
+#' `ape::rtree(nTip, br = NULL)`.
 #'
 #' The distances between these pairs of trees are recorded in
-#' the data object [`distanceDistribution25`].
+#' the data objects  [`distanceDistribution25`] and  [`distanceDistribution50`].
 #'
+#' @name randomTreePairs
 #' @keywords datasets
+NULL
+
+#' @rdname randomTreePairs
 "randomTreePairs25"
+
+#' @rdname randomTreePairs
+"randomTreePairs50"
 
 
 #' Distances between unrooted seven-tip trees
