@@ -8,7 +8,7 @@ test_that("Data dimensions are correct", {
   expect_equal(c(945L, 945L), dim(sevenTipDistances[[1]]))
 
   data("distanceDistribution25", package='TreeDistData')
-  expect_equal(c(nMetrics, 10000L), dim(distanceDistribution25))
+  expect_equal(c(nMetrics - 1L, 10000L), dim(distanceDistribution25))
 
   #TODO update other datasets for all 20 metrics?
   allDistMethods <- c('dpi', 'msid', 'cid', 'qd', 'nts', 'ja2', 'ja4', 'jna2',
