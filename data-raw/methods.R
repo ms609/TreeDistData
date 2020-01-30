@@ -47,35 +47,35 @@ tdAbbrevs <- c(
 tdMethods <- names(tdAbbrevs)
 tdMethods <- tdMethods[!tdMethods %in% c('nni', 'nea', 'tbr')]
 
-JA2 <- function (...) JaccardRobinsonFoulds(..., k=2, arboreal=TRUE)
-JA4 <- function (...) JaccardRobinsonFoulds(..., k=4, arboreal=TRUE)
-JNA2 <- function (...) JaccardRobinsonFoulds(..., k=2, arboreal=FALSE)
-JNA4 <- function (...) JaccardRobinsonFoulds(..., k=4, arboreal=FALSE)
+JA2 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal=TRUE)
+JA4 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=TRUE)
+JNA2 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal=FALSE)
+JNA4 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=FALSE)
 
 TDFunctions <- list(
   rf = TreeDist::RobinsonFoulds,
   rfi = TreeDist::RobinsonFouldsInfo,
-  ja2 = JA2 ,
-  ja4 = JA4 ,
+  ja2 = JA2,
+  ja4 = JA4,
   jna2 = JNA2,
   jna4 = JNA4,
 
   dpi = DifferentPhylogeneticInfo,
-  nni_u =  function(...) as.matrix(NNIDist(...)$loose_upper),
-  nni_t =  function(...) as.matrix(NNIDist(...)$tight_upper),
-  nni_l =  function(...) as.matrix(NNIDist(...)$lower),
+  nni_u =  function(...) as.matrix(TreeDist::NNIDist(...)$loose_upper),
+  nni_t =  function(...) as.matrix(TreeDist::NNIDist(...)$tight_upper),
+  nni_l =  function(...) as.matrix(TreeDist::NNIDist(...)$lower),
   tbr_l =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_min),
   tbr_u =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_max),
   spr = phangorn::SPR.dist,
   tbr =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_max),
   path = phangorn::path.dist,
-  mast =  function(...) MASTSize(..., rooted = FALSE),
-  masti = function(...) MASTInfo(..., rooted = FALSE),
-  cid = ClusteringInfoDistance,
-  nts = NyeTreeSimilarity,
-  msid = MatchingSplitInfoDistance,
-  msd = MatchingSplitDistance,
-  qd  = function (...) QuartetDivergence(ManyToManyQuartetAgreement(...)),
+  mast =  function(...) TreeDist::MASTSize(..., rooted = FALSE),
+  masti = function(...) TreeDist::MASTInfo(..., rooted = FALSE),
+  cid = TreeDist::ClusteringInfoDistance,
+  nts = TreeDist::NyeTreeSimilarity,
+  msid = TreeDist::MatchingSplitInfoDistance,
+  msd = TreeDist::MatchingSplitDistance,
+  qd  = function (...) Quartet::QuartetDivergence(Quartet::ManyToManyQuartetAgreement(...)),
   mafi = TBRDist::MAFInfo
 )
 
@@ -87,18 +87,18 @@ TDPair <- list(
   ja4 = function (tr, ref) JA4(tr, ref),
   jna4 = function (tr, ref) JNA2(tr, ref),
 
-  dpi = function (tr, ref) round(DifferentPhylogeneticInfo(tr, ref, normalize = TRUE), 4L),
-  msid = function (tr, ref) round(MatchingSplitInfoDistance(tr, ref, normalize = TRUE), 4L),
-  cid = function (tr, ref) round(ClusteringInfoDistance(tr, ref, normalize = TRUE), 4L),
+  dpi = function (tr, ref) round(TreeDist::DifferentPhylogeneticInfo(tr, ref, normalize = TRUE), 4L),
+  msid = function (tr, ref) round(TreeDist::MatchingSplitInfoDistance(tr, ref, normalize = TRUE), 4L),
+  cid = function (tr, ref) round(TreeDist::ClusteringInfoDistance(tr, ref, normalize = TRUE), 4L),
   nts = function (tr, ref) round(1 - NyeTreeSimilarity(tr, ref, normalize = TRUE), 4L),
   tbr_u = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_max,
   tbr_l = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_min,
-  nni_t = function(tr, ref) NNIDist(tr, ref)['tight_upper'],
-  nni_l = function(tr, ref) NNIDist(tr, ref)['lower'],
-  nni_u = function(tr, ref) NNIDist(tr, ref)['loose_upper'],
-  mast = MASTSize, masti = MASTInfo, mafi = TBRDist::MAFInfo,
-  msd = function (tr, ref) signif(MatchingSplitDistance(tr, ref), 4),
-  qd = function (tr, ref) QuartetStatus(list(tr, ref))[2, 'd'],
+  nni_t = function(tr, ref) TreeDist::NNIDist(tr, ref)['tight_upper'],
+  nni_l = function(tr, ref) TreeDist::NNIDist(tr, ref)['lower'],
+  nni_u = function(tr, ref) TreeDist::NNIDist(tr, ref)['loose_upper'],
+  mast = TreeDist::MASTSize, masti = TreeDist::MASTInfo, mafi = TBRDist::MAFInfo,
+  msd = function (tr, ref) signif(TreeDist::MatchingSplitDistance(tr, ref), 4),
+  qd = function (tr, ref) Quartet::QuartetStatus(list(tr, ref))[2, 'd'],
   path = function (tr, ref) signif(phangorn::path.dist(tr, ref), 4L),
 
   spr = function (tr, ref) phangorn::SPR.dist(tr, ref)
