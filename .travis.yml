@@ -6,7 +6,7 @@ r_check_args: --as-cran
 git:
   depth: 1
 
-matrix:
+jobs:
   include:
     - r: 3.5.0
       r_packages:
@@ -16,7 +16,8 @@ matrix:
        - testthat
     - r: release
       before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-      sudo: required
+      r_packages:
+       - kdensity
       r_binary_packages:
        - binom
        - bookdown
@@ -34,7 +35,6 @@ matrix:
         script: Rscript -e 'pkgdown::deploy_site_github()'
         skip_cleanup: true
     - r: devel
-      sudo: required
       r_binary_packages:
        - devtools
        - Rdpack
