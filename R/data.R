@@ -16,10 +16,10 @@
 #' - `msid`: Variation of Matching Split Information (Smith, forthcoming)
 #' - `cid`: Variation of Clustering Information (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)
-#' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
 #' - `ja2`, `ja4`: Jaccard-Robinson-Foulds distance (B&ouml;cker _et al_. 2013),
 #'      with _k_ = 2, 4, with arboreal matchings enforced
 #' - `jna2`, `jna4`: JRF distance, non-arboreal matchings permitted
+#' - `nts`: Nye _et al._ tree similarity (Nye _et al._ 2006)
 #' - `msd`: Matching Split Distance (Bogdanowicz & Giaro, 2012)
 #' - `mast`, `masti`: Size and information content of maximum agreement subtree
 #' - `nni_l`, `nni_u`: Lower and upper bounds on the nearest neighbour
@@ -30,6 +30,8 @@
 #'      reconnection distance, calculated using
 #'      [TBRDist](https://ms609.github.io/TBRDist/)
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1981)
+#' - `rfi`: Robinson-Foulds distance, splits weighted by phylogenetic
+#'          information content (Smith, forthcoming)
 #' - `path`: Path distance (Steel & Penny 1993)
 #'
 #' Columns list the summary statistics of calculated tree distances: the
@@ -65,15 +67,16 @@
 #' Distances between random pairs of trees
 #'
 #' Two-dimensional matrices listing the normalized distances between random
-#' pairs of bifurcating 11- and 25-tip trees drawn from the uniform distribution
-#' using `ape::rtree(nTip, br=NULL)`.
+#' pairs of bifurcating trees with 11, 25 and 50 leaves drawn from the
+#' uniform distribution using `ape::rtree(nTip, br=NULL)`.
 #'
 #' `pectinateDistances11` reports distances between a pectinate 11-tip tree
 #' and 100&nbsp;000 random bifurcating trees.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric.
-#' Variation of information measures are normalized against the maximum
-#' possible variation of information for trees of the corresponding topologies.
+#' Information-based measures are normalized against the splitwise information
+#' content/entropy for binary trees of the corresponding topologies.
+#' <!--#TODO VERIFY-->
 #' The quartet distance, Nye _et al._ and Jaccard-Robinson-Foulds measures
 #' are normalized against their maximum possible values.
 #' The remaining measures are unnormalized.
@@ -135,8 +138,8 @@ NULL
 
 #' Pairs of random trees
 #'
-#' Lists of 10 000 pairs of trees drawn from the uniform distribution using
-#' `ape::rtree(nTip, br = NULL)`.
+#' Lists of 10&nbsp;000 pairs of binary trees drawn from the uniform
+#' distribution using `ape::rtree(nTip, br = NULL)`.
 #'
 #' The distances between these pairs of trees are recorded in
 #' the data objects  [`distanceDistribution25`] and  [`distanceDistribution50`].
@@ -147,7 +150,6 @@ NULL
 
 #' @rdname randomTreePairs
 "randomTreePairs25"
-
 #' @rdname randomTreePairs
 "randomTreePairs50"
 
