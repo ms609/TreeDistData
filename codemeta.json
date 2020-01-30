@@ -1,20 +1,23 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "TreeDistData",
   "description": "Data used to build vignettes in TreeDist package, and figures in Smith (20XX).",
   "name": "TreeDistData: Large data files to accompany `TreeDist`",
   "codeRepository": "https://github.com/ms609/TreeDistData",
-  "issueTracker": "https://github.com/ms609/TreeDist/issues",
+  "issueTracker": "https://github.com/ms609/TreeDistData/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9006",
+  "version": "0.0.0.9007",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.0",
+    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.0 (2019-04-26)",
+  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
   "author": [
     {
       "@type": "Person",
@@ -56,6 +59,78 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=ape"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "binom",
+      "name": "binom",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=binom"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "bookdown",
+      "name": "bookdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=bookdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "colorspace",
+      "name": "colorspace",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=colorspace"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "kdensity",
+      "name": "kdensity",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=kdensity"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "phangorn",
+      "name": "phangorn",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=phangorn"
     },
     {
       "@type": "SoftwareApplication",
@@ -112,7 +187,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.4.0"
+      "version": ">= 3.5.0"
     },
     {
       "@type": "SoftwareApplication",
@@ -140,14 +215,32 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "TBRDist",
+      "name": "TBRDist",
+      "sameAs": "https://github.com/ms609/TBRDist"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "TreeDist",
       "name": "TreeDist",
       "sameAs": "https://github.com/ms609/TreeDist"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "TreeTools",
+      "name": "TreeTools",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=TreeTools"
     }
   ],
-  "releaseNotes": "https://github.com/ms609/TreeDistData/blob/master/NEWS.md",
+  "releaseNotes": "https://github.com/ms609/TreeDistData.git/blob/master/NEWS.md",
   "readme": "https://github.com/ms609/TreeDistData/blob/master/README.md",
-  "contIntegration": "https://travis-ci.com/ms609/TreeDistData",
+  "contIntegration": "https://travis-ci.org/ms609/TreeDistData",
   "developmentStatus": "http://www.repostatus.org/#inactive",
   "citation": [
     {
@@ -160,7 +253,7 @@
           "familyName": "Smith"
         }
       ],
-      "name": "Untitled",
+      "name": "Information theoretic Generalized Robinson-Foulds metrics\nfor comparing phylogenetic trees",
       "isPartOf": {
         "@type": "PublicationIssue",
         "datePublished": "20XX",
@@ -170,5 +263,7 @@
         }
       }
     }
-  ]
+  ],
+  "relatedLink": "https://ms609.github.io/TreeDistData",
+  "fileSize": "118564.128KB"
 }
