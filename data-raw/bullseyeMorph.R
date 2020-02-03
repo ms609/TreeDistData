@@ -1,10 +1,11 @@
 library('phangorn')
 library('TreeSearch')
 library('TreeDist')
+devtools::load_all() # necessary for correct path-to-inst/
 
-data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
+data("bullseyeTrees", package='TreeDistData') # Generated in bullseyeTrees.R
 tipsNames <- names(bullseyeTrees)
-nTrees <- stop("nTrees Not set.")
+nTrees <- 1000L
 subsamples <- 10:1 * 200
 
 bullseyeMorphInferred <- vector('list', length(tipsNames))
@@ -29,22 +30,27 @@ CacheFile <- function (name, ..., tmpDir = FALSE) {
   paste0(root, name, ...)
 }
 
+
+message("Inferred trees:")
 for (tipName in names(bullseyeTrees)) {
+  message('* ', tipName, ": Simulating sequences...")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
-  seqs <- lapply(theseTrees, simSeq, l = 2000, type='USER', levels=1:4)
+  seqs <- lapply(theseTrees, simSeq, l = 2000, type = 'USER', levels = 1:4)
   inferred <- vector(mode = 'list', nTrees)
 
 
   for (i in seq_along(seqs)) {
+    if (i %% 100 == 1) message(i)
     seq00 <- formatC(i - 1L, width = 3, flag='0')
     FilePattern <- function (n) {
-      paste0(substr(tipName, 0, nchar(tipName) - 5),
+      paste0(substr(tipName, 0, nchar(tipName) - 7),
              't-', seq00, '-k6-',
              formatC(n, width=4, flag='0'),
              '.tre')
     }
 
     if (!file.exists(CacheFile(FilePattern(200)))) {
+      message("File not found at", CacheFile(FilePattern(200)), "; inferring:")
       seqFile <- CacheFile('seq-', seq00, '.tnt')
       WriteTNTData(seqs[[i]], file = seqFile)
       Line <- function (n) {
@@ -95,61 +101,66 @@ usethis::use_data(bullseyeMorphInferred, compress='bzip2', overwrite=TRUE)
 
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
+sampledMethods <-
+  c('dpi', 'msid', 'cid', 'nts',
+    'ja2', 'ja4', 'jna2', 'jna4',
+    'msd', 'mast', 'masti',
+    'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
+    'rf', 'rfi', 'qd', 'path')
 for (tipName in tipsNames) {
   cat('\u2714 Calculating tree distances:', tipName, ':\n')
   inferred <- bullseyeMorphInferred[[tipName]]
   trueTrees <- bullseyeTrees[[tipName]]
   theseScores <- vapply(seq_along(inferred), function (i) {
     cat('.')
+    if (i %% 72 == 0) cat(' ', i, "\n")
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
     tr$edge.length  <- NULL
-    trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
+    trs <- structure(lapply(inferred[[i]], root, rootTip, resolve.root=TRUE),
+                     class = 'multiPhylo')
 
-    mast <- lapply(trs, MASTSize, tr, rooted = FALSE)
+    mast <- vapply(trs, MASTSize, tr, rooted = FALSE, FUN.VALUE = 1L)
     masti <-  LnUnrooted(mast) / log(2)
     attributes(masti) <- attributes(mast)
 
     nni <- NNIDist(tr, trs)
     tbr <- TBRDist(tr, trs)
 
-    normInfo <- PartitionInfo(tr)
+    normInfo <- SplitwiseInfo(tr)
     cbind(
-      spi = 1 - SharedPhylogeneticInfo(tr, trs, normalize=normInfo),
-      dpi = DifferentPhylogeneticInfo(tr, trs, normalize=TRUE),
-      msi = 1 - MatchingSplitInfo(tr, trs, normalize=normInfo),
-      msid = MatchingSplitInfoDistance(tr, trs, normalize=TRUE),
-      mci = 1 - MutualClusteringInfo(tr, trs, normalize=normInfo),
-      cid = ClusteringInfoDistance(tr, trs, normalize=TRUE),
-      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
+      dpi = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
+      msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
+      cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
+      nts = NyeTreeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
 
-      ja2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = TRUE, normalize = TRUE),
-      ja4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = TRUE, normalize = TRUE),
-      jna2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, arboreal = FALSE, normalize = TRUE),
-      jna4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, arboreal = FALSE, normalize = TRUE),
+      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, arboreal = TRUE, normalize = TRUE),
+      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, arboreal = TRUE, normalize = TRUE),
+      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, arboreal = FALSE, normalize = TRUE),
+      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, arboreal = FALSE, normalize = TRUE),
 
+      msd = MatchingSplitDistance(tr, trs),
       mast = mast,
       masti = masti,
-      nni_l = nni[['lower']],
-      nni_t = nni[['tight_upper']],
-      nni_u = nni[['loose_upper']],
-      spr = SPR.dist(tr1, tr2)[['spr']],
+
+      nni_l = nni['lower', ],
+      nni_t = nni['tight_upper', ],
+      nni_u = nni['loose_upper', ],
+      spr = SPR.dist(tr, trs),
       tbr_l = tbr$tbr_min,
       tbr_u = tbr$tbr_max,
-      rf = RobinsonFoulds(tr1, tr2),
-      path = path.dist(tr1, tr2)
-      nts = NyeTreeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
-      msd = MatchingSplitDistance(tr, trs),
-      t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
-      spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
+
+      rf = RobinsonFoulds(tr, trs),
+      rfi = RobinsonFouldsInfo(tr, trs),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
+                                      similarity = FALSE),
+      path = path.dist(tr, trs)
     )
-  }, matrix(0, nrow = 10L, ncol=12L,
-            dimnames=list(subsamples,
-                          c('spi', 'dpi', 'msi', 'msid', 'mci', 'cid',
-                            'qd', 'nts', 'msd', 'rf', 'path', 'spr')
-  )))
+  }, matrix(0, nrow = 10L, ncol = length(sampledMethods),
+            dimnames=list(subsamples, sampledMethods))
+  )
   bullseyeMorphScores[[tipName]] <- theseScores
 }
-usethis::use_data(bullseyeMorphScores, compress='xz', overwrite=TRUE)
+usethis::use_data(bullseyeMorphScores, compress = 'xz', overwrite = TRUE)
 cat(" # # # COMPLETE # # # ")
