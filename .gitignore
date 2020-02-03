@@ -6,12 +6,14 @@ src/*.so
 src/*.dll
 .Rdata
 .Rprofile
+*.aux
 *.gcno
 *.log
 *.out
 *.Rhistory
 *.run
 *.tre
+*.utf8.md
 /* *.Rd */
 revdep/
 vignettes/*.html
