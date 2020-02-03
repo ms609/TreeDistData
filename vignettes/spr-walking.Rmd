@@ -64,6 +64,8 @@ Tabler <- function (method) {
   cor.test(dat[!is.na(dat)], moves[!is.na(dat)], method="kendall",
            use="pairwise")$estimate
 }
+r2 <- vapply(plotSequence, Tabler, double(1))
+r2 <- matrix(r2, dimnames = list(TreeDistData::tdAbbrevs[names(r2)], 'r²'))
 
-knitr::kable(t(abs(signif(vapply(plotSequence, Tabler, double(1)), 3))))
+knitr::kable(abs(signif(r2, 3)))
 ```
