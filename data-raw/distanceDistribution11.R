@@ -1,3 +1,5 @@
+stop("No longer required. Object deleted.")
+
 library('TreeDist')
 suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 set.seed(0)
