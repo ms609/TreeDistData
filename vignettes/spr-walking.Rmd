@@ -30,7 +30,7 @@ Plotter <- function (method) {
   if (method %in% c('mast', 'masti')) dat <- nTip - dat
   dat.A <- dat[!is.na(dat)]
   moves.A <- moves[!is.na(dat)]
-  col <- TreeDistCol(method)
+  col <- TreeDistData::TreeDistCol(method)
   boxplot(dat.A ~ moves.A, border = col, 
           ylab = TreeDistData::tdAbbrevs[method],
           xlab = 'SPR moves', axes= F)
