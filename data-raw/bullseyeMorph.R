@@ -31,7 +31,7 @@ CacheFile <- function (name, ..., tmpDir = FALSE) {
 }
 
 
-message("Inferred trees:")
+message("\n\n=== Infer trees ===\n")
 for (tipName in names(bullseyeTrees)) {
   message('* ', tipName, ": Simulating sequences...")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
@@ -99,6 +99,7 @@ for (tipName in names(bullseyeTrees)) {
 usethis::use_data(bullseyeMorphInferred, compress='bzip2', overwrite=TRUE)
 
 
+message("\n\n === Calculate distances ===\n")
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
 sampledMethods <-
