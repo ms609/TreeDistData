@@ -20,16 +20,18 @@ pectinateDistances11
 }
 \description{
 Two-dimensional matrices listing the normalized distances between random
-pairs of bifurcating 11- and 25-tip trees drawn from the uniform distribution
-using \code{ape::rtree(nTip, br=NULL)}.
+pairs of bifurcating trees with 11, 25 and 50 leaves drawn from the
+uniform distribution using \code{ape::rtree(nTip, br=NULL)}.
 }
 \details{
 \code{pectinateDistances11} reports distances between a pectinate 11-tip tree
 and 100 000 random bifurcating trees.
 
 Rows are named with an abbreviation of the tree comparison metric.
-Variation of information measures are normalized against the maximum
-possible variation of information for trees of the corresponding topologies.
+Information-based measures are normalized against the splitwise information
+content/entropy for binary trees of the corresponding topologies.<!--#TODO VERIFY-->
+
+
 The quartet distance, Nye \emph{et al.} and Jaccard-Robinson-Foulds measures
 are normalized against their maximum possible values.
 The remaining measures are unnormalized.

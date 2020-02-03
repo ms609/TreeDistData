@@ -25,8 +25,8 @@ bullseyeMorphScores
 bullseyeDistances
 }
 \description{
-Trees used to implement a 'Bullseye' test, after that proposed by Kuhner
-and Yamato (2015).
+Implementation and results of a 'Bullseye' test, after that proposed by
+Kuhner and Yamato (2015).
 }
 \details{
 \code{bullseyeTrees} is a list with four elements, named \code{5 tips}, \code{10 tips},

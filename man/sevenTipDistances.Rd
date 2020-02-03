@@ -14,15 +14,17 @@ Distances between each possible pairing of the 945 unrooted seven-tip trees
 }
 \details{
 The list entries are named with an abbreviation of the tree comparison metric.
-Variation of information measures are normalized against the maximum
-possible variation of information for trees of the corresponding topologies.
+Information-based measures are normalized against the splitwise information
+content/entropy for binary trees of the corresponding topologies.<!--#TODO VERIFY-->
+
+
 The quartet distance, Nye \emph{et al.} and Jaccard-Robinson-Foulds measures
 are normalized against their maximum possible values.
 The remaining measures are unnormalized.
 \itemize{
-\item \code{vpi}: Variation of Phylogenetic Information (Smith, forthcoming)
-\item \code{vmsi}: Variation of Matching Split Information (Smith, forthcoming)
-\item \code{vci}: Variation of Clustering Information (Smith, forthcoming)
+\item \code{dpi}: Different Phylogenetic Information (Smith, forthcoming)
+\item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
+\item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
 \item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
 \item \code{ja2}, \code{ja4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4
@@ -37,16 +39,20 @@ for  nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
 (TBR) distance
 \item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1985), unnormalized
+\item \code{rfi}: Robinson-Foulds distance, splits weighted by phylogenetic
+information content (Smith, forthcoming)
 \item \code{path}: Path distance (Steel & Penny 1993), unnormalized
 }
 
 Each item in the list contains a 945×945 matrix reporting the distance
-between each pair of seven-tip trees.
+between each pair of seven-tip trees.  The first 630 trees are pectinate
+(tree shape 0), the final 315 are balanced (tree shape 1).
+}
+\examples{
+plot(TreeTools::UnrootedTreeWithShape(0, 7))
+plot(TreeTools::UnrootedTreeWithShape(1, 7))
 
-The final entry of the list is \code{shapes}, whose value is an integer vector.
-Each unique tree topology is represented by a distinct vector, whose digits
-denote the number of nodes in the tree that possess 6, 5, 4, 3, 2 and 1
-descendant nodes.
+
 }
 \references{
 \insertRef{Bogdanowicz2012}{TreeDist}

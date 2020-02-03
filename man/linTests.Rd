@@ -16,7 +16,7 @@ linTestSPRResults
 linTestTwoResults
 }
 \description{
-<<#TODO Describe in detail.>>
+...#TODO Describe in detail...
 }
 \references{
 \insertRef{Lin2012}{TreeDistData}
