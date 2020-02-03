@@ -103,10 +103,8 @@ message("\n\n === Calculate distances ===\n")
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
 sampledMethods <-
-  c('dpi', 'msid', 'cid', 'nts',
-    'ja2', 'ja4', 'jna2', 'jna4',
-    'msd', 'mast', 'masti',
-    'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
+  c('dpi', 'msid', 'cid', 'nts', 'ja2', 'ja4', 'jna2', 'jna4',
+    'msd', 'mast', 'masti', 'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
     'rf', 'rfi', 'qd', 'path')
 for (tipName in tipsNames) {
   cat('\u2714 Calculating tree distances:', tipName, ':\n')
@@ -129,7 +127,6 @@ for (tipName in tipsNames) {
     nni <- NNIDist(tr, trs)
     tbr <- TBRDist(tr, trs)
 
-    normInfo <- SplitwiseInfo(tr)
     cbind(
       dpi = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
       msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
