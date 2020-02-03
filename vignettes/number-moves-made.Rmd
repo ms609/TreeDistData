@@ -11,7 +11,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE}
+```{r, echo=FALSE, message=FALSE}
 library('Quartet')
 library('TreeTools')
 library('TreeDist')
@@ -27,7 +27,6 @@ topTail <- Quartet::sq_trees$top_and_tail
 pd11['qd', ] <- pd11['qd', ] * 330L
 
 BoxPlot <- function (method) {
-  message(method)
   distances <- pd11[method, ]
   faintCol <- TreeDistCol(method, '33')
   opaqueCol <- TreeDistCol(method)
