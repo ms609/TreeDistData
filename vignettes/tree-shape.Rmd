@@ -9,45 +9,17 @@ output:
     default: yes
 ---
 
-```{r define-parameters, echo = FALSE}
+```{r define-parameters, echo=FALSE, message=FALSE}
 require('TreeTools')
 require('TreeDist')
 require('TreeDistData')
 nSample <- 100L
+se <- TreeDistData::shapeEffect
+seMethods <- names(se)
+nMethod <- length(seMethods)
 ```
 
-```{r init, echo = FALSE}
-ShapeEffect <- function (nTip, nSample) {
-
-  .CalcShapeEffect <- function (Func) {
-    message('...')
-    dists <- as.matrix(Func(trees))
-    ShapeDists <- function (i, j) {
-      d <- dists[shapeNumbers == i, shapeNumbers == j]
-      d[upper.tri(d, diag = (i != j))]
-    }
-    go <- matrix(seq_len(nShapes) - 1L, nShapes, nShapes)
-    x <- t(go)[lower.tri(go, diag = TRUE)]
-    y <- go[lower.tri(go, diag = TRUE)]
-    ret <- mapply(ShapeDists, x, y)
-  }
-
-  tipLabels <- paste0('t', seq_len(nTip))
-  nShapes <- NUnrootedShapes(nTip)
-  shapeKeys <- UnrootedKeys(nTip)
-  shapes <- lapply(shapeKeys, UnrootedTreeWithKey, nTip = nTip)
-  trees <- structure(unlist(lapply(shapes, function(skeleton) {
-    unique(lapply(rep(0, nSample * 1.1), function(xx) {
-      skeleton$tip.label <- sample(tipLabels)
-      skeleton
-    }))[seq_len(nSample)]
-  }), recursive = FALSE), class = 'multiPhylo')
-
-  shapeNumbers <- rep(seq_along(shapeKeys) - 1L, each = nSample)
-  lapply(TreeDistData::TDFunctions, .CalcShapeEffect)
-}
-
-
+```{r init, echo=FALSE}
 PlotMethod <- function (method, doPlot = TRUE) {
   methodEffect <- se[[method]]
   dat <- data.frame(
@@ -58,31 +30,26 @@ PlotMethod <- function (method, doPlot = TRUE) {
 
   if (doPlot) {
     plot(type='n', 0, 0, xlim = c(-1, 1), ylim = c(-1, 1), axes = F)
-    text(0, 0.5, abbrevs[method], col = TreeDistCol(method))
+    text(0, 0.5, tdAbbrevs[method], col = TreeDistCol(method))
     text(0, -0.5, signif(reg$adj.r.squared, 3))
 
     plot(dat, border = TreeDistCol(method), axes = FALSE)
   }
-  reg$adj.r.squared
+  reg$r.squared # Not adjusted: we don't need to compare to chance
 }
-```
-
-```{r generate-data, echo = FALSE}
-se <- ShapeEffect(8, nSample)
-seMethods <- names(se)
-nMethod <- length(seMethods)
 ```
 
 ```{r analyse, echo = FALSE}
 par(xpd = NA)
 r2 <- vapply(seMethods, PlotMethod, doPlot = FALSE, double(1))
-plot(log10(r2), ylab='', xlab='', axes = FALSE, pch = 3, ylim=c(-9, 0))
-text(seq_along(seMethods), log10(r2), paste(round(r2 * 100, 1), '%'),
-      col = TreeDistCol(seMethods), pos = 4, srt = 90)
-text(srt = 90, seq_along(seMethods), -7, TreeDistData::tdAbbrevs[seMethods], 
+plot(r2, ylab='', xlab='', axes = FALSE, pch = 3, ylim=c(-0.3, max(r2)))
+text(seq_along(seMethods), r2, paste(round(r2 * 100, 1), '%'),
+     col = TreeDistCol(seMethods), pos = 2, srt = 90)
+text(srt = 90, seq_along(seMethods), -0.12, TreeDistData::tdAbbrevs[seMethods], 
      col = TreeDistCol(seMethods), pos = 2)
-axis(2)
-mtext(expression('log'[10]*'(r'^2*')'), 2, 2.5)
+axis(2, at = seq(0, 0.6, 0.1), pos=-0.6)
+#mtext(expression('log'[10]*'(r'^2*')'), 2, 2.5)
+mtext(expression('r'^2), 2, 2.5)
 ```
 
 ```{r text-table, output = 'asis', echo= FALSE}

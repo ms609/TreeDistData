@@ -315,3 +315,9 @@ NULL
 #' <<#TODO Describe in detail.>>
 #'
 'sprDistances'
+
+#' Shape effect
+#'
+#' <<#TODO Describe in detail.>>
+#'
+'shapeEffect'

@@ -209,6 +209,9 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 #'
 #' @export
 TreeDistCol <- function (method, opacity = '') {
-  if (is.na(TreeDistData::tdCol[method])) warning("No colour set for ", method)
+  unset <- is.na(TreeDistData::tdCol[method])
+  if (any(unset)) {
+    warning("No colour set for ", method[unset])
+  }
   paste0(TreeDistData::tdCol[method], opacity)
 }
