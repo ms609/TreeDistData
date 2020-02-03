@@ -20,28 +20,29 @@ tdAbbrevs <- c(
   jna2 = 'JRF (k=2, non-arb.)',
   jna4 = 'JRF (k=4, non-arb.)',
 
+  nea = 'Nye et al.',
+  nts = expression(paste(plain('Nye '), italic('et al.'))),
+
   dpi = 'Diff. Phylog. Info',
+  cid = 'Clust. Info. Dist.',
+  msid = 'Match. Split Info Dist',
+  msd = 'Match. Split Dist.',
+
   nni = 'NNI (approx.)',
   nni_u = 'NNI (upr bnd)',
   nni_t = 'NNI (ub tight)',
   nni_l = 'NNI (lwr bnd)',
   spr = 'SPR (approx.)',
-
   tbr = 'TBR (approx.)',
   tbr_l = 'TBR (lb approx.)',
   tbr_u = 'TBR (ub approx.)',
-  mafi = 'MAF info',
-  path = 'Path',
+
   mast = 'MAST size',
   masti = 'MAST info',
   mafi = 'MAF info',
-  cid = 'Clust. Info. Dist.',
 
-  nea = 'Nye et al.',
-  nts = expression(paste(plain('Nye '), italic('et al.'))),
   qd  = 'Quartet',
-  msid = 'Match. Split Info Dist',
-  msd = 'Match. Split Dist.'
+  path = 'Path'
 )
 
 tdMethods <- names(tdAbbrevs)
@@ -119,13 +120,13 @@ tableau20 <- c('#4e78a8', '#A0CBE8',
                '#79706E', '#BAB0AC',
                '#D37295', '#FABFD2',
                '#B07AA1', '#D4A6C8',
-               '#9D7660', '#D7B5A6',
-               '#000000','#000000','#000000','#000000','#000000','#000000','#000000',
-               '#000000'
+               '#9D7660', '#D7B5A6'
 )
-# https://jrnold.github.io/ggthemes/reference/tableau_color_pal.html
 
-tdCol <- tableau20[c((1:10 * 2 - 1L), (seq_len(length(tdMethods) - 10L) * 2))]
+# https://jrnold.github.io/ggthemes/reference/tableau_color_pal.html
+tab30 <- as.character(matrix(c(tableau20, tableau10), 3, byrow=TRUE))
+
+tdCol <- tab30[c((1:10 * 2 - 1L), (seq_len(length(tdMethods) - 10L) * 2))]
 names(tdCol) <- tdMethods
 tdCol[c('nni', 'nea', 'tbr')] <- tdCol[c('nni_u', 'nts', 'tbr_u')]
 

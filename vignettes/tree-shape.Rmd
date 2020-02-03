@@ -63,7 +63,7 @@ dimnames(result) <- list(
 knitr::kable(result)
 ```
 
-```{r plot, echo = FALSE, fig.height=12, fig.width=8}
+```{r plot, echo=FALSE, fig.height=12, fig.width=8, eval=FALSE}
 cbPalette8 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", 
 "#D55E00", "#CC79A7")
 header <- cbind(c(1, 1), matrix(2:21, ncol=10, byrow=TRUE))
