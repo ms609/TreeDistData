@@ -132,8 +132,6 @@ NULL
 #' @rdname distanceDistributions
 "distanceDistribution25"
 #' @rdname distanceDistributions
-"distanceDistribution11"
-#' @rdname distanceDistributions
 "pectinateDistances11"
 
 #' Pairs of random trees
