@@ -16,7 +16,8 @@ library('Quartet')
 library('TreeTools')
 library('TreeDist')
 library('TreeDistData')
-pd11 <- TreeDistData::pectinateDistances11
+data('pectinateDistances11', package = 'TreeDistData')
+pd11 <- pectinateDistances11
 abbrevs <- TreeDistData::tdAbbrevs
 pectinateTree <- Quartet::sq_trees$caterpillar
 
@@ -66,7 +67,7 @@ BoxPlot <- function (method) {
 }
 ```
 
-```{r, echo = FALSE}
+```{r, echo=FALSE, fig.width=7, fig.height=5}
 library('TreeDist')
 
 PlotFunc <- function() {
