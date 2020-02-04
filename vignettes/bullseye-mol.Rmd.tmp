@@ -1,0 +1,117 @@
+---
+title: "Bullseye tests - morphological"
+author: "Martin R. Smith <martin.smith@durham.ac.uk>"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+  rmarkdown::html_vignette:
+    default: yes
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{Bullseye tests - morphological}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE}
+library('phangorn')
+
+data("bullseyeTrees", package='TreeDistData')
+data("bullseyeInferred", package='TreeDistData')
+
+#####
+treesNames <- names(bullseyeInferred)
+for (trees in treesNames) {
+  inferred <- bullseyeInferred[[trees]]
+  theseTrees <- bullseyeTrees[[trees]]
+  theseScores <- vapply(seq_along(inferred), function (i) {
+    trueTree <- theseTrees[[i]]
+    rootTip <- trueTree$tip.label[1]
+    tr <- root(trueTree, rootTip, resolve.root=TRUE)
+    tr$edge.length  <- NULL
+    trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
+
+    normInfo <- PartitionInfo(tr)
+    cbind(
+      vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=normInfo),
+      vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=normInfo),
+      vci = VariationOfClusteringInfo(tr, trs, normalize=normInfo),
+      vpiB = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
+      vciB = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
+      nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
+      msd = MatchingSplitDistance(tr, trs),
+      t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
+      spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
+    )
+  }, matrix(0, nrow = 10L, ncol=12L, dimnames=list(
+    10:1 * 200,
+    c('vpi', 'vmsi', 'vci', 'vpiB', 'vciB', 'qd', 'nts', 'msd', 'rf', 'path', 'spr')
+  )))
+  bullseyeScores[[trees]] <- theseScores
+}
+
+bullseyeScores
+#####
+
+
+
+
+# data("bullseyeScores", package='TreeDistData')
+
+
+
+tips <- names(bullseyeScores)
+dev.new()
+par(mfrow=c(2, 2))
+nTip <- '5 tips'
+#methods <- c(methods, 'vmsi', 'vciB', 'vmsiB')[1:11] # vpiB == vpi
+methods <- methods[!methods %in% c('path', 'msd', 'spr')]
+abbrevs <- c(abbrevs, vmsi='vmsi', vpiB='vpiB', vciB='vciB',vmsiB= 'vmsiB')[methods]
+methodCol <- c(methodCol, vmsi='black', 'vpiB' = 'grey', 'vciB' = 'green', 'vmsiB' = 'red')[methods]
+for (nTip in names(bullseyeScores)) {
+  allScores <- bullseyeScores[[nTip]]
+
+  pairwise <- apply(allScores, 2L, function (scores) {
+    rowSums(scores[7:1, ] < scores[10:4, ])
+  })
+
+  plot(0, 0, type='n', xlim=c(800, 2000), ylim=c(0, 1),
+       main = paste(nTip, 'branching: Strict'),
+       xlab='Size of larger dataset (bp)', ylab='Success rate')
+
+  lapply(methods, function (method) {
+    lines(rownames(pairwise), pairwise[, method] / 10,
+          lwd=2,
+          col = methodCol[method])
+  }) -> XX
+}
+legendOrder <- c('nts', 'vci', 'vpi', 'rf', 'msd', 'qd', 'path', 'spr', 'vmsi', 'vpiB', 'vciB', 'vmsiB')
+legend('bottomright', methods, col=methodCol, lty=1, lwd=2, bty='n')
+legend('bottomleft', abbrevs[legendOrder], col=methodCol[legendOrder], lty=1, lwd=2, bty='n')
+
+SpearmanRho <- function (y) {
+  x <- seq_along(y)
+  r <- length(y)
+  d <- sum((x - rank(y)) ^ 2)
+  # Return:
+  1 - (6 * d / (r * (r ^ 2 - 1)))
+}
+
+# Note the surprising performance of rf
+vapply(bullseyeScores, function (allScores)
+  rowMeans(apply(allScores, 3L, function (scores) apply(scores, 2, SpearmanRho))),
+  double(12))
+
+```
+
+
+```{r, fig.width=7.2, fig.asp = 4.2/4}
+PlotFunc()
+```
+
+```
+PlotMe(4, twoCol, 4.2/4, PlotFunc())
+```
