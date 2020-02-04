@@ -49,6 +49,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
     rf = RobinsonFoulds(tr1, tr2),
+    rfi = RobinsonFouldsInfo(tr1, tr2),
     path = path.dist(tr1, tr2)
   )
 }

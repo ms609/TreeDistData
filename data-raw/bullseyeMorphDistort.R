@@ -1,21 +1,14 @@
 library('phangorn')
 library('TreeSearch')
 library('TreeDist')
+devtools::load_all() # necessary for correct path-to-inst/
 
-data("bullseyeTrees", package='TreeDistData') # Generated in bullseye.R
+data("bullseyeTrees", package='TreeDistData') # Generated in bullseyeTrees.R
 tipsNames <- names(bullseyeTrees)
 subsamples <- 0:9 * 2 # Order in increasing dissimilarity, please
 
-wd <- getwd()
-if (substr(wd, nchar(wd) - 7, nchar(wd)) != 'data-raw') setwd('data-raw')
-###################
-
 # Get results for a subset of trees:
 nTrees <- 1000
-
-
-
-
 
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
@@ -29,14 +22,21 @@ WriteTNTData <- function (dataset, fileName) {
         fileName)
 }
 
+CacheFile <- function (..., tmpDir = FALSE) {
+  root <- if (tmpDir) tempdir() else paste0(system.file(package='TreeDistData'),
+                                            '/../data-raw/bullMoDi/')
+  paste0(root, ...)
+}
+
 # Create subdirectories:
-if (!dir.exists('bullMoDi')) dir.create('bullMoDi')
+if (!dir.exists(CacheFile())) dir.create(CacheFile('../bullMoDi'))
 
 bullMoDiInferred <- vector('list', length(tipsNames))
 names(bullMoDiInferred) <- tipsNames
 
+message("\n\n=== Infer trees ===\n")
 for (tipName in names(bullseyeTrees)) {
-  cat("\n ***", tipName, "*** \n")
+  message('* ', tipName, ": Simulating sequences...")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
   simChar <- 2000L
   seqs <- lapply(theseTrees, simSeq, l = simChar, type='USER', levels=0:1)
@@ -48,15 +48,16 @@ for (tipName in names(bullseyeTrees)) {
     seq00 <- formatC(i - 1, width=3, flag='0')
     cat ("", seq00)
     FilePattern <- function (n) {
-      paste0('bullMoDi/', substr(tipName, 0, nchar(tipName) - 5),
+      CacheFile(substr(tipName, 0, nchar(tipName) - 7L),
              't-', seq00, '-k6-',
              formatC(n, width=2, flag='0'),
              '.tre')
     }
 
     if (!all(file.exists(FilePattern(subsamples)))) {
+      cat("Generating missing files: ", FilePattern(subsamples)[!file.exists(FilePattern(subsamples))])
       seqFile <- paste0(tempdir(), '\\bullMoDi-', seq00, '.tnt')
-      runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
+      runRoot <- paste0(sample(letters, 8, replace = TRUE), collapse = '')
       runFile <- paste0(runRoot, '.run', collapse='')
       file.create(runFile)
       write(paste("macro =;
@@ -81,7 +82,7 @@ for (tipName in names(bullseyeTrees)) {
     }
 
     inferred[[i]] <-
-      lapply(formatC(subsamples, width=2, flag='0'),
+      lapply(formatC(subsamples, width = 2, flag='0'),
              function (nChar) {
                tr <- ReadTntTree(FilePattern(nChar),
                                  relativePath = '.',
@@ -92,42 +93,69 @@ for (tipName in names(bullseyeTrees)) {
   }
   bullMoDiInferred[[tipName]] <- inferred
 }
-usethis::use_data(bullMoDiInferred, compress='bzip2', overwrite=TRUE)
+usethis::use_data(bullMoDiInferred, compress = 'bzip2', overwrite = TRUE)
 
 
+message("\n\n === Calculate distances ===\n")
 bullMoDiScores <- vector('list', length(tipsNames))
 names(bullMoDiScores) <- tipsNames
+sampledMethods <-
+  c('dpi', 'msid', 'cid', 'nts', 'ja2', 'ja4', 'jna2', 'jna4',
+    'msd', 'mast', 'masti', 'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
+    'rf', 'rfi', 'qd', 'path')
 for (tipName in tipsNames) {
   inferred <- bullMoDiInferred[[tipName]]
   trueTrees <- bullseyeTrees[[tipName]]
   cat ("\n *** Scoring:", tipName, '***\n')
   theseScores <- vapply(seq_along(inferred), function (i) {
-    cat('', i)
+    cat('.')
+    if (i %% 72 == 0) cat(' ', i, "\n")
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
     tr <- root(trueTree, rootTip, resolve.root=TRUE)
     tr$edge.length  <- NULL
-    trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
+    trs <- structure(lapply(inferred[[i]], root, rootTip, resolve.root=TRUE),
+                     class = 'multiPhylo')
 
-    normInfo <- PartitionInfo(tr)
+    mast <- vapply(trs, MASTSize, tr, rooted = FALSE, FUN.VALUE = 1L)
+    masti <-  LnUnrooted(mast) / log(2)
+    attributes(masti) <- attributes(mast)
+
+    nni <- NNIDist(tr, trs)
+    tbr <- TBRDist(tr, trs)
+
+    normInfo <- SplitwiseInfo(tr)
     cbind(
-      mpi = 1 - MutualPhylogeneticInfo(tr, trs, normalize=normInfo),
-      vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=TRUE),
-      mmsi = 1 - MutualMatchingSplitInfo(tr, trs, normalize=normInfo),
-      vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=TRUE),
-      mci = 1 - MutualClusteringInfo(tr, trs, normalize=normInfo),
-      vci = VariationOfClusteringInfo(tr, trs, normalize=TRUE),
-      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr), similarity = FALSE),
-      nts = 1 - NyeTreeSimilarity(tr, trs, normalize=TRUE),
+      dpi = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
+      msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
+      cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
+      nts = NyeTreeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
+
+      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, arboreal = TRUE, normalize = TRUE),
+      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, arboreal = TRUE, normalize = TRUE),
+      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, arboreal = FALSE, normalize = TRUE),
+      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, arboreal = FALSE, normalize = TRUE),
+
       msd = MatchingSplitDistance(tr, trs),
-      t(vapply(trs, phangorn::treedist, tree2=tr, double(2))),
-      spr = vapply(trs, phangorn::SPR.dist, tree2=tr, double(1))
+      mast = mast,
+      masti = masti,
+
+      nni_l = nni['lower', ],
+      nni_t = nni['tight_upper', ],
+      nni_u = nni['loose_upper', ],
+      spr = SPR.dist(tr, trs),
+      tbr_l = tbr$tbr_min,
+      tbr_u = tbr$tbr_max,
+
+      rf = RobinsonFoulds(tr, trs),
+      rfi = RobinsonFouldsInfo(tr, trs),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
+                                      similarity = FALSE),
+      path = path.dist(tr, trs)
     )
-  }, matrix(0, nrow = 10L, ncol=12L,
-            dimnames=list(subsamples,
-                          c('mpi', 'vpi', 'mmsi', 'vmsi', 'mci', 'vci',
-                            'qd', 'nts', 'msd', 'rf', 'path', 'spr')
-            )))
+  }, matrix(0, nrow = 10L, ncol = length(sampledMethods),
+            dimnames=list(subsamples, sampledMethods))
+  )
   bullMoDiScores[[tipName]] <- theseScores
 }
 usethis::use_data(bullMoDiScores, compress='xz', overwrite=TRUE)

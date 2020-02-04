@@ -1,0 +1,183 @@
+---
+title: "Bullseye tests - morphological"
+author: "Martin R. Smith <martin.smith@durham.ac.uk>"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+  rmarkdown::html_vignette:
+    default: yes
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{Bullseye tests - morphological}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE}
+library('phangorn')
+library('TreeDistData')
+
+data("bullseyeMorphScores", package='TreeDistData')
+data("bullMoDiScores", package='TreeDistData')
+data("tdMethods", package='TreeDistData')
+data("tdAbbrevs", package='TreeDistData')
+
+lwd <- 1L
+semitransparency <- '44'
+
+SpearmanRho <- function (y) {
+  x <- seq_along(y)
+  r <- length(y)
+  d <- sum((x - rank(y)) ^ 2)
+  # Return:
+  rho <- 1 - (6 * d / (r * (r ^ 2 - 1)))
+  # CI calculation: https://stats.stackexchange.com/questions/18887
+  # 1.06 from 10.1093/biomet/64.3.645
+  # ci <- tanh(atanh(rho) + (c(upper = 1, lower = -1) * 1.06 / sqrt(r-3)))
+  # c(rho = rho, ci)
+}
+
+Spear <- function (scoreList) {
+  vapply(scoreList, function (allScores) {
+      rhos <- apply(allScores, 3L, function (scores) {
+        apply(scores, 2, SpearmanRho)
+      })
+      rbind(mean = rowMeans(rhos), 'Std. Err.' = apply(rhos, 1, sd) / sqrt(dim(rhos)[2]))
+    },
+    matrix(0, nrow=2, ncol=dim(scoreList[[1]])[2]))
+}
+# Note the surprising performance of rf
+
+Successes <- function (scores, gap) rowSums(scores[(10 - gap):1, ] < scores[10:(gap + 1), ])
+
+BinomCI <- function (scores, nScores, gap) {
+  vapply(Successes(scores, gap),
+         binom::binom.lrt, n = nScores,
+         binom::binom.lrt(1,2))
+}
+
+MethodLines <- function (method, allScores, gap = 1L,
+                         nScores = dim(allScores)[3]) {
+  if (!is.na(TreeDistCol(method))) {
+    ci <- BinomCI(allScores[, method, ], nScores = nScores, gap = gap)
+    datasets <- as.integer(colnames(ci))
+    lines(datasets, as.double(ci['mean', ]),
+          lwd = lwd, lty = 1, col = TreeDistCol(method))
+
+    pointOrder <- seq_along(datasets)
+    polygon(datasets[c(pointOrder, rev(pointOrder))],
+            c(ci['upper', ], rev(ci['lower', ])),
+            col = paste0(TreeDistCol(method), semitransparency), border = NA)
+  }
+}
+
+MethodLegend <- function () {
+  legend('topleft', tdAbbrevs[tdMethods], col=TreeDistCol(tdMethods),
+         lwd = lwd, lty = 1, bty='n')
+
+
+  #legend('left', c(abbrevs[tdMethods[7:8]], '', '', 'Mean', 'Std. Err.'),
+  #       col=c(methodCol[tdMethods[7:8]], 'white', 'white', 'black',
+  #             paste0('#000000', semitransparency)),
+  #       lwd = c(rep(lwd, 2), NA, NA, 1, 3), lty = 1, bty='n')
+}
+
+PlotRanks <- function (scoreList, yLab="Spearman's rho", plotTitle='') {
+  rhos <- Spear(scoreList)
+  tipCounts <- dimnames(rhos)[[3]]
+  nTip <- as.integer(substr(tipCounts, 0, nchar(tipCounts) - 7L))
+  plot(0, 0, type = 'n', xlim = range(nTip), ylim = c(0.3, 1),
+       xlab = 'Number of leaves', ylab = yLab)
+  title(plotTitle, font.main = 1, line = 1)
+
+  lapply(rev(colnames(rhos)), function (method) {
+    if (!is.na(TreeDistCol(method))) {
+      rhoMeans <- rhos['mean', method, ]
+      rhoSE <- rhos['Std. Err.', method, ]
+      lines(nTip, rhoMeans,
+            lwd = lwd,
+            col = TreeDistCol(method))
+      polygon(c(nTip, rev(nTip)),
+              c(rhoMeans + rhoSE, rev(rhoMeans - rhoSE)),
+              col = paste0(TreeDistCol(method), semitransparency),
+              border = NA
+      )
+    }
+  })
+  invisible()
+}
+
+YLabel <- function (lastLegend) {
+  ifelse(lastLegend %% 4, '', 'Success rate')
+}
+
+RowTitle <- function (words) {
+  oPar <- par(mar=rep(0, 4), cex=1)
+  plot(0, 0, type='n', axes=FALSE, xlab='', ylab=NA)
+  text(0, 0, words, font=2)
+  par(oPar)
+}
+
+PlotFunc <- function() {
+  layout(matrix(c(rep(1, 4), 2:5,
+                  rep(6, 4), 7:10,
+                  rep(11, 4), rep(12:13, each = 2)),
+                byrow = T, nrow = 6),
+         heights = c(1, 7, 1, 7, 1, 9))
+  par(mar = c(3, 2.5, 1.5, 0),
+      oma = c(0, 0, 0, 0), xpd = NA,
+      mgp = c(1.5, 0.5, 0))
+  lastLegend <- 0
+
+  RowTitle('Subsampling experiment')
+  gap <- 2L
+  for (nTip in names(bullseyeMorphScores)) {
+    plot(0, 0, type='n', xlim=c((1L + gap) * 200, 2000), ylim=c(0, 1),
+         xlab='Size of larger dataset (bp)',
+         ylab=YLabel(lastLegend))
+    title(paste0('(', letters[lastLegend <- lastLegend + 1L], ') ', nTip),
+          font.main = 1, line = 1)
+
+    allScores <- bullseyeMorphScores[[nTip]]
+    lapply(colnames(allScores), MethodLines, allScores = allScores,
+           gap = gap) -> XX
+    if (nTip == '5 leaves') MethodLegend()
+    if (nTip == '10 leaves') legend('topleft', c('Mean', 'Std. Err.'),
+                                 col=paste0('#000000', c('', semitransparency)),
+                                 lwd = c(1, 3), lty = 1, bty='n', inset=c(0, 0))
+  }
+
+  RowTitle('Miscoding experiment')
+  gap <- 1L
+  for (nTip in names(bullMoDiScores)) {
+    plot(0, 0, type='n',
+         xlim=c(as.integer(rownames(bullMoDiScores[[1]])[10 - gap]), 0),
+         xlab='% errors in better dataset',
+         ylim=c(0, 1), ylab=YLabel(lastLegend))
+    title(paste0('(', letters[lastLegend <- lastLegend + 1L], ') ', nTip),
+          font.main = 1, line = 1)
+
+    allScores <- bullMoDiScores[[nTip]]
+    lapply(colnames(allScores), MethodLines, allScores = allScores,
+           gap = gap) -> XX
+  }
+
+  RowTitle('Accuracy of ranking')
+
+  PlotRanks(bullseyeMorphScores, "Spearman's rho",
+            plotTitle="(i) Subsampling experiment")
+  PlotRanks(bullMoDiScores, "",
+            plotTitle="(j) Miscoding experiment")
+}
+```
+
+
+```{r, fig.width=7.2, fig.asp = 4.2/4}
+PlotFunc()
+```
+
+```
+PlotMe(4, twoCol, 4.2/4, PlotFunc())
+```
