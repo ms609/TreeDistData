@@ -11,7 +11,7 @@ test_that("Data dimensions are correct", {
   expect_equal(c(945L, 945L), dim(sevenTipDistances[[1]]))
 
   data("distanceDistribution25", package='TreeDistData')
-  expect_equal(c(LengthWithout('mafi', 'nni_t'), 10000L),
+  expect_equal(c(LengthWithout('mafi'), 10000L),
                dim(distanceDistribution25))
   expect_equal(dim(distanceDistribution50), dim(distanceDistribution25))
 
