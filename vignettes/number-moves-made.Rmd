@@ -38,8 +38,9 @@ BoxPlot <- function (method) {
                    'mast' = 11,
                    'masti' = LnUnrooted(11) / log(2),
                    max(histy$breaks))
+    xLim <- if(method %in% c('mast', 'masti')) c(xMax, 0) else c(0, xMax)
     plot(histy, axes = FALSE, main = NA, xlab = NA, ylab = NA, cex = 0.8,
-         col = faintCol, border=NA, xlim = c(0, xMax))
+         col = faintCol, border=NA, xlim = xLim)
   } else {
     dists <- sample(distances, min(1000, length(distances)))
     kde <- kdensity::kdensity(dists, tolerance = 5, kernel = 'gamma')
