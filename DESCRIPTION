@@ -1,6 +1,6 @@
 Package: TreeDistData
 Title: Large data files to accompany `TreeDist`
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: c(person("Martin R.", 'Smith',
                   email="martin.smith@durham.ac.uk", 
                   role=c("aut", "cre", "cph"), 
@@ -25,7 +25,6 @@ Suggests:
     colorspace,
     kdensity,
     knitr,
-    phangorn,
     Rdpack,
     rmarkdown,
     testthat,

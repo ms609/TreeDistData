@@ -1,3 +1,9 @@
+# TreeDistData 0.0.0.9008 (development)
+
+- Update abbreviations and recalculate distances
+- Add Lin et al. tests
+- Import figures to vignettes
+
 # TreeDistData 0.0.0.9007 (development)
 
 - Add: Bullseye distances
