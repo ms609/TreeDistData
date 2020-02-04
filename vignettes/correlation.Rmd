@@ -26,9 +26,11 @@ metric, notwithstanding a weak correlation with the Nye _et al._ measure.
 ```{r data-load, echo=FALSE}
 library('TreeDistData')
 data("distanceDistribution25", package="TreeDistData")
-distanceDistribution25 <- distanceDistribution25[!rownames(distanceDistribution25) %in% 'nni_t', ]
+# No point in plotting both MAST and MASTI, as they're perfect rank correlates
+exclude <- c('nni_t', 'masti')
+distanceDistribution25 <- distanceDistribution25[!rownames(distanceDistribution25) %in% exclude, ]
 data("distanceDistribution50", package="TreeDistData")
-distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution50) %in% 'nni_t', ]
+distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution50) %in% exclude, ]
 toCorrelate <- rownames(distanceDistribution25)
 colScale <- colorspace::sequential_hcl(1000, palette='viridis')
 ```
@@ -53,7 +55,7 @@ PlotR2 <- function (distribution, methodA, methodB) {
   reg <- lm(a~b)
   r2 <- summary(reg)$adj.r.squared
   regCol <- colScale[max(ceiling((r2 - 0.5) * 2000), 1L)]
-  text(0.5, 0.5, format(round(r2, 3), nsmall = 2), col = regCol, cex=1.7)
+  text(0.5, 0.5, format(r2, digits = 2, nsmall = 2), col = regCol, cex = 1.4)
 }
 
 PlotCorr <- function(distribution) {
