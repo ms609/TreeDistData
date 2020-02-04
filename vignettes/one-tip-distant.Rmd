@@ -1,0 +1,74 @@
+---
+title: "One tip distant"
+author: "Martin R. Smith"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{One tip distant}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+We will add a tip to every location on a backbone tree:
+```{R backbone, echo=FALSE, fig.width=7.2, fig.asp=0.5, message=FALSE}
+library('Quartet')
+library('TreeDist')
+library('TreeDistData')
+backbone <- ape::read.tree(text='(a, (b, (c, (d, (((e, f), g), (h, (i, j)))))));')
+par(mar = rep(0, 4))
+plot(backbone)
+nTip <- length(backbone$tip.label)
+newTrees <- structure(TreeTools::AddTipEverywhere(backbone), class = 'multiPhylo')
+
+```
+
+
+The expected distance is the number of edges separating one tip addition 
+location from each other.
+
+```{r, echo=FALSE, fig.width=5, fig.asp=2, message=FALSE}
+ordr <- order(backbone$edge[, 2])[-(nTip + 1L)]
+dists <- TreeTools::EdgeDistances(backbone)[ordr, ordr]
+```
+
+We would like a metric to display a monotonic increase, such that all tree pairs
+with _n_ edges between the added leaves are further apart than any tree pair
+with _n_ &minus; 1 edges between the added leaves.
+
+```{r, echo=FALSE, fig.width=7.2, fig.asp=4/5, message=FALSE}
+library('TreeTools') # LnUnrooted called somewhere...
+methods <- tdMethods[!tdMethods %in% c('nni_t', 'masti')]
+BoxPlot <- function (method) {
+  d <- as.matrix(TDFunctions[[method]](newTrees))
+  boxplot(d ~ dists, border = TreeDistCol(method), xlab = '', ylab = '')
+  mtext(tdAbbrevs[method], 2, line = 2, cex=0.8)
+  mtext('Edges between added leaves', 1, line = 2, cex=0.8)
+  
+  ranges <- vapply(sort(unique(as.integer(dists))),
+                   function (i) range(d[dists == i]),
+                   c('min'= 0, 'max' = 0))
+  
+  errors <- vapply(1:max(dists), function (i) {
+    c(    tooSmall = sum(d[dists == i] <= ranges['max', i]),
+       notTooSmall = sum(d[dists == i] > ranges['max', i]),
+            tooBig = sum(d[dists == i - 1] >= ranges['min', i + 1]),
+         notTooBig = sum(d[dists == i - 1] < ranges['min', i + 1])
+      )
+  }, c(tooSmall = 0, notTooSmall = 0, tooBig = 0, notTooBig = 0))
+  
+  nErrors <- sum(errors[c('tooSmall', 'tooBig'), ])
+  
+  text(4.5, 0, paste0(nErrors, '/', sum(errors), ' misordered'), pos = 3)
+  nErrors
+}
+
+par(mfrow = c(4, 5), mar = c(3.5, 3.5, 0, 0.5))
+lapply(methods, BoxPlot) -> errors
+```
+
+```{r, output='asis'}
+names(errors) <- tdAbbrevs[methods]
+knitr::kable(t(errors))
+```

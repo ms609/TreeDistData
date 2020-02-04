@@ -56,11 +56,12 @@ JNA4 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=FALSE)
 TDFunctions <- list(
   rf = TreeDist::RobinsonFoulds,
   rfi = TreeDist::RobinsonFouldsInfo,
-  ja2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal=TRUE),
+  ja2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal =TRUE),
   ja4 =  function(...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=TRUE),
   jna2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal=FALSE),
   jna4 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=FALSE),
 
+  nts = function(...) TreeDist::NyeTreeSimilarity(..., similarity = FALSE),
   dpi = DifferentPhylogeneticInfo,
   nni_u =  function(...) as.matrix(TreeDist::NNIDist(...)$loose_upper),
   nni_t =  function(...) as.matrix(TreeDist::NNIDist(...)$tight_upper),
@@ -73,10 +74,10 @@ TDFunctions <- list(
   mast =  function(...) TreeDist::MASTSize(..., rooted = FALSE),
   masti = function(...) TreeDist::MASTInfo(..., rooted = FALSE),
   cid = TreeDist::ClusteringInfoDistance,
-  nts = TreeDist::NyeTreeSimilarity,
   msid = TreeDist::MatchingSplitInfoDistance,
   msd = TreeDist::MatchingSplitDistance,
-  qd  = function (...) Quartet::QuartetDivergence(Quartet::ManyToManyQuartetAgreement(...)),
+  qd  = function (...) Quartet::QuartetDivergence(Quartet::ManyToManyQuartetAgreement(...),
+                                                  similarity = FALSE),
   mafi = TBRDist::MAFInfo
 )
 

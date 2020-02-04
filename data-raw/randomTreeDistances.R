@@ -2,12 +2,7 @@ library('TreeDistData')
 library('usethis')
 suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 repls <- 1000
-allDistMethods <- c('dpi', 'msid', 'cid', 'qd', 'nts',
-                    'ja2', 'ja4', 'jna2', 'jna4',
-                    'msd', 'mast', 'masti',
-                    'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
-                    'rf', 'path')
-ourMethods <- allDistMethods[!allDistMethods %in% 'nni_t']
+ourMethods <- tdMethods[!tdMethods %in% 'nni_t']
 
 # Look for existing data object
 use_directory('data')
@@ -36,8 +31,8 @@ RandomDistances <- function (nLeaves, repls) {
                         tr2 <- RandomTree(nLeaves)
                         TreeDistData:::AllDists(tr1, tr2)
                       },
-                      double(length(allDistMethods)))
-  distances <- distances[allDistMethods %in% ourMethods, ]
+                      double(length(tdMethods)))
+  distances <- distances[tdMethods %in% ourMethods, ]
   t(rbind(apply(distances, 1L, summary),
           apply(distances, 1L, quantile,
                 probs = c(0.01, 0.05, 0.1, 0.9, 0.95, 0.99)),
