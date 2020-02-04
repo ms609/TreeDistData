@@ -20,7 +20,7 @@ backbone <- ape::read.tree(text='(a, (b, (c, (d, (((e, f), g), (h, (i, j)))))));
 par(mar = rep(0, 4))
 plot(backbone)
 nTip <- length(backbone$tip.label)
-newTrees <- TreeTools::AddTipEverywhere(backbone)
+newTrees <- structure(TreeTools::AddTipEverywhere(backbone), class = 'multiPhylo')
 
 ```
 
@@ -28,7 +28,7 @@ newTrees <- TreeTools::AddTipEverywhere(backbone)
 The expected distance is the number of edges separating one tip addition 
 location from each other.
 
-```{r, echo=FALSE, fig.width=7.2, fig.asp=2, message=FALSE}
+```{r, echo=FALSE, fig.width=5, fig.asp=2, message=FALSE}
 ordr <- order(backbone$edge[, 2])[-(nTip + 1L)]
 dists <- TreeTools::EdgeDistances(backbone)[ordr, ordr]
 ```
@@ -37,32 +37,38 @@ We would like a metric to display a monotonic increase, such that all tree pairs
 with _n_ edges between the added leaves are further apart than any tree pair
 with _n_ &minus; 1 edges between the added leaves.
 
-```{r, echo=FALSE, fig.width=7.2, fig.asp=2, message=FALSE}
-BoxPlot <- function (d, method) {
+```{r, echo=FALSE, fig.width=7.2, fig.asp=4/5, message=FALSE}
+library('TreeTools') # LnUnrooted called somewhere...
+methods <- tdMethods[!tdMethods %in% c('nni_t', 'masti')]
+BoxPlot <- function (method) {
+  d <- as.matrix(TDFunctions[[method]](newTrees))
   boxplot(d ~ dists, border = TreeDistCol(method), xlab = '', ylab = '')
   mtext(tdAbbrevs[method], 2, line = 2, cex=0.8)
   mtext('Edges between added leaves', 1, line = 2, cex=0.8)
+  
+  ranges <- vapply(sort(unique(as.integer(dists))),
+                   function (i) range(d[dists == i]),
+                   c('min'= 0, 'max' = 0))
+  
+  errors <- vapply(1:max(dists), function (i) {
+    c(    tooSmall = sum(d[dists == i] <= ranges['max', i]),
+       notTooSmall = sum(d[dists == i] > ranges['max', i]),
+            tooBig = sum(d[dists == i - 1] >= ranges['min', i + 1]),
+         notTooBig = sum(d[dists == i - 1] < ranges['min', i + 1])
+      )
+  }, c(tooSmall = 0, notTooSmall = 0, tooBig = 0, notTooBig = 0))
+  
+  nErrors <- sum(errors[c('tooSmall', 'tooBig'), ])
+  
+  text(4.5, 0, paste0(nErrors, '/', sum(errors), ' misordered'), pos = 3)
+  nErrors
 }
 
-par(mfrow=c(4, 2), mar=c(3.5, 3.5, 0, 0.5), line = 0)
-BoxPlot(DifferentPhylogeneticInfo(newTrees), 'dpi')
-BoxPlot(ClusteringInfoDistance(newTrees), 'cid')
-BoxPlot(NyeTreeSimilarity(newTrees, similarity = FALSE), 'nts')
-BoxPlot(MatchingSplitDistance(newTrees), 'msd')
-BoxPlot(QuartetDivergence(QuartetStatus(newTrees)), 'qd')
-
-path <- matrix(0, length(newTrees), length(newTrees))
-for (i in seq_along(newTrees))
-  for (j in seq_along(newTrees))
-    path[i, j] <- phangorn::path.dist(newTrees[[i]], newTrees[[j]])
-BoxPlot(path, 'path')
-
-spr <- matrix(0, length(newTrees), length(newTrees))
-for (i in seq_along(newTrees))
-  for (j in seq_along(newTrees))
-    spr[i, j] <- phangorn::SPR.dist(newTrees[[i]], newTrees[[j]])
-BoxPlot(spr, 'spr')
-
-BoxPlot(TreeDist::RobinsonFoulds(newTrees), 'rf')
+par(mfrow = c(4, 5), mar = c(3.5, 3.5, 0, 0.5))
+lapply(methods, BoxPlot) -> errors
 ```
 
+```{r, output='asis'}
+names(errors) <- tdAbbrevs[methods]
+knitr::kable(t(errors))
+```
