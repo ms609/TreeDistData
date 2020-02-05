@@ -1,5 +1,5 @@
 library('TreeDist')
-data('bullseyeTrees', package='TreeDistData')
+data('bullseyeTrees', package = 'TreeDistData')
 bullseyeDistances <- lapply(bullseyeTrees, function(x) NULL)
 
 for (tips in names(bullseyeTrees)) {
