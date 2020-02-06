@@ -43,7 +43,7 @@
 #'
 #'
 #' @references
-#' - \insertRef{Allen2001}{TreeSearch}
+#' - \insertRef{Allen2001}{TreeDist}
 #'
 #' - \insertRef{Bocker2013}{TreeDist}
 #'
