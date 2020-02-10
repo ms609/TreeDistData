@@ -1,0 +1,70 @@
+---
+title: "Heterogeneity"
+author: "Martin R. Smith"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: ../inst/REFERENCES.bib
+csl: ../inst/apa-old-doi-prefix.csl
+vignette: >
+  %\VignetteIndexEntry{Heterogeneity}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{R initialize, echo=FALSE}
+library('TreeDistData')
+data('bullseyeDistances', package = 'TreeDistData')
+data('bullseyeMorphScores', package = 'TreeDistData')
+methods <- tdMethods[!tdMethods %in% c('mafi', 'nni_t')]
+
+dists20 <- bullseyeDistances$`20 leaves`
+dists50 <- bullseyeDistances$`50 leaves`
+
+# Convert from similarity to distance
+dists20[['mast']] <- dists20[['mast']][1, 1] - dists20[['mast']]
+dists20[['masti']] <- dists20[['masti']][1, 1] - dists20[['masti']]
+
+dists50[['mast']] <- dists50[['mast']][1, 1] - dists50[['mast']]
+dists50[['masti']] <- dists50[['masti']][1, 1] - dists50[['masti']]
+
+PlotMDS <- function(method, points) {
+  pts <- points[[method]]
+  plot(pts, pch = 19, xlab = '', ylab = '', axes = FALSE, 
+       col = TreeDistCol(method))
+
+  z <- MASS::kde2d(pts[, 1], pts[, 2])
+  contour(z, add = TRUE, col = TreeDistCol(method, '88'))
+}
+
+PlotText <- function (text, rotate = FALSE) {
+  plot(0, 0, type='n', axes = FALSE)
+  text(0, 0, text, srt = if (rotate) 90 else 0)
+}
+```
+
+```{R scaling, echo=FALSE}
+metricPts20 <- lapply(dists20[methods], cmdscale, k = 2L)
+metricPts50 <- lapply(dists50[methods], cmdscale, k = 2L)
+NMP <- function (td) MASS::isoMDS(td, k = 2, trace = FALSE)$points
+nonMetricPts20 <- lapply(dists20[methods], NMP)
+nonMetricPts50 <- lapply(dists50[methods], NMP)
+```
+
+```{R do-plot, echo=FALSE}
+nMethods <- length(methods)
+layout(matrix(seq_len((1L + nMethods) * 5) - 1L,
+              ncol = 1L + nMethods, byrow = TRUE),
+       height = c(1, rep(4, 4)), width = c(1, rep(4, nMethods)))
+par(oma = c(0, 0, 0, 0), xpd = TRUE, mar = rep(0.2, 4L))
+
+lapply(methods, function (method) PlotText(tdAbbrevs[method]))
+
+PlotText('20 leaves, metric', rotate = TRUE)
+lapply(methods, PlotMDS, metricPts20) -> XX
+PlotText('20 tips, non-metric', rotate = TRUE)
+lapply(methods, PlotMDS, nonMetricPts20) -> XX
+PlotText('50 tips, metric', rotate = TRUE)
+lapply(methods, PlotMDS, metricPts50) -> XX
+PlotText('50 tips, non-metric', rotate = TRUE)
+lapply(methods, PlotMDS, nonMetricPts50) -> XX
+```

@@ -24,6 +24,7 @@ jobs:
        - colorspace
        - devtools
        - knitr
+       - MASS
        - phangorn
        - Rdpack
        - rmarkdown

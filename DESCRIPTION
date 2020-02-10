@@ -25,6 +25,7 @@ Suggests:
     colorspace,
     kdensity,
     knitr,
+    MASS,
     Rdpack,
     rmarkdown,
     testthat,
