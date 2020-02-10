@@ -29,7 +29,7 @@ dists50[['masti']] <- dists50[['masti']][1, 1] - dists50[['masti']]
 
 PlotMDS <- function(method, points) {
   pts <- points[[method]]
-  plot(pts, pch = 19, xlab = '', ylab = '', axes = FALSE, 
+  plot(pts, pch = 19, cex = 0.4, xlab = '', ylab = '', axes = FALSE,
        col = TreeDistCol(method))
 
   z <- MASS::kde2d(pts[, 1], pts[, 2])
@@ -50,21 +50,38 @@ nonMetricPts20 <- lapply(dists20[methods], NMP)
 nonMetricPts50 <- lapply(dists50[methods], NMP)
 ```
 
-```{R do-plot, echo=FALSE}
+```{R do-plot, echo=FALSE, fig.asp=34/41, fig.width = 7.2}
 nMethods <- length(methods)
-layout(matrix(seq_len((1L + nMethods) * 5) - 1L,
-              ncol = 1L + nMethods, byrow = TRUE),
-       height = c(1, rep(4, 4)), width = c(1, rep(4, nMethods)))
-par(oma = c(0, 0, 0, 0), xpd = TRUE, mar = rep(0.2, 4L))
+layoutMat <- matrix(0, nrow = 10, ncol = 1L + (nMethods / 2))
+layoutMat[1, ] <- 0:10
+layoutMat[6, 2:11] <- 11:20
+layoutMat[2:5, 1] <- 21:24
+layoutMat[2:5 + 5, 1] <- 25:28
+layoutMat[c(2, 7, 3, 8, 4, 9, 5, 10), -1] <- 
+  matrix(29:108, nrow = 8, ncol = nMethods / 2, byrow = TRUE)
 
-lapply(methods, function (method) PlotText(tdAbbrevs[method]))
+layout(layoutMat,
+       height = rep(c(1, rep(4, 4)), 2), 
+       width = c(1, rep(4, nMethods / 2)))
+par(oma = c(0, 0, 0, 0), xpd = TRUE, mar = rep(0.2, 4L), cex = 0.8)
+
+lapply(methods, function (method) PlotText(tdAbbrevs[method])) -> XX
 
 PlotText('20 leaves, metric', rotate = TRUE)
-lapply(methods, PlotMDS, metricPts20) -> XX
+PlotText('20 leaves, metric', rotate = TRUE)
 PlotText('20 tips, non-metric', rotate = TRUE)
-lapply(methods, PlotMDS, nonMetricPts20) -> XX
+PlotText('20 tips, non-metric', rotate = TRUE)
 PlotText('50 tips, metric', rotate = TRUE)
-lapply(methods, PlotMDS, metricPts50) -> XX
+PlotText('50 tips, metric', rotate = TRUE)
 PlotText('50 tips, non-metric', rotate = TRUE)
+PlotText('50 tips, non-metric', rotate = TRUE)
+
+
+lapply(methods, PlotMDS, metricPts20) -> XX
+
+lapply(methods, PlotMDS, nonMetricPts20) -> XX
+
+lapply(methods, PlotMDS, metricPts50) -> XX
+
 lapply(methods, PlotMDS, nonMetricPts50) -> XX
 ```
