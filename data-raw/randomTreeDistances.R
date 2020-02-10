@@ -51,7 +51,7 @@ while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
   cat('\n', ifelse(empty, '-', 'X'))
   randomTreeDistances[, , doNext] <- dists
   # Compress=xz was better, but encoding errors kept wiping the file |-:
-  usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
+  usethis::use_data(randomTreeDistances, compress = 'gzip', overwrite = TRUE)
 }
 
 cat("\n # # # COMPLETE # # # \n")
