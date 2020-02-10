@@ -11,7 +11,7 @@ Because the data files are large, they are not installed with `TreeDist`.
 
 # Installation
 
-(#TODO submit to CRAN!)
+<!--(#TODO submit to CRAN!)
 
 Install and load the library from CRAN as follows:
 ```
@@ -19,11 +19,12 @@ install.packages('TreeDistData')
 library('TreeDistData')
 ```
 
-If you're feeling brave, you can install the development version thus:
+If you're feeling brave, you can i-->Install the development version with:
 ```r
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github('ms609/TreeDistData')
 ```
+
 Please note that the 'TreeDistData' project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
