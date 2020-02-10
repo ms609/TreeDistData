@@ -60,7 +60,7 @@ for (trees in tipsNames) {
     tr$edge.length  <- NULL
     trs <- lapply(inferred[[i]], root, rootTip, resolve.root=TRUE)
 
-    normInfo <- PartitionInfo(tr)
+    normInfo <- SplitwiseInfo(tr)
     cbind(
       vpi = VariationOfPhylogeneticInfo(tr, trs, normalize=normInfo),
       vmsi = VariationOfMatchingSplitInfo(tr, trs, normalize=normInfo),

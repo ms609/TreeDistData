@@ -3,14 +3,14 @@
 \docType{data}
 \name{sevenTipDistances}
 \alias{sevenTipDistances}
-\title{Distances between unrooted seven-tip trees}
-\format{An object of class \code{list} of length 20.}
+\title{Distances between unrooted seven-leaf trees}
+\format{An object of class \code{list} of length 21.}
 \usage{
 sevenTipDistances
 }
 \description{
-Distances between each possible pairing of the 945 unrooted seven-tip trees
-(equivalent to rooted 6-tip trees).  Following Kendall and Colijn (2016).
+Distances between each possible pairing of the 945 unrooted seven-leaf trees
+(equivalent to rooted 6-leaf trees).  Following Kendall and Colijn (2016).
 }
 \details{
 The list entries are named with an abbreviation of the tree comparison metric.
@@ -45,7 +45,7 @@ information content (Smith, forthcoming)
 }
 
 Each item in the list contains a 945×945 matrix reporting the distance
-between each pair of seven-tip trees.  The first 630 trees are pectinate
+between each pair of seven-leaf trees.  The first 630 trees are pectinate
 (tree shape 0), the final 315 are balanced (tree shape 1).
 }
 \examples{

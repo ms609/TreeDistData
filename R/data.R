@@ -7,7 +7,7 @@
 #' Normalization is against the maximum possible value obtainable on a pair
 #' of trees of the shapes given, with the exception of the SPR distance,
 #' which is normalized against the upper bound (`spr`) and lower bound (`sprLB`)
-#' of its diameter on a tree with _n_ tips.  The path and matching split
+#' of its diameter on a tree with _n_ leaves.  The path and matching split
 #' distances are not normalized.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric:
@@ -39,7 +39,7 @@
 #' 1%, 5%, 10%, 25%, 50% (i.e. median), 75%, 90%, 95%, 99% percentiles,
 #' maximum (`max`), mean (`mean`) and standard deviation (`sd`).
 #'
-#' The third dimension lists the number of tips in the trees compared.
+#' The third dimension lists the number of leaves in the trees compared.
 #'
 #'
 #' @references
@@ -70,7 +70,7 @@
 #' pairs of bifurcating trees with 11, 25 and 50 leaves drawn from the
 #' uniform distribution using `ape::rtree(nTip, br=NULL)`.
 #'
-#' `pectinateDistances11` reports distances between a pectinate 11-tip tree
+#' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
 #' and 100&nbsp;000 random bifurcating trees.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric.
@@ -104,7 +104,7 @@
 #'
 #' Each column lists the calculated distances between each pair of trees.
 #'
-#' The pairs of 25-tip trees are saved as data object [`randomTreePairs25`].
+#' The pairs of 25-leaf trees are saved as data object [`randomTreePairs25`].
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
@@ -152,10 +152,10 @@ NULL
 "randomTreePairs50"
 
 
-#' Distances between unrooted seven-tip trees
+#' Distances between unrooted seven-leaf trees
 #'
-#' Distances between each possible pairing of the 945 unrooted seven-tip trees
-#' (equivalent to rooted 6-tip trees).  Following Kendall and Colijn (2016).
+#' Distances between each possible pairing of the 945 unrooted seven-leaf trees
+#' (equivalent to rooted 6-leaf trees).  Following Kendall and Colijn (2016).
 #'
 ## <!--Text copied from distanceDistribution25 above -->
 #'
@@ -189,7 +189,7 @@ NULL
 #' - `path`: Path distance (Steel & Penny 1993), unnormalized
 #'
 #' Each item in the list contains a 945&times;945 matrix reporting the distance
-#' between each pair of seven-tip trees.  The first 630 trees are pectinate
+#' between each pair of seven-leaf trees.  The first 630 trees are pectinate
 #' (tree shape 0), the final 315 are balanced (tree shape 1).
 #'
 #' @examples
@@ -224,9 +224,9 @@ NULL
 #' Implementation and results of a 'Bullseye' test, after that proposed by
 #' Kuhner and Yamato (2015).
 #'
-#' `bullseyeTrees` is a list with four elements, named `5 tips`, `10 tips`,
-#' `20 tips` and `50 tips`.  Each element contains 1&nbsp;000 trees with _n_
-#' tips, randomly sampled from the uniform distribution using `ape::rtree`.
+#' `bullseyeTrees` is a list with four elements, named `5 leaves`, `10 leaves`,
+#' `20 leaves` and `50 leaves`.  Each element contains 1&nbsp;000 trees with _n_
+#' leaves, randomly sampled from the uniform distribution using `ape::rtree`.
 #'
 #' `bullXXInferred` is a list with four elements, named as in `bullseyeTrees`.
 #' Each element contains 1&nbsp;000 subelements. Each subelement is a list of
@@ -247,9 +247,13 @@ NULL
 #' described by Smith (forthcoming); the `bullMoDi` prefix refers to the
 #' 'miscoding' experiment.
 #'
-#' `bullseyeDistances` contains four elements, each tabulating the distance
-#' between each pair of _n_-tip trees in `bullseyeTrees`.  For details, see
-#' \code{\link{sevenTipDistances}}.
+# `bullseyeDistances` contains four elements, each tabulating the distance
+# between each pair of _n_-leaf trees in `bullseyeTrees`.  For details, see
+# \code{\link{sevenTipDistances}}.
+#
+#' `bullseyeDistances` contains two elements, tabulating the distance
+#' between each pair of 20- and 50-leaf trees in `bullseyeTrees`.
+#' For details, see \code{\link{sevenTipDistances}}.
 #'
 #'
 #' @references

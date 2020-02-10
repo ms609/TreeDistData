@@ -7,7 +7,7 @@
 \alias{distanceDistribution25}
 \alias{pectinateDistances11}
 \title{Distances between random pairs of trees}
-\format{An object of class \code{matrix} with 19 rows and 10000 columns.}
+\format{An object of class \code{matrix} with 21 rows and 10000 columns.}
 \usage{
 distanceDistribution50
 
@@ -21,7 +21,7 @@ pairs of bifurcating trees with 11, 25 and 50 leaves drawn from the
 uniform distribution using \code{ape::rtree(nTip, br=NULL)}.
 }
 \details{
-\code{pectinateDistances11} reports distances between a pectinate 11-tip tree
+\code{pectinateDistances11} reports distances between a pectinate 11-leaf tree
 and 100 000 random bifurcating trees.
 
 Rows are named with an abbreviation of the tree comparison metric.
@@ -57,7 +57,7 @@ information content (Smith, forthcoming)
 
 Each column lists the calculated distances between each pair of trees.
 
-The pairs of 25-tip trees are saved as data object \code{\link{randomTreePairs25}}.
+The pairs of 25-leaf trees are saved as data object \code{\link{randomTreePairs25}}.
 }
 \references{
 \insertRef{Bogdanowicz2012}{TreeDist}

@@ -4,7 +4,7 @@
 \name{randomTreeDistances}
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
-\format{An object of class \code{array} of dimension 19 x 13 x 197.}
+\format{An object of class \code{array} of dimension 20 x 13 x 197.}
 \usage{
 randomTreeDistances
 }
@@ -17,7 +17,7 @@ random pairs of trees drawn from the uniform distribution using
 Normalization is against the maximum possible value obtainable on a pair
 of trees of the shapes given, with the exception of the SPR distance,
 which is normalized against the upper bound (\code{spr}) and lower bound (\code{sprLB})
-of its diameter on a tree with \emph{n} tips.  The path and matching split
+of its diameter on a tree with \emph{n} leaves.  The path and matching split
 distances are not normalized.
 
 Rows are named with an abbreviation of the tree comparison metric:
@@ -50,11 +50,11 @@ minimum (\code{min}),
 1%, 5%, 10%, 25%, 50% (i.e. median), 75%, 90%, 95%, 99% percentiles,
 maximum (\code{max}), mean (\code{mean}) and standard deviation (\code{sd}).
 
-The third dimension lists the number of tips in the trees compared.
+The third dimension lists the number of leaves in the trees compared.
 }
 \references{
 \itemize{
-\item \insertRef{Allen2001}{TreeSearch}
+\item \insertRef{Allen2001}{TreeDist}
 \item \insertRef{Bocker2013}{TreeDist}
 \item \insertRef{Bogdanowicz2012}{TreeDist}
 
