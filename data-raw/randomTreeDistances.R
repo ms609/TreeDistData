@@ -2,7 +2,7 @@ library('TreeDistData')
 library('usethis')
 suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
 repls <- 1000
-ourMethods <- tdMethods[!tdMethods %in% 'nni_t']
+ourMethods <- tdMethods[!tdMethods %in% c('nni_t', 'mafi')]
 
 # Look for existing data object
 use_directory('data')
@@ -25,14 +25,14 @@ RandomDistances <- function (nLeaves, repls) {
   RandomTree <- function (nTip) ape::rtree(nTip, br = NULL)
   distances <- vapply(seq_len(repls),
                       function (XX) {
-                        cat(".")
-                        if (XX %% 72 == 0) cat(' ', XX, "\n           ")
+                        #cat(".")
+                        if (XX %% 72 == 0) cat(' ...', XX)
                         tr1 <- RandomTree(nLeaves)
                         tr2 <- RandomTree(nLeaves)
-                        TreeDistData:::AllDists(tr1, tr2)
+                        TreeDistData:::AllDists(tr1, tr2, verbose = FALSE)
                       },
                       double(length(tdMethods) - 1L)) # no MAFI in AllDists
-  distances <- distances[tdMethods %in% ourMethods, ]
+  distances <- distances[ourMethods, ]
   t(rbind(apply(distances, 1L, summary),
           apply(distances, 1L, quantile,
                 probs = c(0.01, 0.05, 0.1, 0.9, 0.95, 0.99)),
@@ -48,7 +48,7 @@ while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
   cat('\n', doNext, 'Leaves ')
   dists <- RandomDistances(as.integer(doNext), repls)
   load(proj_path(paths))
-  cat('\n', ifelse(empty, '-', 'X'))
+  cat('\n', ifelse(empty, '-', 'X'), "\n")
   randomTreeDistances[, , doNext] <- dists
   # Compress=xz was better, but encoding errors kept wiping the file |-:
   usethis::use_data(randomTreeDistances, compress = 'gzip', overwrite = TRUE)
