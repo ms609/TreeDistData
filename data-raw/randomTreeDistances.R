@@ -43,7 +43,7 @@ RandomDistances <- function (nLeaves, repls) {
 # Build steadily so that partial dataset is available,
 # and so that progress is not lost if script interrupted.
 while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
-  cat(sum(empty), 'to go...\n')
+  cat(as.character(Sys.time()), ": ", sum(empty), 'to go...\n')
   doNext <- sample(names(empty)[empty], 1L)
   cat('\n', doNext, 'Leaves ')
   dists <- RandomDistances(as.integer(doNext), repls)
