@@ -11,6 +11,11 @@
 \alias{bullseyeDistances}
 \title{Bullseye test results}
 \format{An object of class \code{list} of length 4.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 bullseyeTrees
 

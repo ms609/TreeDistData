@@ -8,6 +8,11 @@
 \alias{pectinateDistances11}
 \title{Distances between random pairs of trees}
 \format{An object of class \code{matrix} with 21 rows and 10000 columns.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 distanceDistribution50
 

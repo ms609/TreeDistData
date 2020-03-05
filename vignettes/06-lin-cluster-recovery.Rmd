@@ -43,7 +43,7 @@ PlotFunc <- function () {
   scores <- colMeans(linTestOneResults) / replicates
   methods <- rownames(scores)
   XX <- lapply(methods, function (method) {
-    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2, lty = 1)
   })
   Panel(1, min(x))
 
@@ -57,7 +57,7 @@ PlotFunc <- function () {
   scores <- colMeans(linTestTwoResults) / replicates
   methods <- rownames(scores)
   XX <- lapply(methods, function (method) {
-    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2, lty = 1)
   })
 
   Panel(2, min(x))
@@ -66,19 +66,19 @@ PlotFunc <- function () {
   par(mar = c(withText, withText, 1, 0), xpd = NA)
   x <- seq(20, 100, 20) / 100 * nLeaves
   plot(type='n', range(x), yRange, axes=FALSE,
-       ylab='Success rate', xlab='Subtree prune and regraft operations')
+       ylab='Success rate', xlab='Subtree prune & regraft operations')
   axis(1, x)
   yLab <- seq(0, 1, length.out = 5)
   axis(2, yLab)
   scores <- colMeans(linTestSPRResults) / replicates
   XX <- lapply(rownames(scores), function (method) {
-    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2)
+    lines(x, scores[method, ], col = TreeDistCol(method), lwd = 2, lty = 1)
   })
   Panel(3, min(x))
 
   par(mar = c(0, 0, 0, 0))
   plot.new()
-  legend('center', tdAbbrevs[tdPlotSequence], bty='n', lwd = 2, lty = 1,
+  legend('right', tdAbbrevs[tdPlotSequence], bty='n', lwd = 2, lty = 1,
          cex = 0.9, col = TreeDistCol(tdPlotSequence))
 }
 
@@ -108,6 +108,3 @@ ranks <- ranks[order(ranks[, 'Mean rank']), ]
 
 knitr::kable(ranks)
 ```
-
-
-<!--PlotMe(4, oneCol, 1.23, PlotFunc)-->

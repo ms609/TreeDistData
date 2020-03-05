@@ -7,6 +7,11 @@
 \alias{randomTreePairs50}
 \title{Pairs of random trees}
 \format{An object of class \code{list} of length 10000.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 randomTreePairs25
 

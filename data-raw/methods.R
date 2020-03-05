@@ -1,29 +1,30 @@
 library('TreeDist')
 
-plotSequence <- c('dpi', 'cid', 'nts', 'qd',
-                  'msd', 'path', 'spr', 'rf',
-                  'rfi',
-                  'ja2', 'ja4', 'jna2', 'jna4',
-                  'nni_l', 'nni_t', 'nni_u', 'tbr_l',
-                  'tbr_u',
-                  'mast', 'masti')
+tdPlotSequence <- c("cid", "dpi",
+                    "nts", "jna2", "jna4", "ja2", "ja4",
+                    "rf", "rfi",
+                    "path",
+                    "msid", "msd",
+                    "qd",
+                    "mast", "masti",
+                    "nni_u", "nni_l", "spr", "tbr_l", "tbr_u")
 legendSequence <- c('dpi', 'cid', 'nts', 'msd', 'qd', 'path', 'rf', 'rfi',
-                    'ja2', 'ja4', 'jna2', 'jna4',
+                    'ja4', 'ja2', 'jna4', 'jna2',
                     'nni_t', 'spr', 'tbr_u', 'mafi', 'mast', 'masti')
 
 tdAbbrevs <- c(
   rf  = 'Robinson-Foulds',
-  rfi = 'Robinson-Foulds Info',
+  rfi = 'Info. Corr. RF',
 
-  ja2 = 'JRF (k=2, arboreal)',
   ja4 = 'JRF (k=4, arboreal)',
-  jna2 = 'JRF (k=2, non-arb.)',
+  ja2 = 'JRF (k=2, arboreal)',
   jna4 = 'JRF (k=4, non-arb.)',
+  jna2 = 'JRF (k=2, non-arb.)',
 
   nea = 'Nye et al.',
   nts = expression(paste(plain('Nye '), italic('et al.'))),
 
-  dpi = 'Diff. Phylog. Info',
+  dpi = 'Phylog. Info. Dist',
   cid = 'Clust. Info. Dist.',
   msid = 'Match. Split Info Dist',
   msd = 'Match. Split Dist.',
@@ -52,15 +53,15 @@ tdBoxAbbrevs <- c(
   rf  = 'Robinson\n-Foulds',
   rfi = 'Info.\nCorr.\nRF',
 
-  ja2 = 'JRF\n(k=2,\narboreal)',
   ja4 = 'JRF\n(k=4,\narboreal)',
-  jna2 = 'JRF\n(k=2,\nnon-arb.)',
+  ja2 = 'JRF\n(k=2,\narboreal)',
   jna4 = 'JRF\n(k=4,\nnon-arb.)',
+  jna2 = 'JRF\n(k=2,\nnon-arb.)',
 
   nea = 'Nye\net al.',
   nts = 'Nye\net al.',#expression(paste(plain('Nye\n'), italic('et al.'))),
 
-  dpi = 'Diff.\nPhylog.\nInfo',
+  dpi = 'Phylog.\nInfo.\nDist.',
   cid = 'Clust.\nInfo.\nDist.',
   msid = 'MS\nInfo\nDist',
   msd = 'Match.\nSplit\nDist.',
@@ -137,7 +138,7 @@ TDPair <- list(
   cid = function (tr, ref) round(TreeDist::ClusteringInfoDistance(
     tr, ref, normalize = TRUE), 4L),
   nts = function (tr, ref) round(NyeTreeSimilarity(
-    tr, ref, similarity = TRUE, normalize = TRUE), 4L),
+    tr, ref, similarity = FALSE, normalize = TRUE), 4L),
   tbr_u = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_max,
   tbr_l = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_min,
   nni_t = function(tr, ref) TreeDist::NNIDist(tr, ref)['tight_upper'],
@@ -180,8 +181,10 @@ dr22 <- c("#D9CCE3", "#CAACCB", "#BA8DB4", "#AA6F9E", "#994F88", "#882E72",
           "#DC050C", "#A5170E", "#72190E", "#42150A")
 
 #tdCol <- tab30[c((1:10 * 2 - 1L), (seq_len(length(tdMethods) - 10L) * 2))]
-colOrder <- c(22, 21, 1, 3, 2, 4, nts = 10, 7, 11, 6:5,
+colOrder <- c(22, 21, 3, 4, 1, 2, nts = 10, 7, 11, 6:5,
               15:17, 14, 18:19, 8:9, 12, 20, 13)
+if(any(duplicated(colOrder))) warning(ifelse(duplicated(colOrder), colOrder, 0))
+if (any(which(!1:22 %in% colOrder))) warning(which(!1:22 %in% colOrder))
 tdCol <- dr22[colOrder]
 names(tdCol) <- tdMethods
 tdCol[c('nni', 'nea', 'tbr')] <- tdCol[c('nni_u', 'nts', 'tbr_u')]
@@ -191,6 +194,7 @@ usethis::use_data(tdAbbrevs, compress='xz', overwrite = TRUE)
 usethis::use_data(tdMdAbbrevs, compress='xz', overwrite = TRUE)
 usethis::use_data(tdBoxAbbrevs, compress='xz', overwrite = TRUE)
 usethis::use_data(tdMethods, compress='xz', overwrite = TRUE)
+usethis::use_data(tdPlotSequence, compress='xz', overwrite = TRUE)
 usethis::use_data(tdCol, compress='xz', overwrite = TRUE)
 usethis::use_data(TDFunctions, compress='xz', overwrite = TRUE)
 usethis::use_data(TDPair, compress='xz', overwrite = TRUE)

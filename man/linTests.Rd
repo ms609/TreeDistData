@@ -8,6 +8,11 @@
 \alias{linTestTwoResults}
 \title{Evaluating tree distance metrics with method of \emph{Lin et al.} 2012}
 \format{An object of class \code{array} of dimension 5 x 18 x 5.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 linTestOneResults
 

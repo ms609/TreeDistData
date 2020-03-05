@@ -5,26 +5,25 @@
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/TreeDistData)](https://cran.r-project.org/package=TreeDistData)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/TreeDistData)](https://cran.r-project.org/package=TreeDistData)
 
-This package provides data files used to build the vignettes in the `TreeDist` 
-[package](https://ms609.github.io/TreeDist).
-Because the data files are large, they are not installed with `TreeDist`.
+'TreeDistData' is an R package that contains the functions and scripts used to
+compare the performance of tree distance metrics in Smith (in review).
 
-# Installation
+The "[Articles](https://ms609.github.io/TreeDistData/articles/)" link in the 
+navigation bar lists vignettes detailing the output of analyses corresponding
+to the stated sections of Smith (in review).  Each of these pages includes a
+link to the R source code, which can be used to reproduce the analytical
+results.
 
-<!--(#TODO submit to CRAN!)
+The "[Reference](https://ms609.github.io/TreeDistData/reference/)" link lists
+convenience functions, which facilitate calls to "TreeDist", and data objects 
+that store the results of lengthy analyses.  The code used to generate
+these data objects is available in the
+[`data-raw`](https://github.com/ms609/TreeDistData/tree/master/data-raw)
+directory.
 
-Install and load the library from CRAN as follows:
-```
-install.packages('TreeDistData')
-library('TreeDistData')
-```
 
-If you're feeling brave, you can i-->Install the development version with:
-```r
-if(!require(devtools)) install.packages("devtools")
-devtools::install_github('ms609/TreeDistData')
-```
+## References
 
-Please note that the 'TreeDistData' project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-By contributing to this project, you agree to abide by its terms.
+Smith, M.R. (20XX). Information theoretic Generalized Robinson-Foulds metrics
+  for comparing phylogenetic trees. In review.
+

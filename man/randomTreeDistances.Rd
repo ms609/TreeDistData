@@ -5,6 +5,11 @@
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
 \format{An object of class \code{array} of dimension 20 x 13 x 197.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 randomTreeDistances
 }
