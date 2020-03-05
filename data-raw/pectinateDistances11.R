@@ -51,7 +51,7 @@ mafi <- TBRDist::MAFInfo(pectinateTree, randomTrees)
 message('RF... ')
 rf <- RobinsonFoulds(pectinateTree, randomTrees)
 message('RFI... ')
-rfi <- RobinsonFouldsInfo(pectinateTree, randomTrees)
+rfi <- InfoRobinsonFoulds(pectinateTree, randomTrees)
 message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 

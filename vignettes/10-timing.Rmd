@@ -66,7 +66,7 @@ Times <- function (trees) {
     spr = SPR.dist(trees),
     tbr = TBRDist(trees, exact = FALSE),
     rf = RF(splits),
-    rfi = RobinsonFouldsInfo(splits),
+    rfi = InfoRobinsonFoulds(splits),
     path = path.dist(trees),
     
     times = nRepeats

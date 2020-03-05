@@ -39,6 +39,18 @@ PlotMethod <- function (method, doPlot = TRUE) {
 }
 ```
 
+There are four unrooted tree shapes on eight leaves:
+
+```{r tree-shapes, echo=FALSE, fig.asp=1/4, fig.align='center', fig.width=6}
+par(mfrow=c(1, 4), mar=rep(0.3, 4))
+lapply(lapply(0:3, UnrootedTreeWithShape, 8), plot) -> XX
+```
+
+To evaluate the extent to which trees are ranked as less (or more) different
+simply because they exhibit the same shape, I evaluated the extent to which
+tree distance could be predicted based only on knowledge of the topology of 
+the two input trees.
+
 ```{r analyse, echo = FALSE}
 par(xpd = NA)
 r <- vapply(seMethods, PlotMethod, doPlot = FALSE, double(2))

@@ -3,10 +3,10 @@ title: "1.3: Number of moves made"
 author: "Martin R. Smith"
 date: "`r Sys.Date()`"
 output: 
-  bookdown::pdf_document2:
-    toc: no
   rmarkdown::html_vignette:
     default: yes
+  bookdown::pdf_document2:
+    toc: no
 ---
 
 ```{r, echo=FALSE, message=FALSE}

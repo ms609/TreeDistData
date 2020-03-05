@@ -150,7 +150,7 @@ for (tipName in tipsNames) {
       tbr_u = tbr$tbr_max,
 
       rf = RobinsonFoulds(tr, trs),
-      rfi = RobinsonFouldsInfo(tr, trs),
+      rfi = InfoRobinsonFoulds(tr, trs),
       qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
                                       similarity = FALSE),
       path = path.dist(tr, trs)

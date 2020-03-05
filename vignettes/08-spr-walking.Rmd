@@ -28,8 +28,9 @@ Plotter <- function (method) {
           ylab = TreeDistData::tdAbbrevs[method],
           xlab = 'SPR moves', axes= F)
   tau <- cor.test(dat.A, moves.A, method="kendall", use="pairwise")$estimate
-  text(max(moves.A), min(dat.A), paste('tau-b =', signif(tau, 3)), pos = 2, col = col)
-  legend('right', TreeDistData::tdAbbrevs[method], bty='n', col = col)
+  text(max(moves.A), min(dat.A), pos = 2, col = col,
+       bquote(paste(tau['B']*' = ', .(signif(tau, 3)))))
+legend('right', TreeDistData::tdAbbrevs[method], bty='n', col = col)
 }
 ```
 
@@ -50,8 +51,10 @@ Tabler <- function (method) {
   cor.test(dat[!is.na(dat)], moves[!is.na(dat)], method="kendall",
            use="pairwise")$estimate
 }
-r2 <- vapply(plotSequence, Tabler, double(1))
-r2 <- matrix(r2, dimnames = list(TreeDistData::tdMdAbbrevs[names(r2)], 'τ'))
+tauB <- vapply(plotSequence, Tabler, double(1))
+tauB <- abs(signif(tauB[order(abs(tauB), decreasing = TRUE)], 3))
+tauB <- matrix(tauB, dimnames = list(TreeDistData::tdMdAbbrevs[names(tauB)], 
+                                     "\u03c4<sub>B</sub>"))
 
-knitr::kable(abs(signif(r2[order(abs(r2), decreasing = TRUE), ], 3)))
+knitr::kable(tauB)
 ```

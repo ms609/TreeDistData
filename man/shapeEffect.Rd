@@ -5,6 +5,11 @@
 \alias{shapeEffect}
 \title{Shape effect}
 \format{An object of class \code{list} of length 21.}
+\source{
+Scripts used to generate data objects are housed in the
+\href{https://github.com/ms609/TreeDistData/tree/master/data-raw}{\code{data-raw}}
+directory.
+}
 \usage{
 shapeEffect
 }

@@ -52,8 +52,8 @@ lapply(tdPlotSequence, BoxPlot) -> errors
 mtext('Move length', 1, line = 0, cex = 0.75, outer = TRUE)
 ```
 
-**Supplementary Figure 1.** Distances between eleven-leaf trees differing in the
-position of a single leaf.
+**Distances between eleven-leaf trees differing in the
+position of a single leaf.**
 _Move length_ is the number of nodes that must be traversed to travel from
 the position of the moved leaf in the first tree to its position in the second.
 If a pair does not have a higher distance than all pairs with a shorter move 

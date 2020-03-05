@@ -2,8 +2,7 @@
 release_questions <- function() {
   c(
     "Is the code free of #TODOs?",
-    "Have you updated REFERENCES.bib with a citation to the published study?",
-    "Have you updated inst/CITATION with a citation to the published study?",
+    "Have you updated REFERENCES.bib, inst/CITATION and README.md with a citation to the published study?",
     "Have you updated the version number in NEWS & DESCRIPTION?",
     "Have you cleared GitHub issues for this release milestone?",
     "Have you checked the Vignettes for sanity?"

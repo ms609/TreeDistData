@@ -41,6 +41,7 @@
 #'
 #' The third dimension lists the number of leaves in the trees compared.
 #'
+#' @template dataRaw
 #'
 #' @references
 #' - \insertRef{Allen2001}{TreeDist}
@@ -106,6 +107,7 @@
 #'
 #' The pairs of 25-leaf trees are saved as data object [`randomTreePairs25`].
 #'
+#' @template dataRaw
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
 #'
@@ -142,6 +144,7 @@ NULL
 #' The distances between these pairs of trees are recorded in
 #' the data objects  [`distanceDistribution25`] and  [`distanceDistribution50`].
 #'
+#' @template dataRaw
 #' @name randomTreePairs
 #' @keywords datasets
 NULL
@@ -196,6 +199,7 @@ NULL
 #' plot(TreeTools::UnrootedTreeWithShape(0, 7))
 #' plot(TreeTools::UnrootedTreeWithShape(1, 7))
 #'
+#' @template dataRaw
 #'
 #' @references
 #' \insertRef{Bogdanowicz2012}{TreeDist}
@@ -256,6 +260,7 @@ NULL
 #' For details, see \code{\link{sevenTipDistances}}.
 #'
 #'
+#' @template dataRaw
 #' @references
 #' - \insertRef{Kuhner2015}{TreeDistData}
 #'
@@ -280,6 +285,7 @@ NULL
 #'
 #' <<#TODO Describe in detail.>>
 #'
+#' @template dataRaw
 #' @references \insertRef{Lin2012}{TreeDistData}
 #' @name linTests
 #'
@@ -314,6 +320,7 @@ NULL
 #' `TDPair` lists for each method a function to calculate the distance
 #' between one tree (`tr`) and another tree (`ref`).
 #'
+#' @template dataRaw
 #' @name TreeDistMethods
 
 #' @rdname TreeDistMethods
@@ -344,10 +351,12 @@ NULL
 #'
 #' <<#TODO Describe in detail.>>
 #'
+#' @template dataRaw
 'sprDistances'
 
 #' Shape effect
 #'
 #' <<#TODO Describe in detail.>>
 #'
+#' @template dataRaw
 'shapeEffect'
