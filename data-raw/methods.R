@@ -93,7 +93,7 @@ JNA4 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=FALSE)
 
 TDFunctions <- list(
   rf = TreeDist::RobinsonFoulds,
-  rfi = TreeDist::RobinsonFouldsInfo,
+  rfi = TreeDist::InfoRobinsonFoulds,
   ja2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal =TRUE),
   ja4 =  function(...) TreeDist::JaccardRobinsonFoulds(..., k=4, arboreal=TRUE),
   jna2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k=2, arboreal=FALSE),
@@ -121,7 +121,7 @@ TDFunctions <- list(
 
 TDPair <- list(
   rf = function (tr, ref) TreeDist::RobinsonFoulds(tr, ref),
-  rfi = function (tr, ref) TreeDist::RobinsonFouldsInfo(tr, ref),
+  rfi = function (tr, ref) TreeDist::InfoRobinsonFoulds(tr, ref),
   ja2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
     tr, ref, k = 2, arboreal = TRUE, normalize = TRUE), 4),
   jna2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(

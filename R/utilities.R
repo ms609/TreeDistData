@@ -7,7 +7,7 @@
 #' JaccardRobinsonFoulds
 #' DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance
-#' ClusteringInfoDistance RobinsonFoulds
+#' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
 #' @importFrom Quartet QuartetDivergence QuartetStatus
 #' @importFrom TBRDist TBRDist
 #' @family pairwise tree distances
@@ -63,7 +63,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
     rf = RobinsonFoulds(tr1, tr2),
-    rfi = RobinsonFouldsInfo(tr1, tr2),
+    rfi = InfoRobinsonFoulds(tr1, tr2),
     path = PathDist(tr1, tr2)
   )
 }
@@ -116,7 +116,7 @@ PairwiseDistances <- function (trees, Func, valueLength = 1L, ...) {
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeTreeSimilarity MatchingSplitDistance MASTSize SPRDist
-#' ClusteringInfoDistance RobinsonFoulds RobinsonFouldsInfo
+#' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #'
 #' @examples
@@ -186,7 +186,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG('Complete; listing.')
   list(
     rf = RobinsonFoulds(splits),
-    rfi = RobinsonFouldsInfo(splits),
+    rfi = InfoRobinsonFoulds(splits),
 
     ja2 =  JaccardRobinsonFoulds(splits, k = 2, arboreal = TRUE, normalize = TRUE),
     ja4 =  JaccardRobinsonFoulds(splits, k = 4, arboreal = TRUE, normalize = TRUE),
