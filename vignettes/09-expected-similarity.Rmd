@@ -24,7 +24,7 @@ and the distances between them calculated.
 Shaded envelopes denote the interdecile and interquartile ranges.
 The raw data are available in the data object [`randomTreeDistances`](../reference/randomTreeDistances.html).
 
-```{R Tree-distance-averages, echo=FALSE, message=FALSE, cache=TRUE, fig.asp=2, fig.width=6, fig.align='center'}
+```{R calculations, echo=FALSE, message=FALSE, cache=TRUE}
 library('TreeDistData')
 data('tdMethods', package = 'TreeDistData')
 data('tdAbbrevs', package = 'TreeDistData')
@@ -96,7 +96,9 @@ AddLine <- function (method, normalize = FALSE) {
   #lines(nLeaves, dat['75%', ], lty=2, col=col)
   #pointsAt <- 1:10 * 20L
 }
+```
 
+```{R tree-distance-averages, echo=FALSE, message=FALSE, cache=TRUE, fig.asp=2, fig.width=6, fig.align='center'}
 par(mfrow = c(3, 1))
 par(cex = 0.7)
 par(oma = rep(0, 4))
@@ -160,7 +162,8 @@ IQRNorm <- function (methodDistances) {
   iqr <- abs(methodDistances['75%', ] -  methodDistances['25%', ])
   iqr / methodDistances['50%', ]
 }
-iq <- colMeans(apply(randomTreeDistances, 1, IQRNorm)[as.character(20:200), ])
+iq <- colMeans(apply(randomTreeDistances, 1, IQRNorm)[as.character(20:200), ], 
+               na.rm = TRUE)
 names(iq) <- tdMdAbbrevs[names(iq)]
 knitr::kable(round(iq[order(iq, decreasing = TRUE)] * 100, 1))
 ```
