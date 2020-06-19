@@ -14,20 +14,20 @@ legendSequence <- c('dpi', 'cid', 'nts', 'msd', 'qd', 'path', 'rf', 'rfi',
 
 tdAbbrevs <- c(
   rf  = 'Robinson-Foulds',
-  rfi = 'Info. Corr. RF',
+  icrf = 'Info. Corr. RF',
 
-  ja4 = 'JRF (k = 4, no conflict)',
-  ja2 = 'JRF (k = 2, no conflict)',
-  jna4 = 'JRF (k = 4, conflict ok)',
-  jna2 = 'JRF (k = 2, conflict ok)',
+  jnc4 = 'JRF (k = 4, no conflict)',
+  jnc2 = 'JRF (k = 2, no conflict)',
+  jco4 = 'JRF (k = 4, conflict ok)',
+  jco2 = 'JRF (k = 2, conflict ok)',
 
   nea = 'Nye et al.',
-  nts = expression(paste(plain('Nye '), italic('et al.'))),
+  nye = expression(paste(plain('Nye '), italic('et al.'))),
 
-  dpi = 'Phylog. Info. Dist',
+  pid = 'Phylog. Info. Dist',
   cid = 'Clust. Info. Dist.',
   msid = 'Match. Split Info Dist',
-  msd = 'Match. Split Dist.',
+  ms = 'Match. Split Dist.',
 
   nni = 'NNI (approx.)',
   nni_u = 'NNI (upr bnd)',
@@ -47,24 +47,24 @@ tdAbbrevs <- c(
 )
 
 tdMdAbbrevs <- tdAbbrevs
-tdMdAbbrevs['nts'] <- 'Nye _et al._'
+tdMdAbbrevs['nye'] <- 'Nye _et al._'
 
 tdBoxAbbrevs <- c(
   rf  = 'Robins.\n-Foulds',
-  rfi = 'Info.\nCorr.\nRF',
+  icrf = 'Info.\nCorr.\nRF',
 
-  ja4 = 'JRF\n(k = 4,\nno conf.)',
-  ja2 = 'JRF\n(k = 2,\nno conf.)',
-  jna4 = 'JRF\n(k = 4,\nconf. ok)',
-  jna2 = 'JRF\n(k = 2,\nconf. ok)',
+  jnc4 = 'JRF\n(k = 4,\nno conf.)',
+  jnc2 = 'JRF\n(k = 2,\nno conf.)',
+  jco4 = 'JRF\n(k = 4,\nconf. ok)',
+  jco2 = 'JRF\n(k = 2,\nconf. ok)',
 
   nea = 'Nye\net al.',
-  nts = 'Nye\net al.',#expression(paste(plain('Nye\n'), italic('et al.'))),
+  nye = 'Nye\net al.',#expression(paste(plain('Nye\n'), italic('et al.'))),
 
-  dpi = 'Phylog.\nInfo.\nDist.',
+  pid = 'Phylog.\nInfo.\nDist.',
   cid = 'Clust.\nInfo.\nDist.',
   msid = 'MS\nInfo\nDist',
-  msd = 'Match.\nSplit\nDist.',
+  ms = 'Match.\nSplit\nDist.',
 
   nni = 'NNI\n(approx.)',
   nni_u = 'NNI\n(upr bnd)',
@@ -93,14 +93,14 @@ JNA4 <- function (...) TreeDist::JaccardRobinsonFoulds(..., k = 4, allowConflict
 
 TDFunctions <- list(
   rf = TreeDist::RobinsonFoulds,
-  rfi = TreeDist::InfoRobinsonFoulds,
-  ja2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 2, allowConflict = FALSE),
-  ja4 =  function(...) TreeDist::JaccardRobinsonFoulds(..., k = 4, allowConflict = FALSE),
-  jna2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 2, allowConflict = TRUE),
-  jna4 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 4, allowConflict = TRUE),
+  icrf = TreeDist::InfoRobinsonFoulds,
+  jnc2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 2, allowConflict = FALSE),
+  jnc4 =  function(...) TreeDist::JaccardRobinsonFoulds(..., k = 4, allowConflict = FALSE),
+  jco2 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 2, allowConflict = TRUE),
+  jco4 = function(...) TreeDist::JaccardRobinsonFoulds(..., k = 4, allowConflict = TRUE),
 
-  nts = function(...) TreeDist::NyeSimilarity(..., similarity = FALSE),
-  dpi = DifferentPhylogeneticInfo,
+  nye = function(...) TreeDist::NyeSimilarity(..., similarity = FALSE),
+  pid = DifferentPhylogeneticInfo,
   nni_u =  function(...) as.matrix(TreeDist::NNIDist(...)$loose_upper),
   nni_t =  function(...) as.matrix(TreeDist::NNIDist(...)$tight_upper),
   nni_l =  function(...) as.matrix(TreeDist::NNIDist(...)$lower),
@@ -113,7 +113,7 @@ TDFunctions <- list(
   masti = function(...) TreeDist::MASTInfo(..., rooted = FALSE),
   cid = TreeDist::ClusteringInfoDistance,
   msid = TreeDist::MatchingSplitInfoDistance,
-  msd = TreeDist::MatchingSplitDistance,
+  ms = TreeDist::MatchingSplitDistance,
   qd  = function (...) Quartet::QuartetDivergence(Quartet::ManyToManyQuartetAgreement(...),
                                                   similarity = FALSE),
   mafi = TBRDist::MAFInfo
@@ -121,23 +121,23 @@ TDFunctions <- list(
 
 TDPair <- list(
   rf = function (tr, ref) TreeDist::RobinsonFoulds(tr, ref),
-  rfi = function (tr, ref) TreeDist::InfoRobinsonFoulds(tr, ref),
-  ja2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
+  icrf = function (tr, ref) TreeDist::InfoRobinsonFoulds(tr, ref),
+  jnc2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
     tr, ref, k = 2, allowConflict = FALSE, normalize = TRUE), 4),
-  jna2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
+  jco2 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
     tr, ref, k = 2, allowConflict = TRUE, normalize = TRUE), 4),
-  ja4 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
+  jnc4 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
     tr, ref, k = 4, allowConflict = FALSE, normalize = TRUE), 4),
-  jna4 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
+  jco4 = function (tr, ref) round(TreeDist::JaccardRobinsonFoulds(
     tr, ref, k = 4, allowConflict = TRUE, normalize = TRUE), 4),
 
-  dpi = function (tr, ref) round(TreeDist::DifferentPhylogeneticInfo(
+  pid = function (tr, ref) round(TreeDist::DifferentPhylogeneticInfo(
     tr, ref, normalize = TRUE), 4L),
   msid = function (tr, ref) round(TreeDist::MatchingSplitInfoDistance(
     tr, ref, normalize = TRUE), 4L),
   cid = function (tr, ref) round(TreeDist::ClusteringInfoDistance(
     tr, ref, normalize = TRUE), 4L),
-  nts = function (tr, ref) round(NyeSimilarity(
+  nye = function (tr, ref) round(NyeSimilarity(
     tr, ref, similarity = FALSE, normalize = TRUE), 4L),
   tbr_u = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_max,
   tbr_l = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_min,
@@ -147,7 +147,7 @@ TDPair <- list(
   mast = function (...) TreeDist::MASTSize(...),
   masti = function (...) TreeDist::MASTInfo(...),
   mafi = function (...) TBRDist::MAFInfo(...),
-  msd = function (tr, ref) signif(TreeDist::MatchingSplitDistance(tr, ref), 4),
+  ms = function (tr, ref) signif(TreeDist::MatchingSplitDistance(tr, ref), 4),
   qd = function (tr, ref) Quartet::QuartetStatus(list(tr, ref))[2, 'd'],
   path = function (tr, ref) signif(phangorn::path.dist(tr, ref), 4L),
 
@@ -183,13 +183,13 @@ dr22 <- c("#D9CCE3", "#CAACCB", "#BA8DB4", "#AA6F9E", "#994F88", "#882E72",
           "#DC050C", "#A5170E", "#72190E", "#42150A")
 
 #tdCol <- tab30[c((1:10 * 2 - 1L), (seq_len(length(tdMethods) - 10L) * 2))]
-colOrder <- c(22, 21, 3, 4, 1, 2, nts = 10, 7, 11, 6:5,
+colOrder <- c(22, 21, 3, 4, 1, 2, nye = 10, 7, 11, 6:5,
               15:17, 14, 18:19, 8:9, 12, 20, 13)
 if(any(duplicated(colOrder))) warning(ifelse(duplicated(colOrder), colOrder, 0))
 if (any(which(!1:22 %in% colOrder))) warning(which(!1:22 %in% colOrder))
 tdCol <- dr22[colOrder]
 names(tdCol) <- tdMethods
-tdCol[c('nni', 'nea', 'tbr')] <- tdCol[c('nni_u', 'nts', 'tbr_u')]
+tdCol[c('nni', 'nea', 'tbr')] <- tdCol[c('nni_u', 'nye', 'tbr_u')]
 
 
 usethis::use_data(tdAbbrevs, compress = 'gzip', overwrite = TRUE)

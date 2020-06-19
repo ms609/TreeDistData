@@ -1,5 +1,6 @@
-# TreeDistData 0.1.1 (forthcoming)
+# TreeDistData 0.1.0.9000 (development)
 
+- Update abbreviations to match Smith (202X)
 - Final `randomTreeDistances` data object.
 
 # TreeDistData 0.1.0
