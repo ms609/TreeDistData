@@ -138,12 +138,12 @@ PlotFunc <- function() {
 
   RowTitle('Subsampling experiment')
   gap <- 2L
-  firstMethods <- c('cid', 'dpi', 'msid', 
-                    'qd', 'rfi',
-                    'ja2', 'jna4', 'nts', 'rf')
+  firstMethods <- c('cid', 'pid', 'msid', 
+                    'qd', 'icrf',
+                    'jnc2', 'jco4', 'nye', 'rf')
   # NB: All NNI estimates plot very close together.
   #     MAST * MASTI are indistinguishable
-    secondMethods <- c('cid', 'msd', 'path', 'mast', 'rf', 
+    secondMethods <- c('cid', 'ms', 'path', 'mast', 'rf', 
                        'tbr_u', 'tbr_l', 'spr', 'nni_l')
   notPlotted <- colnames(bullseyeMorphScores[[1]])[
     !colnames(bullseyeMorphScores[[1]]) %in% c(firstMethods, secondMethods)]

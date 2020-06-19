@@ -108,7 +108,7 @@ par(mar = c(5, 5, 0.01, 0.01))
 PlotMethods <- function (methods, yMin = 0.4,
                          lp = c('bottomright', 'bottomleft')) {
   plot(as.integer(dimnames(randomTreeDistances)[[3]]),
-       randomTreeDistances['dpi', 'mean', ],
+       randomTreeDistances['pid', 'mean', ],
        ylim = c(yMin, 1), type = 'n',
        xlab = "Number of leaves", ylab = "Normalized tree distance")
   for (method in methods) AddLine(method, 
@@ -127,8 +127,8 @@ PlotMethods <- function (methods, yMin = 0.4,
          lty=1, lwd = c(1, 4, 6), col=c(1, "#00000066", "#00000033"),
          legend=c('Median', 'Interquartile range', 'Interdecile range'))
 }
-PlotMethods(c('rf', 'dpi', 'cid', 'msd', 'nts', 'msid'))
-PlotMethods(c('rf', 'ja4', 'jna4', 'ja2', 'jna2', 'nts'), yMin = 0.7)
+PlotMethods(c('rf', 'pid', 'cid', 'ms', 'nye', 'msid'))
+PlotMethods(c('rf', 'jnc4', 'jco4', 'jnc2', 'jco2', 'nye'), yMin = 0.7)
 PlotMethods(c('nni_u', 'tbr_u', 'spr', 'masti', 'mast',
               'path', 'qd', 'tbr_l', 'nni_l'), yMin = 0.14, 
             lp = c('bottomright', 'right'))

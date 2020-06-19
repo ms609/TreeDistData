@@ -42,18 +42,18 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
   if (verbose) cat('.')
   Bind <- if (is.null(names(nni))) rbind else c
   Bind(
-    dpi = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
+    pid = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
     msid = MatchingSplitInfoDistance(tr1, tr2, normalize = TRUE),
     cid = ClusteringInfoDistance(tr1, tr2, normalize = TRUE),
     qd = unname(qd),
-    nts = NyeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
+    nye = NyeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
 
-    ja2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = FALSE, normalize = TRUE),
-    ja4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = FALSE, normalize = TRUE),
-    jna2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = TRUE, normalize = TRUE),
-    jna4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = TRUE, normalize = TRUE),
+    jnc2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = FALSE, normalize = TRUE),
+    jnc4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = FALSE, normalize = TRUE),
+    jco2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = TRUE, normalize = TRUE),
+    jco4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = TRUE, normalize = TRUE),
 
-    msd = MatchingSplitDistance(tr1, tr2),
+    ms = MatchingSplitDistance(tr1, tr2),
     mast = mast,
     masti = masti,
     nni_l = NNIPart('lower'),
@@ -63,7 +63,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
     rf = RobinsonFoulds(tr1, tr2),
-    rfi = InfoRobinsonFoulds(tr1, tr2),
+    icrf = InfoRobinsonFoulds(tr1, tr2),
     path = PathDist(tr1, tr2)
   )
 }
@@ -168,8 +168,8 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG('path')
   pathDist <- as.matrix(PathDist(trees))
 
-  MSG('DPI')
-  dpi <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
+  MSG('PID')
+  pid <- DifferentPhylogeneticInfo(splits, normalize = TRUE)
 
   MSG('msid')
   msid <- MatchingSplitInfoDistance(splits, normalize = TRUE)
@@ -178,28 +178,28 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   cid <- ClusteringInfoDistance(splits, normalize = TRUE)
 
   MSG('Nye')
-  nts <- 1 - NyeSimilarity(splits, normalize = TRUE)
+  nye <- 1 - NyeSimilarity(splits, normalize = TRUE)
 
   MSG('MSD')
-  msd <- MatchingSplitDistance(splits)
+  ms <- MatchingSplitDistance(splits)
 
   MSG('Complete; listing.')
   list(
     rf = RobinsonFoulds(splits),
-    rfi = InfoRobinsonFoulds(splits),
+    icrf = InfoRobinsonFoulds(splits),
 
-    ja2 =  JaccardRobinsonFoulds(splits, k = 2, allowConflict = FALSE, normalize = TRUE),
-    ja4 =  JaccardRobinsonFoulds(splits, k = 4, allowConflict = FALSE, normalize = TRUE),
-    jna2 = JaccardRobinsonFoulds(splits, k = 2, allowConflict = TRUE, normalize = TRUE),
-    jna4 = JaccardRobinsonFoulds(splits, k = 4, allowConflict = TRUE, normalize = TRUE),
+    jnc2 =  JaccardRobinsonFoulds(splits, k = 2, allowConflict = FALSE, normalize = TRUE),
+    jnc4 =  JaccardRobinsonFoulds(splits, k = 4, allowConflict = FALSE, normalize = TRUE),
+    jco2 = JaccardRobinsonFoulds(splits, k = 2, allowConflict = TRUE, normalize = TRUE),
+    jco4 = JaccardRobinsonFoulds(splits, k = 4, allowConflict = TRUE, normalize = TRUE),
 
-    dpi = dpi,
+    pid = pid,
     msid = msid,
     cid = cid,
     qd = qd,
-    nts = nts,
+    nye = nye,
 
-    msd = msd,
+    ms = ms,
     mast = mast,
     masti = masti,
     nni_l = nni$lower,

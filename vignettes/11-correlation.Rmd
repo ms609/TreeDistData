@@ -22,10 +22,10 @@ distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution5
 toCorrelate <- c(
                  "path",
                  "qd", 
-                 "msd", "msid", 
-                 "dpi", "cid", "nts",
-                 "ja2", "ja4", "jna2", "jna4",
-                 "rfi", "rf",
+                 "ms", "msid", 
+                 "pid", "cid", "nye",
+                 "jnc2", "jnc4", "jco2", "jco4",
+                 "icrf", "rf",
                  "spr", "tbr_l", "tbr_u", "mast" # Integers
                  )
 if (!all(rownames(distanceDistribution50) %in% toCorrelate)) {
