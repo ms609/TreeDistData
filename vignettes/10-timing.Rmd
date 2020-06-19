@@ -55,22 +55,22 @@ SPRWalk <- function (nTip) {
 Times <- function (trees) {
   splits <- TreeTools::as.Splits(trees)
   timings <- microbenchmark::microbenchmark(
-    dpi = SharedPhylogeneticInfo(splits, normalize = FALSE),
+    pid = SharedPhylogeneticInfo(splits, normalize = FALSE),
     msid = MatchingSplitInfo(splits, normalize = FALSE),
     cid = MutualClusteringInfo(splits, normalize = FALSE),
-    nea = NyeSimilarity(splits, normalize = FALSE),
-    ja2 = JaccardRobinsonFoulds(splits, k = 2L, similarity = TRUE, allowConflict = FALSE, normalize = FALSE),
-    ja4 = JaccardRobinsonFoulds(splits, k = 4L, similarity = TRUE, allowConflict = FALSE, normalize = FALSE),
-    jna2 = JaccardRobinsonFoulds(splits, k = 2L, similarity = TRUE, allowConflict = TRUE, normalize = FALSE),
-    jna4 = JaccardRobinsonFoulds(splits, k = 4L, similarity = TRUE, allowConflict = TRUE, normalize = FALSE),
-    msd = MatchingSplitDistance(splits),
+    nye = NyeSimilarity(splits, normalize = FALSE),
+    jnc2 = JaccardRobinsonFoulds(splits, k = 2L, similarity = TRUE, allowConflict = FALSE, normalize = FALSE),
+    jnc4 = JaccardRobinsonFoulds(splits, k = 4L, similarity = TRUE, allowConflict = FALSE, normalize = FALSE),
+    jco2 = JaccardRobinsonFoulds(splits, k = 2L, similarity = TRUE, allowConflict = TRUE, normalize = FALSE),
+    jco4 = JaccardRobinsonFoulds(splits, k = 4L, similarity = TRUE, allowConflict = TRUE, normalize = FALSE),
+    ms = MatchingSplitDistance(splits),
     qd = Quartet::ManyToManyQuartetAgreement(trees),
     mast = TreeDistData::PairwiseDistances(trees, MASTSize, rooted = FALSE),
     nni = TreeDistData::PairwiseDistances(trees, NNIDist, 3L),
     spr = SPR.dist(trees),
     tbr = TBRDist(trees, exact = FALSE),
     rf = RF(splits),
-    rfi = InfoRobinsonFoulds(splits),
+    icrf = InfoRobinsonFoulds(splits),
     path = path.dist(trees),
     
     times = nRepeats
