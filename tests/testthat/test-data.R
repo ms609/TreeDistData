@@ -20,7 +20,7 @@ test_that("Data dimensions are correct", {
     if (!mast) exclude <- c(exclude, 'mast', 'masti')
     methods <- tdMethods[!tdMethods %in% exclude]
     expect_true(all(methods %in% x))
-    expect_equal(methods, x)
+    expect_equal(methods, x[!x %in% exclude])
   }
 
   data("randomTreeDistances", package = 'TreeDistData')
