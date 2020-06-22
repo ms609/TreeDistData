@@ -9,13 +9,13 @@ randomTreePairs50 <- lapply(rep(50L, repls), function (nTip)
 cat("Generated", repls, "random tree pairs.")
 
 distanceDistribution50 <- vapply(randomTreePairs50, function (treePair) {
-  TreeDistData:::AllDists(treePair[[1]], treePair[[2]])
-}, c(dpi = 0, msid = 0, cid = 0, qd = 0, nts = 0, ja2 = 0, ja4 = 0,
-     jna2 = 0, jna4 = 0, msd = 0, mast = 0, masti = 0, nni_l = 0,
-     nni_t = 0, nni_u = 0, spr = 0, tbr_l = 0, tbr_u = 0, rf = 0,
-     rfi = 0, path = 0)
+    TreeDistData:::AllDists(treePair[[1]], treePair[[2]])
+  }, c(pid = 0, msid = 0, cid = 0, qd = 0, nye = 0, jnc2 = 0, jnc4 = 0,
+       jco2 = 0, jco4 = 0, ms = 0, mast = 0, masti = 0, nni_l = 0,
+       nni_t = 0, nni_u = 0, spr = 0, tbr_l = 0, tbr_u = 0, rf = 0,
+       icrf = 0, path = 0)
 )
 
-usethis::use_data(randomTreePairs50, compress='bzip2', overwrite=TRUE)
-usethis::use_data(distanceDistribution50, compress='xz', overwrite=TRUE)
+usethis::use_data(randomTreePairs50, compress = 'bzip2', overwrite = TRUE)
+usethis::use_data(distanceDistribution50, compress = 'xz', overwrite = TRUE)
 message("Complete.")
