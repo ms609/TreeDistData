@@ -38,7 +38,7 @@
 #'
 #' @templateVar vignette 07-bullseye
 #' @template seeVignette
-#' @templateVar nni_t FALSE
+#' @templateVar nni_t TRUE
 #' @template methodsTested
 #' @template dataRaw
 #' @references
@@ -196,7 +196,7 @@ NULL
 #' @templateVar vignette 09-expected-similarity
 #' @template seeVignette
 #' @template dataRaw
-#' @templateVar nni_t TRUE
+#' @templateVar nni_t FALSE
 #' @template methodsTested
 #'
 #' @references
@@ -294,7 +294,7 @@ NULL
 #' Tree distance and SPR moves
 #'
 #' Datasets testing whether separating trees by increasingly many moves
-#' results in a corresponding increase to their distance.
+#' results in a corresponding increase in their distance.
 #'
 #' I generated a chain of 100 50-leaf trees, starting from a pectinate tree
 #' and deriving each tree in turn by performing an SPR operation on the previous
@@ -308,17 +308,18 @@ NULL
 #' Each entry is named according to the corresponding tree distance method; see
 #' 'Methods tested' below.
 #'
-#' Each member of the list is a 100 x 100 matrix listing the distance
+#' Each member of the list is a 100 &times; 100 matrix listing the distance
 #' between each pair of trees in the SPR chain (see 'Details'),
 #' numbered from 1 to 100.
 #'
 #'
 #' @templateVar vignette 08-spr-walking
 #' @template seeVignette
-#' @templateVar nni_t FALSE
+#' @templateVar nni_t TRUE
 #' @template methodsTested
 #' @template methodRefs
 #' @template dataRaw
+#' @encoding UTF-8
 'sprDistances'
 
 #' Method parameters
