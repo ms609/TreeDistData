@@ -10,4 +10,4 @@ cat(table(treeShapes))
 
 sevenTipDistances <- TreeDistData::CompareAllTrees(trees, verbose = TRUE)
 
-usethis::use_data(sevenTipDistances, compress='xz', overwrite = TRUE)
+usethis::use_data(sevenTipDistances, compress = 'xz', overwrite = TRUE)

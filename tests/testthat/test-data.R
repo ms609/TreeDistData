@@ -38,6 +38,7 @@ test_that("Data dimensions are correct", {
   lapply(bullMoDiScores, function (x) {
     AllDistsThere(dimnames(x)[[2]])
   })
+  AllDistsThere(names(sevenTipDistances))
   AllDistsThere(dimnames(pectinateDistances11)[[1]])
   AllDistsThere(dimnames(distanceDistribution25)[[1]])
   AllDistsThere(dimnames(distanceDistribution50)[[1]])
