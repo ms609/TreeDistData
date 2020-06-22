@@ -17,13 +17,14 @@ test_that("Data dimensions are correct", {
 
   noMafiNnit <- tdMethods[!tdMethods %in% c('mafi', 'nni_t')]
 
+  AllDistsThere <- function (x) expect_true(all(noMafiNnit %in% x))
+
   data("randomTreeDistances", package = 'TreeDistData')
   nLeafMeasurements <- 197L
-  expect_true(all(noMafiNnit %in% dimnames(randomTreeDistances)[[1]]))
+  AllDistsThere(dimnames(randomTreeDistances)[[1]])
   expect_equal(c(LengthWithout('mafi', 'nni_t'), 13L, nLeafMeasurements),
                dim(randomTreeDistances))
 
-  AllDistsThere <- function (x) expect_true(all(noMafiNnit %in% x))
   lapply(bullseyeDistances, function (x) {
     AllDistsThere(names(x))
   })
@@ -33,8 +34,11 @@ test_that("Data dimensions are correct", {
   lapply(bullMoDiScores, function (x) {
     AllDistsThere(dimnames(x)[[2]])
   })
-  AllDistsThere(distanceDistribution25)
-  AllDistsThere(distanceDistribution50)
+  AllDistsThere(dimnames(distanceDistribution25)[[1]])
+  AllDistsThere(dimnames(distanceDistribution50)[[1]])
+  AllDistsThere(dimnames(linTestOneResults)[[2]])
+  AllDistsThere(dimnames(linTestTwoResults)[[2]])
+  AllDistsThere(dimnames(linTestSPRResults)[[2]])
 
 
   #TODO update other datasets for all 20 metrics?
