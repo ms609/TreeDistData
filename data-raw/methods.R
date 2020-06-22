@@ -50,36 +50,36 @@ tdMdAbbrevs <- tdAbbrevs
 tdMdAbbrevs['nye'] <- 'Nye _et al._'
 
 tdBoxAbbrevs <- c(
-  rf  = 'Robins.\n-Foulds',
-  icrf = 'Info.\nCorr.\nRF',
-
-  jnc4 = 'JRF\n(k = 4,\nno conf.)',
-  jnc2 = 'JRF\n(k = 2,\nno conf.)',
-  jco4 = 'JRF\n(k = 4,\nconf. ok)',
-  jco2 = 'JRF\n(k = 2,\nconf. ok)',
+  pid = 'Phylog.\nInfo.\nDist.',
+  msid = 'MS\nInfo\nDist',
+  cid = 'Clust.\nInfo.\nDist.',
+  qd  = 'Quartet',
 
   nea = 'Nye\net al.',
   nye = 'Nye\net al.',#expression(paste(plain('Nye\n'), italic('et al.'))),
 
-  pid = 'Phylog.\nInfo.\nDist.',
-  cid = 'Clust.\nInfo.\nDist.',
-  msid = 'MS\nInfo\nDist',
+  jnc2 = 'JRF\n(k = 2,\nno conf.)',
+  jnc4 = 'JRF\n(k = 4,\nno conf.)',
+  jco2 = 'JRF\n(k = 2,\nconf. ok)',
+  jco4 = 'JRF\n(k = 4,\nconf. ok)',
+
   ms = 'Match.\nSplit\nDist.',
+  mast = 'MAST\nsize',
+  masti = 'MAST\ninfo',
 
   nni = 'NNI\n(approx.)',
-  nni_u = 'NNI\n(upr bnd)',
-  nni_t = 'NNI\n(ub tight)',
   nni_l = 'NNI\n(lwr bnd)',
+  nni_t = 'NNI\n(ub tight)',
+  nni_u = 'NNI\n(upr bnd)',
   spr = 'SPR\n(approx.)',
   tbr = 'TBR\n(approx.)',
   tbr_l = 'TBR\n(lwr bnd)',
   tbr_u = 'TBR\n(upr bnd)',
 
-  mast = 'MAST\nsize',
-  masti = 'MAST\ninfo',
   mafi = 'MAF\ninfo',
 
-  qd  = 'Quartet',
+  rf  = 'Robins.\n-Foulds',
+  icrf = 'Info.\nCorr.\nRF',
   path = 'Path'
 )
 

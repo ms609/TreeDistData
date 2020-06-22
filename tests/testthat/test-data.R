@@ -48,5 +48,4 @@ test_that("Data dimensions are correct", {
   AllDistsThere(names(shapeEffect))
   AllDistsThere(names(sprDistances))
 
-  #TODO update other datasets for all 20 metrics?
 })
