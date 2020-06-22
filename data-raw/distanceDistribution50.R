@@ -3,7 +3,7 @@ library('TreeDist')
 RNGversion("3.6.0")
 set.seed(0)
 
-repls <-  10000L
+repls <- 10000L
 randomTreePairs50 <- lapply(rep(50L, repls), function (nTip)
   list(RandomTree(nTip), RandomTree(nTip)))
 cat("Generated", repls, "random tree pairs.")
