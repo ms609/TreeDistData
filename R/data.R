@@ -66,7 +66,7 @@
 #' distances between random pairs of bifurcating trees with 25 and 50 leaves
 #' drawn from the uniform distribution using `ape::rtree(nTip, br = NULL)`.
 #' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
-#' and 100&nbsp;000 random bifurcating trees.
+#' and 100&nbsp;000 random binary trees.
 #'
 #' Rows are named with an abbreviation of the tree comparison metric.
 #' Information-based measures are normalized against the splitwise information
@@ -108,13 +108,14 @@
 #' @template methodRefs
 #'
 #' @name distanceDistributions
+#' @encoding UTF-8
 #' @keywords datasets
 NULL
 
 #' @rdname distanceDistributions
-"distanceDistribution50"
-#' @rdname distanceDistributions
 "distanceDistribution25"
+#' @rdname distanceDistributions
+"distanceDistribution50"
 #' @rdname distanceDistributions
 "pectinateDistances11"
 
