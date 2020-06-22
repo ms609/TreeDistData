@@ -45,6 +45,7 @@ test_that("Data dimensions are correct", {
   AllDistsThere(dimnames(linTestOneResults)[[2]], mast = FALSE)
   AllDistsThere(dimnames(linTestTwoResults)[[2]], mast = FALSE)
   AllDistsThere(dimnames(linTestSPRResults)[[2]], mast = FALSE)
+  AllDistsThere(names(shapeEffect))
 
 
   #TODO update other datasets for all 20 metrics?

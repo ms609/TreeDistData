@@ -31,9 +31,9 @@ tdAbbrevs <- c(
   masti = 'MAST info',
 
   nni = 'NNI (approx.)',
-  nni_u = 'NNI (upr bnd)',
-  nni_t = 'NNI (ub tight)',
   nni_l = 'NNI (lwr bnd)',
+  nni_t = 'NNI (ub tight)',
+  nni_u = 'NNI (upr bnd)',
 
   spr = 'SPR (approx.)',
   tbr = 'TBR (approx.)',
