@@ -8,6 +8,10 @@
 #' Each element contains 1&nbsp;000 trees with _n_ leaves, randomly sampled
 #' from the uniform distribution using [`ape::rtree()`].
 #'
+#' The `bullseyeMorph` prefix refers to the 'subsampling' experiment
+#' described by Smith (forthcoming); the `bullMoDi` prefix refers to the
+#' 'miscoding' experiment.
+#'
 #' `bull...Inferred` is a list with four elements, named as in `bullseyeTrees`.
 #' Each element contains 1&nbsp;000 sub-elements. Each sub-element is a list of
 #' ten trees, which have been inferred from progressively more degraded datasets,
@@ -23,10 +27,6 @@
 #' trees in `bullseyeTrees`.
 #' Each cell contains the distance between the inferred tree and the generative
 #' tree under the stated tree distance metric.
-#'
-#' The `bullseyeMorph` prefix refers to the 'subsampling' experiment
-#' described by Smith (forthcoming); the `bullMoDi` prefix refers to the
-#' 'miscoding' experiment.
 #'
 #' `bullseyeDistances` contains two elements, named `20 leaves` and `50 leaves`.
 #' Each element contains a named list, with each element named according to

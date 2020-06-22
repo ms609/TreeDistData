@@ -52,6 +52,10 @@ Kuhner and Yamato (2015).
 Each element contains 1 000 trees with \emph{n} leaves, randomly sampled
 from the uniform distribution using \code{\link[ape:rtree]{ape::rtree()}}.
 
+The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
+described by Smith (forthcoming); the \code{bullMoDi} prefix refers to the
+'miscoding' experiment.
+
 \code{bull...Inferred} is a list with four elements, named as in \code{bullseyeTrees}.
 Each element contains 1 000 sub-elements. Each sub-element is a list of
 ten trees, which have been inferred from progressively more degraded datasets,
@@ -68,13 +72,13 @@ trees in \code{bullseyeTrees}.
 Each cell contains the distance between the inferred tree and the generative
 tree under the stated tree distance metric.
 
-The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
-described by Smith (forthcoming); the \code{bullMoDi} prefix refers to the
-'miscoding' experiment.
-
-\code{bullseyeDistances} contains two elements, tabulating the distance
-between each pair of 20- and 50-leaf trees in \code{bullseyeTrees}.
-For details, see \code{\link{sevenTipDistances}}.
+\code{bullseyeDistances} contains two elements, named \verb{20 leaves} and \verb{50 leaves}.
+Each element contains a named list, with each element named according to
+the abbreviation of the corresponding distance metric (see 'Methods tested'
+below).
+Each of these lists contains a 1 000 × 1 000 matrix
+tabulating the distance between each pair of \emph{n}-leaf trees in
+\code{bullseyeTrees}.
 
 For analysis of this data, see the
 \href{https://ms609.github.io/TreeDistData/articles/07-bullseye.html}{accompanying vignette}.
