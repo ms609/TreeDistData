@@ -12,7 +12,7 @@
 #'
 #' Rows are named with an abbreviation of the tree comparison metric:
 #'
-#' - `pid`: Different Phylogenetic Information (Smith, forthcoming)
+#' - `pid`: Phylogenetic Information Distance (Smith, forthcoming)
 #' - `msid`: Matching Split Information Distance (Smith, forthcoming)
 #' - `cid`: Clustering Information Distance (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith 2019)
@@ -85,7 +85,7 @@
 #' are normalized against their maximum possible values.
 #' The remaining measures are unnormalized.
 #'
-#' - `pid`: Different Phylogenetic Information (Smith, forthcoming)
+#' - `pid`: Phylogenetic Information Distance (Smith, forthcoming)
 #' - `msid`: Matching Split Information Distance (Smith, forthcoming)
 #' - `cid`: Clustering Information Distance (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith 2019)
