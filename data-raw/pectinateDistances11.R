@@ -21,10 +21,10 @@ msid <- MatchingSplitInfoDistance(pectinateTree, randomTrees, normalize = TRUE)
 cid <- ClusteringInfoDistance(pectinateTree, randomTrees, normalize = TRUE)
 message('QD... ')
 qd <- Quartet::QuartetDivergence(
-  Quartet::QuartetStatus(randomTrees, cf=pectinateTree),
+  Quartet::QuartetStatus(randomTrees, cf = pectinateTree),
   similarity = FALSE)
 message('NTS... ')
-nye <- 1 - NyeSimilarity(pectinateTree, randomTrees, normalize=TRUE)
+nye <- 1 - NyeSimilarity(pectinateTree, randomTrees, normalize = TRUE)
 message('JRF... ')
 jnc2 <- JaccardRobinsonFoulds(pectinateTree, randomTrees, normalize = TRUE,
                             k = 2, allowConflict = FALSE)

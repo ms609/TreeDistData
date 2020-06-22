@@ -1,7 +1,7 @@
 #' @details
 #' # Methods tested
 #'
-#' - `pid`: Different Phylogenetic Information (Smith, forthcoming)
+#' - `pid`: Phylogenetic Information Distance (Smith, forthcoming)
 #' - `msid`: Matching Split Information Distance (Smith, forthcoming)
 #' - `cid`: Clustering Information Distance (Smith, forthcoming)
 #' - `qd`: Quartet divergence (Smith, 2019)

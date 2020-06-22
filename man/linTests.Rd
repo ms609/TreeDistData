@@ -82,7 +82,7 @@ For analysis of this data, see the
 }
 \section{Methods tested}{
 \itemize{
-\item \code{pid}: Different Phylogenetic Information (Smith, forthcoming)
+\item \code{pid}: Phylogenetic Information Distance (Smith, forthcoming)
 \item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
 \item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
