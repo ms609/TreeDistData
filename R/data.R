@@ -38,6 +38,7 @@
 #'
 #' @templateVar vignette 07-bullseye
 #' @template seeVignette
+#' @templateVar nni_t FALSE
 #' @template methodsTested
 #' @template dataRaw
 #' @references
@@ -152,6 +153,7 @@ NULL
 #' @templateVar vignette 06-lin-cluster-recovery
 #' @template seeVignette
 #'
+#' @templateVar nni_t FALSE
 #' @template methodsTested
 #'
 #' @template dataRaw
@@ -179,30 +181,8 @@ NULL
 #' of its diameter on a tree with _n_ leaves.  The path and matching split
 #' distances are not normalized.
 #'
-#' Rows are named with an abbreviation of the tree comparison metric:
-#'
-#' - `pid`: Phylogenetic Information Distance (Smith, forthcoming)
-#' - `msid`: Matching Split Information Distance (Smith, forthcoming)
-#' - `cid`: Clustering Information Distance (Smith, forthcoming)
-#' - `qd`: Quartet divergence (Smith 2019)
-#' - `nye`: Nye _et al._ tree similarity (Nye _et al._ 2006)
-#' - `jnc2`, `jnc4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4,
-#'   conflicting pairings prohibited ('no-conflict')
-#' - `jco2`, `jco4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4,
-#'   conflicting pairings permitted ('conflict-ok')
-#' - `ms`: Matching Split Distance (Bogdanowicz & Giaro 2012)
-#' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009)
-#' - `masti`: Information content of Maximum Agreement Subtree
-#' - `nni_l`, `nni_u`: Lower and upper bounds for nearest-neighbour interchange
-#'   distance (Li _et al._ 1996)
-#' - `spr`: Approximate subtree prune and regraft distance
-#' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
-#'   (TBR) distance, calculated using
-#'   [TBRDist](https://ms609.github.io/TBRDist/)
-#' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1981)
-#' - `icrf`: Robinson-Foulds distance, splits weighted by phylogenetic
-#'   information content (Smith, forthcoming)
-#' - `path`: Path distance (Steel & Penny 1993)
+#' Rows are named with abbreviations of the tree comparison metrics tested
+#' (see 'Methods tested' below).
 #'
 #' Columns list the summary statistics of calculated tree distances: the
 #' minimum (`min`),
@@ -214,6 +194,8 @@ NULL
 #' @templateVar vignette 09-expected-similarity
 #' @template seeVignette
 #' @template dataRaw
+#' @templateVar nni_t TRUE
+#' @template methodsTested
 #'
 #' @references
 #' - \insertRef{Allen2001}{TreeDist}
@@ -221,6 +203,7 @@ NULL
 #' - \insertRef{Bocker2013}{TreeDist}
 #' @template methodRefs
 #'
+#' @encoding UTF-8
 #' @keywords datasets
 "randomTreeDistances"
 
@@ -300,6 +283,7 @@ NULL
 #' distances.
 #'
 #'
+#' @templateVar nni_t FALSE
 #' @template methodsTested
 #' @template methodRefs
 #' @template dataRaw
@@ -329,6 +313,7 @@ NULL
 #'
 #' @templateVar vignette 08-spr-walking
 #' @template seeVignette
+#' @templateVar nni_t FALSE
 #' @template methodsTested
 #' @template methodRefs
 #' @template dataRaw

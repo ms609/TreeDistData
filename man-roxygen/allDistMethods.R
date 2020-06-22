@@ -27,7 +27,8 @@
 #' - `spr`: Approximate subtree prune and regraft \acronym{SPR} distance,
 #' unnormalized.
 #' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
-#' (\acronym{TBR}) distance, unnormalized.
+#' (\acronym{TBR}) distance, calculated using
+#'   [\pkg{TBRDist}](https://ms609.github.io/TBRDist/); unnormalized.
 #' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1981), unnormalized.
 #' - `icrf`: Robinson-Foulds distance, splits weighted by phylogenetic
 #' information content (Smith, forthcoming), unnormalized.
