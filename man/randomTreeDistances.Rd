@@ -29,7 +29,7 @@ distances are not normalized.
 
 Rows are named with an abbreviation of the tree comparison metric:
 \itemize{
-\item \code{pid}: Different Phylogenetic Information (Smith, forthcoming)
+\item \code{pid}: Phylogenetic Information Distance (Smith, forthcoming)
 \item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
 \item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith 2019)
