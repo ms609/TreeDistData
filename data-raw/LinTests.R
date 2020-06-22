@@ -3,7 +3,7 @@ library('TreeTools')
 library('TreeDist')
 library('TreeDistData')
 
-# Lin use nTrees = 100L, nTip = 100L, replicates=1000L
+# Lin use nTrees = 100L, nTip = 100L, replicates = 1000L
 # k1 = 40, 50, 60, 70
 # k2 = 10, 20, 30, 40
 
@@ -20,11 +20,11 @@ LinTestOneSet <- function (nTip, k, nTrees) {
     for (i in k + seq_len(nTip - k))
       tr <- AddTip(tr, label = i)
     tr
-  }), class='multiPhylo')
+  }), class = 'multiPhylo')
 }
 
 LinTestTwoSet <- function (nTip, k, nTrees) {
-  startTree <- ape::rtree(nTip, br=NULL)
+  startTree <- ape::rtree(nTip, br = NULL)
 
   SwapTwo <- function (x, length.x = length(x)) {
     swapsies <- sample.int(length.x, 2)
@@ -40,11 +40,11 @@ LinTestTwoSet <- function (nTip, k, nTrees) {
   }
 
   structure(lapply(seq_len(nTrees), function (XX) RepeatLLI(startTree, k)),
-            class='multiPhylo')
+            class = 'multiPhylo')
 }
 
 LinTestSPRSet <- function (nTip, k, nTrees) {
-  startTree <- ape::rtree(nTip, br=NULL)
+  startTree <- ape::rtree(nTip, br = NULL)
 
   RepeatSPR <- function (tr, k) {
     for (i in seq_len(k)) tr <- TreeSearch::SPR(tr)
@@ -52,7 +52,7 @@ LinTestSPRSet <- function (nTip, k, nTrees) {
   }
 
   structure(lapply(seq_len(nTrees), function (XX) RepeatSPR(startTree, k)),
-            class='multiPhylo')
+            class = 'multiPhylo')
 }
 
 SpectralClustering <- function (dat, nClusters) {
@@ -61,7 +61,7 @@ SpectralClustering <- function (dat, nClusters) {
   L <- diag(rowSums(dat)) - dat
   eigenVectors <- eigen(L, symmetric = TRUE)$vectors
   cluster::pam(x = eigenVectors[, n - seq_len(nClusters) + 1L],
-               k = nClusters, cluster.only=TRUE)
+               k = nClusters, cluster.only = TRUE)
 }
 
 
@@ -81,7 +81,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
 
   ClusterOK <- function (Func, ...) apply(
     vapply(comparison, Func, FUN.VALUE = integer(nTrees + nTrees), ...), 2L,
-    identical, y = rep(1:2, each=nTrees))
+    identical, y = rep(1:2, each = nTrees))
 
   HClusters <- function (dat, method) {
     clusters <- hclust(as.dist(dat), method)
@@ -99,18 +99,18 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
 
   cbind(spc = ClusterOK(SClusters),
         pam = ClusterOK(cluster::pam, k = 2L, diss = TRUE, cluster.only = TRUE),
-        h.cmp = ClusterOK(HClusters, method='complete'),
-        h.sng = ClusterOK(HClusters, method='single'),
-        h.avg = ClusterOK(HClusters, method='average')
+        h.cmp = ClusterOK(HClusters, method = 'complete'),
+        h.sng = ClusterOK(HClusters, method = 'single'),
+        h.avg = ClusterOK(HClusters, method = 'average')
         )
 }
 
-compAllMethods <- c('rf', 'rfi',
-                   'ja2', 'ja4', 'jna2', 'jna4',
-                   'dpi', 'msid', 'cid', 'qd', 'nts',
-                   'msd', 'mast', 'masti',
-                   'nni_l', 'nni_u', 'spr',
-                   'tbr_l', 'tbr_u', 'path')
+compAllMethods <- c('rf', 'icrf',
+                    'jnc2', 'jnc4', 'jco2', 'jco4',
+                    'pid', 'msid', 'cid', 'qd', 'nye',
+                    'ms', 'mast', 'masti',
+                    'nni_l', 'nni_u', 'spr',
+                    'tbr_l', 'tbr_u', 'path')
 linTestReturn <- matrix(FALSE, nrow = length(compAllMethods), ncol = 5L,
                         dimnames = list(compAllMethods,
                                         c('spc', 'pam', 'h.cmp', 'h.sng', 'h.avg')))
