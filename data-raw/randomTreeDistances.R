@@ -6,7 +6,7 @@ ourMethods <- tdMethods[!tdMethods %in% c('nni_t', 'mafi')]
 
 # Look for existing data object
 use_directory('data')
-paths <- fs::path('data', 'randomTreeDistances', ext='rda')
+paths <- fs::path('data', 'randomTreeDistances', ext = 'rda')
 if (file.exists(proj_path(paths))) {
   load(proj_path(paths))
 } else {
@@ -18,7 +18,7 @@ if (file.exists(proj_path(paths))) {
                                    c('min', '1%', '5%', '10%', '25%', '50%', '75%',
                                      '90%', '95%', '99%', 'max', 'mean', 'sd'),
                                    4:200))
-  usethis::use_data(randomTreeDistances, compress='gzip', overwrite=TRUE)
+  usethis::use_data(randomTreeDistances, compress = 'xz', overwrite = TRUE)
 }
 RandomDistances <- function (nLeaves, repls) {
   set.seed(0)
