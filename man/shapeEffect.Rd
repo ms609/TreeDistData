@@ -44,16 +44,16 @@ For analysis of this data, see the
 }
 \section{Methods tested}{
 \itemize{
-\item \code{dpi}: Different Phylogenetic Information (Smith, forthcoming)
+\item \code{pid}: Different Phylogenetic Information (Smith, forthcoming)
 \item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
 \item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
-\item \code{nts}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
-\item \code{ja2}, \code{ja4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+\item \code{nye}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{jnc2}, \code{jnc4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
 conflicting pairings prohobited
-\item \code{jna2}, \code{jna4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+\item \code{joc2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
 conflicting pairings permitted
-\item \code{msd}: Matching Split Distance (Bogdanowicz & Giaro, 2012)
+\item \code{ms}: Matching Split Distance (Bogdanowicz & Giaro 2012)
 \item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009)
 \item \code{masti}: Information content of Maximum Agreement Subtree
 \item \code{nni_l}, \code{nni_t}, \code{nni_u}: Lower bound, tight upper bound, and upper bound
@@ -61,8 +61,8 @@ for  nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 \item \code{spr}: Approximate SPR distance
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
 (TBR) distance
-\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1985)
-\item \code{rfi}: Information-corrected Robinson-Foulds distance (Smith, forthcoming)
+\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981)
+\item \code{icrf}: Information-corrected Robinson-Foulds distance (Smith, forthcoming)
 \item \code{path}: Path distance (Steel & Penny 1993), unnormalized
 }
 }
