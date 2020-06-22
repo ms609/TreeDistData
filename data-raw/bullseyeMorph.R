@@ -3,13 +3,12 @@ library('TreeSearch')
 library('TreeDist')
 devtools::load_all() # necessary for correct path-to-inst/
 
-data("bullseyeTrees", package='TreeDistData') # Generated in bullseyeTrees.R
+data("bullseyeTrees", package = 'TreeDistData') # Generated in bullseyeTrees.R
 tipsNames <- names(bullseyeTrees)
 nTrees <- 1000L
 subsamples <- 10:1 * 200
 
-bullseyeMorphInferred <- vector('list', length(tipsNames))
-names(bullseyeMorphInferred) <- tipsNames
+bullseyeMorphInferred <- lapply(bullseyeTrees, function (x) NULL)
 
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
@@ -96,7 +95,7 @@ for (tipName in names(bullseyeTrees)) {
   }
   bullseyeMorphInferred[[tipName]] <- inferred
 }
-usethis::use_data(bullseyeMorphInferred, compress='bzip2', overwrite=TRUE)
+usethis::use_data(bullseyeMorphInferred, compress = 'bzip2', overwrite = TRUE)
 
 
 message("\n\n === Calculate distances ===\n")
@@ -133,10 +132,14 @@ for (tipName in tipsNames) {
       cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
       nts = NyeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
 
-      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE, normalize = TRUE),
-      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE, normalize = TRUE),
-      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE, normalize = TRUE),
-      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE, normalize = TRUE),
+      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE,
+                                  normalize = TRUE),
+      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE,
+                                  normalize = TRUE),
+      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE,
+                                  normalize = TRUE),
+      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE,
+                                  normalize = TRUE),
 
       msd = MatchingSplitDistance(tr, trs),
       mast = mast,
@@ -151,7 +154,7 @@ for (tipName in tipsNames) {
 
       rf = RobinsonFoulds(tr, trs),
       rfi = InfoRobinsonFoulds(tr, trs),
-      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf = tr),
                                       similarity = FALSE),
       path = path.dist(tr, trs)
     )
