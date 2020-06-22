@@ -67,14 +67,24 @@ For analysis of this data, see the
 \itemize{
 \item \insertRef{Allen2001}{TreeDist}
 \item \insertRef{Bocker2013}{TreeDist}
-\item \insertRef{Bogdanowicz2012}{TreeDist}
+}
+
+\insertRef{Bogdanowicz2012}{TreeDist}
 
 \insertRef{Li1996}{TreeDist}
-\item \insertRef{Nye2006}{TreeDist}
-\item \insertRef{Robinson1981}{TreeDist}
-\item \insertRef{SmithTern}{TreeSearch}
-\item \insertRef{SmithDist}{TreeDist}
-\item \insertRef{Steel1993}{TreeDist}
-}
+
+\insertRef{Kendall2016}{TreeDistData}
+
+\insertRef{Nye2006}{TreeDist}
+
+\insertRef{Robinson1981}{TreeDist}
+
+\insertRef{SmithTern}{TreeSearch}
+
+\insertRef{SmithDist}{TreeDist}
+
+\insertRef{Steel1993}{TreeDist}
+
+\insertRef{Valiente2009}{TreeDist}
 }
 \keyword{datasets}
