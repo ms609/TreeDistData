@@ -20,6 +20,7 @@ test_that("Data dimensions are correct", {
     if (!mast) exclude <- c(exclude, 'mast', 'masti')
     methods <- tdMethods[!tdMethods %in% exclude]
     expect_true(all(methods %in% x))
+    expect_equal(methods, x)
   }
 
   data("randomTreeDistances", package = 'TreeDistData')
@@ -37,6 +38,7 @@ test_that("Data dimensions are correct", {
   lapply(bullMoDiScores, function (x) {
     AllDistsThere(dimnames(x)[[2]])
   })
+  AllDistsThere(dimnames(pectinateDistances11)[[1]])
   AllDistsThere(dimnames(distanceDistribution25)[[1]])
   AllDistsThere(dimnames(distanceDistribution50)[[1]])
   AllDistsThere(dimnames(linTestOneResults)[[2]], mast = FALSE)
