@@ -35,4 +35,4 @@ CalcShapeEffect <- function (dist) {
 
 shapeEffect <- lapply(dists, CalcShapeEffect)
 
-usethis::use_data(shapeEffect, compress='xz', overwrite = TRUE)
+usethis::use_data(shapeEffect, compress = 'xz', overwrite = TRUE)

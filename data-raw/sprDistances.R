@@ -14,4 +14,4 @@ for (i in seq_len(nTrees)[-1]) {
 message('Calculating distances')
 sprDistances <- TreeDistData::CompareAllTrees(sprWalk, verbose = TRUE)
 
-usethis::use_data(sprDistances, compress='xz', overwrite = TRUE)
+usethis::use_data(sprDistances, compress = 'xz', overwrite = TRUE)
