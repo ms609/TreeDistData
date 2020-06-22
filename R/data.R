@@ -64,46 +64,17 @@
 #'
 #' `distanceDistribution##` are two-dimensional matrices listing the normalized
 #' distances between random pairs of bifurcating trees with 25 and 50 leaves
-#' drawn from the uniform distribution using `ape::rtree(nTip, br = NULL)`.
+#' drawn from the uniform distribution using `ape::rtree(nTip, br = NULL)`
+#' (data object [`randomTreePairs##`][randomTreePairs]).
 #' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
 #' and 100&nbsp;000 random binary trees.
 #'
-#' Rows are named with an abbreviation of the tree comparison metric.
-#' Information-based measures are normalized against the splitwise information
-#' content/entropy for binary trees of the corresponding topologies.
-#' <!--#TODO VERIFY-->
-#' The quartet distance, Nye _et al._ and Jaccard-Robinson-Foulds measures
-#' are normalized against their maximum possible values.
-#' The remaining measures are unnormalized.
-#'
-#' - `pid`: Phylogenetic Information Distance (Smith, forthcoming)
-#' - `msid`: Matching Split Information Distance (Smith, forthcoming)
-#' - `cid`: Clustering Information Distance (Smith, forthcoming)
-#' - `qd`: Quartet divergence (Smith 2019)
-#' - `nye`: Nye _et al._ tree similarity (Nye _et al._ 2006)
-#' - `jnc2`, `jnc4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4,
-#' conflicting pairings prohibited ('no-conflict')
-#' - `jco2`, `jco4`: Jaccard-Robinson-Foulds distances with _k_ = 2, 4,
-#'  conflicting pairings permitted ('conflict-ok')
-#' - `ms`: Matching Split Distance (Bogdanowicz & Giaro 2012), unnormalized
-#' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009)
-#' - `masti`: Information content of Maximum Agreement Subtree
-#' - `nni_l`, `nni_t`, `nni_u`: Lower bound, tight upper bound, and upper bound
-#'         for  nearest-neighbour interchange distance (Li _et al._ 1996)
-#' - `spr`: Approximate SPR distance, unnormalized
-#' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
-#'          (TBR) distance
-#' - `rf`: Robinson-Foulds distance (Robinson & Foulds 1981), unnormalized
-#' - `icrf`: Robinson-Foulds distance, splits weighted by phylogenetic
-#' information content (Smith, forthcoming)
-#' - `path`: Path distance (Steel & Penny 1993), unnormalized
+#' Each row corresponds to a tree distance method and is named with its
+#' abbreviation (listed in 'Methods tested' below).
 #'
 #' Each column lists the calculated distances between each pair of trees.
 #'
-#' The pairs of 25-leaf trees are saved as data object [`randomTreePairs25`].
-#'
-#' @templateVar rows
-#' @template normalizedMethods
+#' @template allDistMethods
 #' @template dataRaw
 #' @template methodRefs
 #'
@@ -275,12 +246,14 @@ NULL
 #' Distances between each possible pairing of the 945 unrooted seven-leaf trees
 #' (equivalent to rooted 6-leaf trees).  Following Kendall and Colijn (2016).
 #'
+#' Each list entry is named with the abbreviation of the corresponding tree
+#' distance method (see 'Methods tested' below).
+#'
 #' Each item in the list contains a 945&times;945 matrix reporting the distance
 #' between each pair of seven-leaf trees.  The first 630 trees are pectinate
 #' (tree shape 0), the final 315 are balanced (tree shape 1).
 #'
-#' @templateVar elements list entries
-#' @template normalizedMethods
+#' @template allDistMethods
 #'
 #' @examples
 #' library('TreeTools', quietly = TRUE, warn.conflicts = FALSE)
