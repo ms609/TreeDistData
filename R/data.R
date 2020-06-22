@@ -69,10 +69,13 @@
 #' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
 #' and 100&nbsp;000 random binary trees.
 #'
-#' Each row corresponds to a tree distance method and is named with its
-#' abbreviation (listed in 'Methods tested' below).
-#'
-#' Each column lists the calculated distances between each pair of trees.
+#' @format
+#' Objects of class `matrix` (inherits from `array`) with
+#' `r dim(distanceDistribution25)[1]` rows, each corresponding
+#' to a tree distance method and is named with its abbreviation
+#' (listed in 'Methods tested' below), and 10&nbsp;000 (`distanceDistribution##`)
+#'  or 100&nbsp;000 (`pectinateDistances11`) columns,
+#' listing the calculated distances between each pair of trees.
 #'
 #' @template allDistMethods
 #' @template dataRaw
@@ -96,10 +99,8 @@ NULL
 #' trees.  These datasets contain the results of tests modelled on those
 #' in Lin _et al._ (2012).
 #'
-#'
 #' I used three approaches to generate clusters of similar trees, and tested
 #' each metric in its ability to recover these clusters (Lin _et al._, 2012).
-#'
 #'
 #' For the first test, I generated 500 datasets of 100 binary trees with
 #' _n_ = 40 leaves.
