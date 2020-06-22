@@ -56,9 +56,10 @@ message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
 
 pectinateDistances11 <- rbind(pid = pid, msid = msid, cid = cid, qd = qd,
-                              jnc2 = jnc2, jco2 = jco2,
-                              jnc4 = jnc4, jco4 = jco4,
-                              nye = nye, ms = ms,
+                              nye = nye,
+                              jnc2 = jnc2, jnc4 = jnc4,
+                              jco2 = jco2, jco4 = jco4,
+                              ms = ms,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
                               tbr_l = tbr$tbr_min, tbr_u = tbr$tbr_max,

@@ -48,10 +48,14 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     qd = unname(qd),
     nye = NyeSimilarity(tr1, tr2, similarity = FALSE, normalize = TRUE),
 
-    jnc2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = FALSE, normalize = TRUE),
-    jnc4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = FALSE, normalize = TRUE),
-    jco2 =JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = TRUE, normalize = TRUE),
-    jco4 =JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = TRUE, normalize = TRUE),
+    jnc2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = FALSE,
+                                 normalize = TRUE),
+    jnc4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = FALSE,
+                                 normalize = TRUE),
+    jco2 = JaccardRobinsonFoulds(tr1, tr2, k = 2, allowConflict = TRUE,
+                                 normalize = TRUE),
+    jco4 = JaccardRobinsonFoulds(tr1, tr2, k = 4, allowConflict = TRUE,
+                                 normalize = TRUE),
 
     ms = MatchingSplitDistance(tr1, tr2),
     mast = mast,
@@ -62,6 +66,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     spr = spr,
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
+    # mafi would go here
     rf = RobinsonFoulds(tr1, tr2),
     icrf = InfoRobinsonFoulds(tr1, tr2),
     path = PathDist(tr1, tr2)
@@ -185,29 +190,36 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 
   MSG('Complete; listing.')
   list(
-    rf = RobinsonFoulds(splits),
-    icrf = InfoRobinsonFoulds(splits),
-
-    jnc2 =  JaccardRobinsonFoulds(splits, k = 2, allowConflict = FALSE, normalize = TRUE),
-    jnc4 =  JaccardRobinsonFoulds(splits, k = 4, allowConflict = FALSE, normalize = TRUE),
-    jco2 = JaccardRobinsonFoulds(splits, k = 2, allowConflict = TRUE, normalize = TRUE),
-    jco4 = JaccardRobinsonFoulds(splits, k = 4, allowConflict = TRUE, normalize = TRUE),
-
     pid = pid,
     msid = msid,
     cid = cid,
     qd = qd,
     nye = nye,
 
+    jnc2 =  JaccardRobinsonFoulds(splits, k = 2, allowConflict = FALSE,
+                                  normalize = TRUE),
+    jnc4 =  JaccardRobinsonFoulds(splits, k = 4, allowConflict = FALSE,
+                                  normalize = TRUE),
+    jco2 = JaccardRobinsonFoulds(splits, k = 2, allowConflict = TRUE,
+                                 normalize = TRUE),
+    jco4 = JaccardRobinsonFoulds(splits, k = 4, allowConflict = TRUE,
+                                 normalize = TRUE),
+
     ms = ms,
     mast = mast,
     masti = masti,
+
     nni_l = nni$lower,
     nni_t = nni$tight_upper,
     nni_u = nni$loose_upper,
+
     spr = sprDist,
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
+
+    # mafi would go here
+    rf = RobinsonFoulds(splits),
+    icrf = InfoRobinsonFoulds(splits),
     path = pathDist
   )
 }
