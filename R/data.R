@@ -87,7 +87,6 @@
 #'
 #' @name distanceDistributions
 #' @encoding UTF-8
-#' @keywords datasets
 NULL
 
 #' @rdname distanceDistributions
@@ -207,7 +206,6 @@ NULL
 #' @template methodRefs
 #'
 #' @encoding UTF-8
-#' @keywords datasets
 "randomTreeDistances"
 
 #' Pairs of random trees
@@ -222,7 +220,6 @@ NULL
 #' @template dataRaw
 #' @name randomTreePairs
 #' @encoding UTF-8
-#' @keywords datasets
 NULL
 
 #' @rdname randomTreePairs
@@ -256,7 +253,6 @@ NULL
 #' @template methodRefs
 #'
 #' @encoding UTF-8
-#' @keywords datasets
 "sevenTipDistances"
 
 #' Shape effect
@@ -272,7 +268,7 @@ NULL
 #' @templateVar vignette 05-tree-shape
 #' @template seeVignette
 #'
-#' @format A list of length 21.
+#' @format A list of length `r length(shapeEffect)`.
 #' Each entry of the list is named according to the abbreviation of the
 #' corresponding method (see 'Methods tested' below).
 #'
@@ -285,14 +281,14 @@ NULL
 #' `y = 1, 2, 3, 4, 2, 3, 4, 3, 4, 4`.
 #'
 #' As trees are not compared with themselves (to avoid zero distances), elements
-#' where _x_ = _y_ contain 4950 distances, whereas other elements contain 5050
-#' distances.
+#' where _x_ = _y_ contain 4&nbsp;950 distances, whereas other elements contain
+#' 5&nbsp;050 distances.
 #'
-#'
-#' @templateVar nni_t FALSE
+#' @templateVar nni_t TRUE
 #' @template methodsTested
 #' @template methodRefs
 #' @template dataRaw
+#' @encoding UTF-8
 'shapeEffect'
 
 #' Tree distance and SPR moves
