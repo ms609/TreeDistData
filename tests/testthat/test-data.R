@@ -15,9 +15,12 @@ test_that("Data dimensions are correct", {
                dim(distanceDistribution25))
   expect_equal(dim(distanceDistribution50), dim(distanceDistribution25))
 
-  noMafiNnit <- tdMethods[!tdMethods %in% c('mafi', 'nni_t')]
-
-  AllDistsThere <- function (x) expect_true(all(noMafiNnit %in% x))
+  AllDistsThere <- function (x, mast = TRUE) {
+    exclude <- c('mafi', 'nni_t')
+    if (!mast) exclude <- c(exclude, 'mast', 'masti')
+    methods <- tdMethods[!tdMethods %in% exclude]
+    expect_true(all(methods %in% x))
+  }
 
   data("randomTreeDistances", package = 'TreeDistData')
   nLeafMeasurements <- 197L
@@ -36,9 +39,9 @@ test_that("Data dimensions are correct", {
   })
   AllDistsThere(dimnames(distanceDistribution25)[[1]])
   AllDistsThere(dimnames(distanceDistribution50)[[1]])
-  AllDistsThere(dimnames(linTestOneResults)[[2]])
-  AllDistsThere(dimnames(linTestTwoResults)[[2]])
-  AllDistsThere(dimnames(linTestSPRResults)[[2]])
+  AllDistsThere(dimnames(linTestOneResults)[[2]], mast = FALSE)
+  AllDistsThere(dimnames(linTestTwoResults)[[2]], mast = FALSE)
+  AllDistsThere(dimnames(linTestSPRResults)[[2]], mast = FALSE)
 
 
   #TODO update other datasets for all 20 metrics?
