@@ -82,6 +82,9 @@
 #' @template dataRaw
 #' @template methodRefs
 #'
+#' @seealso Tree pairs between which distances were calculated are available
+#' in data objects [`randomTreePairs25`] and [`randomTreePairs50`].
+#'
 #' @name distanceDistributions
 #' @encoding UTF-8
 #' @keywords datasets
@@ -212,11 +215,13 @@ NULL
 #' Lists of 10&nbsp;000 pairs of binary trees drawn from the uniform
 #' distribution using `ape::rtree(nTip, br = NULL)`.
 #'
+#' @seealso
 #' The distances between these pairs of trees are recorded in
 #' the data objects  [`distanceDistribution25`] and  [`distanceDistribution50`].
 #'
 #' @template dataRaw
 #' @name randomTreePairs
+#' @encoding UTF-8
 #' @keywords datasets
 NULL
 
@@ -250,6 +255,7 @@ NULL
 #' @template dataRaw
 #' @template methodRefs
 #'
+#' @encoding UTF-8
 #' @keywords datasets
 "sevenTipDistances"
 

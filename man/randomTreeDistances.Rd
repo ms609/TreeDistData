@@ -47,7 +47,7 @@ For analysis of this data, see the
 \item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
 \item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
-\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006) <!--#TODO similarity or distance?-->
+\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006)
 \item \code{jnc2}, \code{jnc4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
 conflicting pairings prohibited ('no-conflict')
 \item \code{joc2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
