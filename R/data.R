@@ -120,7 +120,7 @@ NULL
 #'
 #' For each dataset, I calculated the distance between each pair of trees.
 #' Trees where then partitioned into clusters using five methods,
-#' using the \pkg{stats} and \pkg{cluster}.
+#' using the packages \pkg{stats} and \pkg{cluster}.
 #' I define the success rate of each distance measure as the proportion of
 #' datasets in which every tree generated from the same skeleton was placed
 #' in the same cluster.
