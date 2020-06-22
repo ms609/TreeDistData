@@ -23,15 +23,19 @@ test_that("Data dimensions are correct", {
   expect_equal(c(LengthWithout('mafi', 'nni_t'), 13L, nLeafMeasurements),
                dim(randomTreeDistances))
 
+  AllDistsThere <- function (x) expect_true(all(noMafiNnit %in% x))
   lapply(bullseyeDistances, function (x) {
-    expect_true(all(noMafiNnit %in% names(x)))
+    AllDistsThere(names(x))
   })
   lapply(bullseyeMorphScores, function (x) {
-    expect_true(all(noMafiNnit %in% dimnames(x)[[2]]))
+    AllDistsThere(dimnames(x)[[2]])
   })
   lapply(bullMoDiScores, function (x) {
-    expect_true(all(noMafiNnit %in% dimnames(x)[[2]]))
+    AllDistsThere(dimnames(x)[[2]])
   })
+  AllDistsThere(distanceDistribution25)
+  AllDistsThere(distanceDistribution50)
+
 
   #TODO update other datasets for all 20 metrics?
 })
