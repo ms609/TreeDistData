@@ -28,7 +28,7 @@ dists <- TreeTools::EdgeDistances(backbone)[ordr, ordr]
 BoxPlot <- function (method) {
   d <- as.matrix(TDFunctions[[method]](newTrees))
   boxplot(d ~ dists, border = TreeDistCol(method), xlab = '', ylab = '')
-  mtext(tdAbbrevs[method], 2, line = 2, cex=0.75)
+  mtext(tdAbbrevs[method], 2, line = 2, cex = 0.75)
   
   ranges <- vapply(sort(unique(as.integer(dists))),
                    function (i) range(d[dists == i]),

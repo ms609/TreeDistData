@@ -35,3 +35,10 @@ test_that('Pairwise distances calculated correctly', {
     expect_equal(c(nTrees, nTrees), dim(as.matrix(dist)))
   })
 })
+
+test_that("Colours retrieved", {
+  expect_equal('#42150A', TreeDistCol('pid'))
+  expect_equal('#42150A99', TreeDistCol('pid', 99))
+  expect_warning(expect_equal(c('#42150A', 'NA'),
+                              TreeDistCol(c('pid', 'whoops'))))
+})

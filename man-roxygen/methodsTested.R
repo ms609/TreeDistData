@@ -14,8 +14,13 @@
 #' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009)
 #' - `masti`: Information content of Maximum Agreement Subtree
 #' - `nni_l`,`r if (<%= nni_t %>) " ``nni_t``,"` `nni_u`: Lower
+<<<<<<< HEAD
 #' `r ifelse(<%= nni_t %>, "bound, tight upper bound, and upper bound", "and upper bounds")`
 #' for nearest-neighbour interchange distance (Li _et al._ 1996)
+=======
+#'   `r ifelse(<%= nni_t %>, "bound, tight upper bound, and upper bound", "and upper bounds")`
+#'   for nearest-neighbour interchange distance (Li _et al._ 1996)
+>>>>>>> master
 #' - `spr`: Approximate SPR distance
 #' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
 #' (TBR) distance, calculated using

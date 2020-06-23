@@ -12,7 +12,38 @@
 \alias{bullseyeDistances}
 \title{Bullseye test results}
 \format{
-An object of class \code{list} of length 4.
+\code{bullseyeTrees} is a list with four elements, named \verb{5 leaves}, \verb{10 leaves},
+\verb{20 leaves} and \verb{50 leaves}.
+Each element contains 1 000 trees with \emph{n} leaves, randomly sampled
+from the uniform distribution using \code{\link[ape:rtree]{ape::rtree()}}.
+
+The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
+described by Smith (forthcoming); the \code{bullMoDi} prefix refers to the
+'miscoding' experiment.
+
+\code{bull...Inferred} is a list with four elements, named as in \code{bullseyeTrees}.
+Each element contains 1 000 sub-elements. Each sub-element is a list of
+ten trees, which have been inferred from progressively more degraded datasets,
+originally simulated from the corresponding tree in \code{bullseyeTrees}.
+
+\code{bull...Scores} is a list with four elements, named as in \code{bullseyeTrees}.
+Each element contains a three dimensional array, in which the first dimension
+corresponds to the progressive degrees of degradation, labelled according to
+the number of characters present or the percentage of tokens switched;
+the second dimension is named with an abbreviation of the tree similarity /
+distance metric used to score the trees (see 'Methods tested' below),
+and the third dimension contains 1 000 entries corresponding to the
+trees in \code{bullseyeTrees}.
+Each cell contains the distance between the inferred tree and the generative
+tree under the stated tree distance metric.
+
+\code{bullseyeDistances} contains two elements, named \verb{20 leaves} and \verb{50 leaves}.
+Each element contains a named list, with each element named according to
+the abbreviation of the corresponding distance metric (see 'Methods tested'
+below).
+Each of these lists contains a 1 000 × 1 000 matrix
+tabulating the distance between each pair of \emph{n}-leaf trees in
+\code{bullseyeTrees}.
 
 An object of class \code{list} of length 4.
 
@@ -47,39 +78,6 @@ Implementation and results of a 'Bullseye' test, after that proposed by
 Kuhner and Yamato (2015).
 }
 \details{
-\code{bullseyeTrees} is a list with four elements, named \verb{5 leaves}, \verb{10 leaves},
-\verb{20 leaves} and \verb{50 leaves}.
-Each element contains 1 000 trees with \emph{n} leaves, randomly sampled
-from the uniform distribution using \code{\link[ape:rtree]{ape::rtree()}}.
-
-The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
-described by Smith (forthcoming); the \code{bullMoDi} prefix refers to the
-'miscoding' experiment.
-
-\code{bull...Inferred} is a list with four elements, named as in \code{bullseyeTrees}.
-Each element contains 1 000 sub-elements. Each sub-element is a list of
-ten trees, which have been inferred from progressively more degraded datasets,
-originally simulated from the corresponding tree in \code{bullseyeTrees}.
-
-\code{bull...Scores} is a list with four elements, named as in \code{bullseyeTrees}.
-Each element contains a three dimensional array, in which the first dimension
-corresponds to the progressive degrees of degradation, labelled according to
-the number of characters present or the percentage of tokens switched;
-the second dimension is named with an abbreviation of the tree similarity /
-distance metric used to score the trees (see 'Methods tested' below),
-and the third dimension contains 1 000 entries corresponding to the
-trees in \code{bullseyeTrees}.
-Each cell contains the distance between the inferred tree and the generative
-tree under the stated tree distance metric.
-
-\code{bullseyeDistances} contains two elements, named \verb{20 leaves} and \verb{50 leaves}.
-Each element contains a named list, with each element named according to
-the abbreviation of the corresponding distance metric (see 'Methods tested'
-below).
-Each of these lists contains a 1 000 × 1 000 matrix
-tabulating the distance between each pair of \emph{n}-leaf trees in
-\code{bullseyeTrees}.
-
 For analysis of this data, see the
 \href{https://ms609.github.io/TreeDistData/articles/07-bullseye.html}{accompanying vignette}.
 }
@@ -89,7 +87,7 @@ For analysis of this data, see the
 \item \code{msid}: Matching Split Information Distance (Smith, forthcoming)
 \item \code{cid}: Clustering Information Distance (Smith, forthcoming)
 \item \code{qd}: Quartet divergence (Smith, 2019)
-\item \code{nye}: Nye \emph{et al.} tree similarity (Nye \emph{et al.} 2006)
+\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006)
 \item \code{jnc2}, \code{jnc4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
 conflicting pairings prohibited ('no-conflict')
 \item \code{joc2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
@@ -97,14 +95,16 @@ conflicting pairings permitted ('conflict-ok')
 \item \code{ms}: Matching Split Distance (Bogdanowicz & Giaro 2012)
 \item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009)
 \item \code{masti}: Information content of Maximum Agreement Subtree
-\item \code{nni_l}, \code{nni_t}, \code{nni_u}: Lower bound, tight upper bound, and upper bound
-for  nearest-neighbour interchange distance (Li \emph{et al.} 1996)
+\item \code{nni_l}, \code{nni_t}, \code{nni_u}: Lower
+bound, tight upper bound, and upper bound
+for nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 \item \code{spr}: Approximate SPR distance
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
-(TBR) distance
+(TBR) distance, calculated using
+\href{https://ms609.github.io/TBRDist/}{\pkg{TBRDist}}
 \item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981)
 \item \code{icrf}: Information-corrected Robinson-Foulds distance (Smith, forthcoming)
-\item \code{path}: Path distance (Steel & Penny 1993), unnormalized
+\item \code{path}: Path distance (Steel & Penny 1993)
 }
 }
 

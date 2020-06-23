@@ -17,20 +17,23 @@ WriteTNTData <- function (dataset, fileName) {
                'xread', '\n',
                length(index), ' ', length(dataset), '\n',
         paste(paste(names(dataset), lapply(dataset, function (x)
-          paste0(x[index], collapse='')), collapse='\n')),
+          paste0(x[index], collapse = '')), collapse = '\n')),
         '\n;'),
         fileName)
 }
 
 
 CacheFile <- function (name, ..., tmpDir = FALSE) {
-  root <- if (tmpDir) tempdir() else paste0(system.file(package='TreeDistData'),
-                                            '/../data-raw/trees/')
+  root <- if (tmpDir) {
+    tempdir()
+  } else {
+    paste0(system.file(package = 'TreeDistData'), '/../data-raw/trees/')
+  }
   paste0(root, name, ...)
 }
 
 
-message("\n\n=== Infer trees ===\n")
+message("\n\n = == Infer trees = = =\n")
 for (tipName in names(bullseyeTrees)) {
   message('* ', tipName, ": Simulating sequences...")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
@@ -40,11 +43,11 @@ for (tipName in names(bullseyeTrees)) {
 
   for (i in seq_along(seqs)) {
     if (i %% 100 == 1) message(i)
-    seq00 <- formatC(i - 1L, width = 3, flag='0')
+    seq00 <- formatC(i - 1L, width = 3, flag = '0')
     FilePattern <- function (n) {
       paste0(substr(tipName, 0, nchar(tipName) - 7),
              't-', seq00, '-k6-',
-             formatC(n, width=4, flag='0'),
+             formatC(n, width = 4, flag = '0'),
              '.tre')
     }
 
@@ -53,13 +56,13 @@ for (tipName in names(bullseyeTrees)) {
       seqFile <- CacheFile('seq-', seq00, '.tnt')
       WriteTNTData(seqs[[i]], file = seqFile)
       Line <- function (n) {
-        paste0("piwe=6 ;xmult;tsav *", FilePattern(n),
+        paste0("piwe = 6 ;xmult;tsav *", FilePattern(n),
                ";sav;tsav/;keep 0;hold 10000;\n",
-        "ccode ] ", paste(seq_len(200) + n - 200L, collapse=' '), ";\n"
+        "ccode ] ", paste(seq_len(200) + n - 200L, collapse = ' '), ";\n"
         )
       }
 
-      runRoot <- paste0(sample(letters, 8, replace=TRUE), collapse='')
+      runRoot <- paste0(sample(letters, 8, replace = TRUE), collapse = '')
       runFile <- CacheFile(runRoot, '.run')
       file.create(runFile)
       write(paste("macro =;
@@ -84,7 +87,7 @@ for (tipName in names(bullseyeTrees)) {
     }
 
     inferred[[i]] <-
-      lapply(formatC(subsamples, width=4, flag='0'),
+      lapply(formatC(subsamples, width = 4, flag = '0'),
              function (nChar) {
                tr <- ReadTntTree(CacheFile(FilePattern(nChar)),
                                  relativePath = '.',
@@ -98,13 +101,10 @@ for (tipName in names(bullseyeTrees)) {
 usethis::use_data(bullseyeMorphInferred, compress = 'bzip2', overwrite = TRUE)
 
 
-message("\n\n === Calculate distances ===\n")
+message("\n\n = = = Calculate distances = = =\n")
 bullseyeMorphScores <- vector('list', length(tipsNames))
 names(bullseyeMorphScores) <- tipsNames
-sampledMethods <-
-  c('dpi', 'msid', 'cid', 'nts', 'ja2', 'ja4', 'jna2', 'jna4',
-    'msd', 'mast', 'masti', 'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
-    'rf', 'rfi', 'qd', 'path')
+
 for (tipName in tipsNames) {
   cat('\u2714 Calculating tree distances:', tipName, ':\n')
   inferred <- bullseyeMorphInferred[[tipName]]
@@ -114,9 +114,9 @@ for (tipName in tipsNames) {
     if (i %% 72 == 0) cat(' ', i, "\n")
     trueTree <- trueTrees[[i]]
     rootTip <- trueTree$tip.label[1]
-    tr <- root(trueTree, rootTip, resolve.root=TRUE)
+    tr <- root(trueTree, rootTip, resolve.root = TRUE)
     tr$edge.length  <- NULL
-    trs <- structure(lapply(inferred[[i]], root, rootTip, resolve.root=TRUE),
+    trs <- structure(lapply(inferred[[i]], root, rootTip, resolve.root = TRUE),
                      class = 'multiPhylo')
 
     mast <- vapply(trs, MASTSize, tr, rooted = FALSE, FUN.VALUE = 1L)
@@ -127,21 +127,23 @@ for (tipName in tipsNames) {
     tbr <- TBRDist(tr, trs)
 
     cbind(
-      dpi = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
+      pid = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
       msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
       cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
-      nts = NyeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
+      nye = NyeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf = tr),
+                                      similarity = FALSE),
 
-      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE,
+      jnc2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE,
                                   normalize = TRUE),
-      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE,
+      jnc4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE,
                                   normalize = TRUE),
-      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE,
-                                  normalize = TRUE),
-      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE,
-                                  normalize = TRUE),
+      jco2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE,
+                                   normalize = TRUE),
+      jco4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE,
+                                   normalize = TRUE),
 
-      msd = MatchingSplitDistance(tr, trs),
+      ms = MatchingSplitDistance(tr, trs),
       mast = mast,
       masti = masti,
 
@@ -153,13 +155,11 @@ for (tipName in tipsNames) {
       tbr_u = tbr$tbr_max,
 
       rf = RobinsonFoulds(tr, trs),
-      rfi = InfoRobinsonFoulds(tr, trs),
-      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf = tr),
-                                      similarity = FALSE),
+      icrf = InfoRobinsonFoulds(tr, trs),
       path = path.dist(tr, trs)
     )
-  }, matrix(0, nrow = 10L, ncol = length(sampledMethods),
-            dimnames=list(subsamples, sampledMethods))
+  }, matrix(0, nrow = 10L, ncol = 21L,
+            dimnames = list(subsamples, tdMethods[-22]))
   )
   bullseyeMorphScores[[tipName]] <- theseScores
 }

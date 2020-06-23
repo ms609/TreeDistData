@@ -13,33 +13,33 @@
 #' @family pairwise tree distances
 #'
 #' @examples
-#' library('TreeTools')
+#' library('TreeTools', quietly = TRUE, warn.conflict = FALSE)
 #' AllDists(BalancedTree(8), PectinateTree(8))
 #' AllDists(list(BalancedTree(6), PectinateTree(6)), BalancedTree(6))
 #'
 #' @export
 AllDists <- function (tr1, tr2, verbose = FALSE) {
-  if (verbose) cat('q')
+  if (verbose) cat('q') # nocov
   qd <- QuartetDivergence(QuartetStatus(tr1, tr2), similarity = FALSE)
 
-  if (verbose) cat('m')
+  if (verbose) cat('m') # nocov
   mast <- MASTSize(tr1, tr2, rooted = FALSE)
   masti <-  LnUnrooted(mast) / log(2)
   attributes(masti) <- attributes(mast)
 
-  if (verbose) cat('n')
+  if (verbose) cat('n') # nocov
   nni <- NNIDist(tr1, tr2)
-  if (verbose) cat('t')
+  if (verbose) cat('t') # nocov
   tbr <- TBRDist(tr1, tr2)
 
   NNIPart <- function (name) {
     if (is.null(names(nni))) nni[name, ] else nni[[name]]
   }
-  if (verbose) cat('s')
+  if (verbose) cat('s') # nocov
   spr <- SPRDist(tr1, tr2)
   if (!is.null(names(spr))) spr <- spr[['spr']]
 
-  if (verbose) cat('.')
+  if (verbose) cat('.') # nocov
   Bind <- if (is.null(names(nni))) rbind else c
   Bind(
     pid = DifferentPhylogeneticInfo(tr1, tr2, normalize = TRUE),
@@ -66,7 +66,6 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     spr = spr,
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
-    # mafi would go here
     rf = RobinsonFoulds(tr1, tr2),
     icrf = InfoRobinsonFoulds(tr1, tr2),
     path = PathDist(tr1, tr2)
@@ -217,7 +216,6 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
     tbr_l = tbr$tbr_min,
     tbr_u = tbr$tbr_max,
 
-    # mafi would go here
     rf = RobinsonFoulds(splits),
     icrf = InfoRobinsonFoulds(splits),
     path = pathDist

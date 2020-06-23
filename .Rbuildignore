@@ -18,6 +18,7 @@ vignettes
 ^\.Rproj\.user$
 \.tre$
 \.yml$
+^\.covrignore$
 ^\.Rdata$
 ^\.?R+prof.*$
 ^vignettes/.*_cache$

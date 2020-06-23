@@ -1,4 +1,4 @@
-library('TreeTools', quietly = TRUE)
+library('TreeTools', quietly = TRUE, warn.conflict = FALSE)
 library('TreeDist')
 
 nTip <- 11L
@@ -63,7 +63,7 @@ pectinateDistances11 <- rbind(pid = pid, msid = msid, cid = cid, qd = qd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
                               tbr_l = tbr$tbr_min, tbr_u = tbr$tbr_max,
-                              mafi = mafi, rf = rf, icrf = icrf, path = path)
+                              rf = rf, icrf = icrf, path = path, mafi = mafi)
 
 
 message("Calculated and bound.")
@@ -72,8 +72,7 @@ normalizers <- c(pid = 1, msid = 1, cid = 1, qd = 1, nye = 1, ms = 1,
                  mast = nTip, masti = LnUnrooted.int(nTip) / log(2),
                  nni_l = 18, nni_t = 18, nni_u = 18,
                  spr = 18, tbr_l = 18, tbr_u = 18,
-                 mafi = 1,
-                 rf = 1, icrf = NA, path = 1)
+                 rf = 1, icrf = NA, path = 1, mafi = 1)
 
 usethis::use_data(pectinateDistances11, compress = 'xz', overwrite = TRUE)
 message("Complete.")

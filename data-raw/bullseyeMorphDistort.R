@@ -42,13 +42,13 @@ for (tipName in names(bullseyeTrees)) {
   message('* ', tipName, ": Simulating sequences...")
   theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
   simChar <- 2000L
-  seqs <- lapply(theseTrees, simSeq, l = simChar, type='USER', levels=0:1)
+  seqs <- lapply(theseTrees, simSeq, l = simChar, type = 'USER', levels = 0:1)
   nData <- length(seqs[[1]]) * simChar
-  inferred <- vector(mode='list', nTrees)
+  inferred <- vector(mode = 'list', nTrees)
 
 
   for (i in seq_along(seqs)) {
-    seq00 <- formatC(i - 1, width=3, flag='0')
+    seq00 <- formatC(i - 1, width = 3, flag = '0')
     cat ("", seq00)
     FilePattern <- function (n) {
       CacheFile(substr(tipName, 0, nchar(tipName) - 7L),
@@ -103,10 +103,6 @@ usethis::use_data(bullMoDiInferred, compress = 'bzip2', overwrite = TRUE)
 message("\n\n === Calculate distances ===\n")
 bullMoDiScores <- vector('list', length(tipsNames))
 names(bullMoDiScores) <- tipsNames
-sampledMethods <-
-  c('dpi', 'msid', 'cid', 'nts', 'ja2', 'ja4', 'jna2', 'jna4',
-    'msd', 'mast', 'masti', 'nni_l', 'nni_t', 'nni_u', 'spr', 'tbr_l', 'tbr_u',
-    'rf', 'rfi', 'qd', 'path')
 for (tipName in tipsNames) {
   inferred <- bullMoDiInferred[[tipName]]
   trueTrees <- bullseyeTrees[[tipName]]
@@ -130,21 +126,23 @@ for (tipName in tipsNames) {
 
     normInfo <- SplitwiseInfo(tr)
     cbind(
-      dpi = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
+      pid = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
       msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
       cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
-      nts = NyeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
+      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
+                                      similarity = FALSE),
+      nye = NyeSimilarity(tr, trs, similarity = FALSE, normalize = TRUE),
 
-      ja2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE,
+      jnc2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = FALSE,
                                   normalize = TRUE),
-      ja4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE,
+      jnc4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = FALSE,
                                   normalize = TRUE),
-      jna2 =JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE,
-                                  normalize = TRUE),
-      jna4 =JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE,
-                                  normalize = TRUE),
+      jco2 = JaccardRobinsonFoulds(tr, trs, k = 2, allowConflict = TRUE,
+                                   normalize = TRUE),
+      jco4 = JaccardRobinsonFoulds(tr, trs, k = 4, allowConflict = TRUE,
+                                   normalize = TRUE),
 
-      msd = MatchingSplitDistance(tr, trs),
+      ms = MatchingSplitDistance(tr, trs),
       mast = mast,
       masti = masti,
 
@@ -156,13 +154,11 @@ for (tipName in tipsNames) {
       tbr_u = tbr$tbr_max,
 
       rf = RobinsonFoulds(tr, trs),
-      rfi = InfoRobinsonFoulds(tr, trs),
-      qd = Quartet::QuartetDivergence(Quartet::QuartetStatus(trs, cf=tr),
-                                      similarity = FALSE),
+      icrf = InfoRobinsonFoulds(tr, trs),
       path = path.dist(tr, trs)
     )
-  }, matrix(0, nrow = 10L, ncol = length(sampledMethods),
-            dimnames=list(subsamples, sampledMethods))
+  }, matrix(0, nrow = 10L, ncol = 21L,
+            dimnames=list(subsamples, tdMethods[-22]))
   )
   bullMoDiScores[[tipName]] <- theseScores
 }

@@ -13,12 +13,12 @@ There were two NOTEs:
   - This package is a new submission.
 
 * checking installed package size ... NOTE
-    installed size is  5.4Mb
+    installed size is 179.1Mb
     sub-directories of 1Mb or more:
-      data   5.3Mb
+      data  178.9Mb
       
   - This package contains large datasets used to build the vignettes of
-    the forthcoming package`TreeDist`.  I have compressed the datasets as far
+    the package 'TreeDist'.  I have compressed the datasets as far
     as possible.
     
     These datasets should very seldom change, and are primarily used to build 

@@ -3,6 +3,8 @@
 #' Implementation and results of a 'Bullseye' test, after that proposed by
 #' Kuhner and Yamato (2015).
 #'
+#' @format
+#'
 #' `bullseyeTrees` is a list with four elements, named `5 leaves`, `10 leaves`,
 #' `20 leaves` and `50 leaves`.
 #' Each element contains 1&nbsp;000 trees with _n_ leaves, randomly sampled
@@ -63,10 +65,11 @@
 
 #' Distances between random pairs of trees
 #'
-#' `distanceDistribution##` are two-dimensional matrices listing the normalized
-#' distances between random pairs of bifurcating trees with 25 and 50 leaves
-#' drawn from the uniform distribution using `ape::rtree(nTip, br = NULL)`
-#' (data object [`randomTreePairs##`][randomTreePairs]).
+#' `distanceDistribution25(/50)` are two-dimensional matrices listing the
+#' normalized distances between random pairs of bifurcating trees with 25 and
+#' 50 leaves drawn from the uniform distribution using
+#' `ape::rtree(nTip, br = NULL)` (data object
+#' [`randomTreePairs25`]`(/50)`).
 #' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
 #' and 100&nbsp;000 random binary trees.
 #'
@@ -74,11 +77,17 @@
 #' Objects of class `matrix` (inherits from `array`) with
 #' `r dim(distanceDistribution25)[1]` rows, each corresponding
 #' to a tree distance method and is named with its abbreviation
-#' (listed in 'Methods tested' below), and 10&nbsp;000 (`distanceDistribution##`)
+#' (listed in 'Methods tested' below), and 10&nbsp;000
+#' (`distanceDistribution25/50`)
 #'  or 100&nbsp;000 (`pectinateDistances11`) columns,
 #' listing the calculated distances between each pair of trees.
 #'
 #' @template allDistMethods
+#' @details
+#' # Methods tested
+#' - `mafi` (`pectinateDistances11` only): information content of the
+#' maximum agreement forest (Smith, forthcoming).
+#'
 #' @template dataRaw
 #' @template methodRefs
 #'

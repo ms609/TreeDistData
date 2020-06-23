@@ -58,7 +58,8 @@ conflicting pairings permitted ('conflict-ok')
 \item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009)
 \item \code{masti}: Information content of Maximum Agreement Subtree
 \item \code{nni_l}, \code{nni_t}, \code{nni_u}: Lower
-`rbound, tight upper bound, and upper boundor nearest-neighbour interchange distance (Li \emph{et al.} 1996)
+bound, tight upper bound, and upper bound
+for nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 \item \code{spr}: Approximate SPR distance
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
 (TBR) distance, calculated using

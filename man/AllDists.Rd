@@ -15,7 +15,7 @@ AllDists(tr1, tr2, verbose = FALSE)
 All distances between a pair of trees
 }
 \examples{
-library('TreeTools')
+library('TreeTools', quietly = TRUE, warn.conflict = FALSE)
 AllDists(BalancedTree(8), PectinateTree(8))
 AllDists(list(BalancedTree(6), PectinateTree(6)), BalancedTree(6))
 

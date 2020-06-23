@@ -38,7 +38,7 @@ methodLCH <- colorspace::coords(as(colorspace::hex2RGB(TreeDistCol(methods)), 'p
 
 data('randomTreeDistances', package='TreeDistData')
 pathMax <- randomTreeDistances['path', 'max', ]
-msdMax <- randomTreeDistances['msd', 'max', ]
+msMax <- randomTreeDistances['ms', 'max', ]
 nniMax <- randomTreeDistances['nni_u', 'max', ]
 tbrMax <- randomTreeDistances['tbr_u', 'max', ]
 
@@ -47,8 +47,8 @@ nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 pathNorm <- nls(pathMax ~ a * (nTip ^2) + b * (nTip ^3) + nTip ^ c,
                 start = list(a = -0.0444, b = 4.6e-5, c = 1.478))
 
-msdNorm <- nls(msdMax ~ (a * nTip) + (c * nTip ^ b) + d,
-               start = list(a = -16.795, b=1.135, c = 14.25, d = 1.86))
+msNorm <- nls(msMax ~ (a * nTip) + (c * nTip ^ b) + d,
+              start = list(a = -16.795, b=1.135, c = 14.25, d = 1.86))
 
 nniNorm <-  nls(nniMax ~ (a * nTip) + (c * nTip ^ b) + d + e * (nTip ^2) + f * (nTip ^3),
                 start = list(a = -16.7, b=1.1, c = 14, d = 6, e = 0.01, f = 0.01))
@@ -60,7 +60,7 @@ tbrNorm <-  lm(tbrMax ~ nTip)
 
 normalizeAgainst <- rbind(
   path = predict(pathNorm),
-  msd = predict(msdNorm),
+  ms = predict(msNorm),
   nni_u = predict(nniNorm),
   nni_l = predict(nniNorm),
   spr = nTip / 2L,
@@ -112,7 +112,7 @@ PlotMethods <- function (methods, yMin = 0.4,
        ylim = c(yMin, 1), type = 'n',
        xlab = "Number of leaves", ylab = "Normalized tree distance")
   for (method in methods) AddLine(method, 
-                                  method %in% c('msd', rownames(normalizeAgainst)))
+                                  method %in% c('ms', rownames(normalizeAgainst)))
   
   
   legend(lp[1], bty='n',

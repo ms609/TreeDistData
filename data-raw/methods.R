@@ -1,16 +1,13 @@
 library('TreeDist')
 
-tdPlotSequence <- c("cid", "dpi",
-                    "nts", "jna2", "jna4", "ja2", "ja4",
-                    "rf", "rfi",
+tdPlotSequence <- c("cid", "pid",
+                    "nye", "jco2", "jco4", "jnc2", "jnc4",
+                    "rf", "icrf",
                     "path",
-                    "msid", "msd",
+                    "msid", "ms",
                     "qd",
                     "mast", "masti",
                     "nni_u", "nni_l", "spr", "tbr_l", "tbr_u")
-legendSequence <- c('dpi', 'cid', 'nts', 'msd', 'qd', 'path', 'rf', 'rfi',
-                    'ja4', 'ja2', 'jna4', 'jna2',
-                    'nni_t', 'spr', 'tbr_u', 'mafi', 'mast', 'masti')
 
 tdAbbrevs <- c(
   pid = 'Phylog. Info. Dist',
@@ -39,11 +36,12 @@ tdAbbrevs <- c(
   tbr = 'TBR (approx.)',
   tbr_l = 'TBR (lwr bnd)',
   tbr_u = 'TBR (upr bnd)',
-  mafi = 'MAF info',
 
   rf  = 'Robinson-Foulds',
   icrf = 'Info. Corr. RF',
-  path = 'Path'
+  path = 'Path',
+
+  mafi = 'MAF info'
 )
 
 tdMdAbbrevs <- tdAbbrevs
@@ -76,11 +74,11 @@ tdBoxAbbrevs <- c(
   tbr_l = 'TBR\n(lwr bnd)',
   tbr_u = 'TBR\n(upr bnd)',
 
-  mafi = 'MAF\ninfo',
-
   rf  = 'Robins.\n-Foulds',
   icrf = 'Info.\nCorr.\nRF',
-  path = 'Path'
+  path = 'Path',
+
+  mafi = 'MAF\ninfo'
 )
 
 tdMethods <- names(tdAbbrevs)
@@ -123,10 +121,10 @@ TDFunctions <- list(
   tbr =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_max),
   tbr_l =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_min),
   tbr_u =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_max),
-  mafi = TBRDist::MAFInfo,
   rf = TreeDist::RobinsonFoulds,
   icrf = TreeDist::InfoRobinsonFoulds,
-  path = phangorn::path.dist
+  path = phangorn::path.dist,
+  mafi = TBRDist::MAFInfo
 )
 
 TDPair <- list(
@@ -158,10 +156,10 @@ TDPair <- list(
 
   mast = function (...) TreeDist::MASTSize(...),
   masti = function (...) TreeDist::MASTInfo(...),
-  mafi = function (...) TBRDist::MAFInfo(...),
   rf = function (tr, ref) TreeDist::RobinsonFoulds(tr, ref),
   icrf = function (tr, ref) TreeDist::InfoRobinsonFoulds(tr, ref),
-  path = function (tr, ref) signif(phangorn::path.dist(tr, ref), 4L)
+  path = function (tr, ref) signif(phangorn::path.dist(tr, ref), 4L),
+  mafi = function (...) TBRDist::MAFInfo(...)
 )
 
 
