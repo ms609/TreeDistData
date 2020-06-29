@@ -1,3 +1,7 @@
+# TreeDistData 1.0.0.9000
+
+- Sample trees from uniform distribution using `TreeTools::RandomTree()`.
+
 # TreeDistData 1.0.0
 
 - Update abbreviations to match Smith (2020)
