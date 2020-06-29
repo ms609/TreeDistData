@@ -39,8 +39,7 @@ pectinateDistances11
 \verb{distanceDistribution25(/50)} are two-dimensional matrices listing the
 normalized distances between random pairs of bifurcating trees with 25 and
 50 leaves drawn from the uniform distribution using
-\code{ape::rtree(nTip, br = NULL)} (data object
-\code{\link{randomTreePairs25}}\verb{(/50)}).
+\code{\link[TreeTools:RandomTree]{TreeTools::RandomTree()}} (data object \code{\link{randomTreePairs25}}\verb{(/50)}).
 \code{pectinateDistances11} reports distances between a pectinate 11-leaf tree
 and 100 000 random binary trees.
 }

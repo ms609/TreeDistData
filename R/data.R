@@ -8,7 +8,7 @@
 #' `bullseyeTrees` is a list with four elements, named `5 leaves`, `10 leaves`,
 #' `20 leaves` and `50 leaves`.
 #' Each element contains 1&nbsp;000 trees with _n_ leaves, randomly sampled
-#' from the uniform distribution using [`ape::rtree()`].
+#' (note: *not* from the uniform distribtion) using [`ape::rtree()`].
 #'
 #' The `bullseyeMorph` prefix refers to the 'subsampling' experiment
 #' described by Smith (2020); the `bullMoDi` prefix refers to the
@@ -58,8 +58,7 @@
 #' `distanceDistribution25(/50)` are two-dimensional matrices listing the
 #' normalized distances between random pairs of bifurcating trees with 25 and
 #' 50 leaves drawn from the uniform distribution using
-#' `ape::rtree(nTip, br = NULL)` (data object
-#' [`randomTreePairs25`]`(/50)`).
+#' [`TreeTools::RandomTree()`] (data object [`randomTreePairs25`]`(/50)`).
 #' `pectinateDistances11` reports distances between a pectinate 11-leaf tree
 #' and 100&nbsp;000 random binary trees.
 #'
@@ -174,7 +173,7 @@ NULL
 #'
 #' A three-dimensional array listing the normalized distances between 1&nbsp;000
 #' random pairs of trees drawn from the uniform distribution using
-#' `ape::rtree(nTip, br = NULL)`.
+#' `RandomTree(nTip, root = TRUE)`.
 #'
 #' Normalization is against the maximum possible value obtainable on a pair
 #' of trees of the shapes given, with the exception of the SPR distance,

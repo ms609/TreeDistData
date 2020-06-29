@@ -24,7 +24,7 @@ randomTreePairs50
 }
 \description{
 Lists of 10 000 pairs of binary trees drawn from the uniform
-distribution using \code{ape::rtree(nTip, br = NULL)}.
+distribution using \code{\link[TreeTools:RandomTree]{TreeTools::RandomTree()}}.
 }
 \seealso{
 The distances between these pairs of trees are recorded in

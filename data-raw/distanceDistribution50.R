@@ -1,4 +1,4 @@
-library('TreeTools', warn.conflicts = FALSE)
+library('TreeTools', quietly = TRUE, warn.conflicts = FALSE)
 library('TreeDist')
 RNGversion("3.6.0")
 set.seed(0)
