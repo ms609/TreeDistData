@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ms609/TreeDistData/",
   "issueTracker": "https://github.com/ms609/TreeDistData/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0",
+  "version": "1.0.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -276,7 +276,7 @@
       "@type": "SoftwareApplication",
       "identifier": "TreeTools",
       "name": "TreeTools",
-      "version": ">= 0.1.4",
+      "version": "> 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -320,5 +320,5 @@
     "https://ms609.github.io/TreeDistData",
     "https://ms609.github.io/TreeDistData/"
   ],
-  "fileSize": "18640.675KB"
+  "fileSize": "18658.293KB"
 }
