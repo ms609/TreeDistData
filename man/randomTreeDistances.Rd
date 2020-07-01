@@ -19,7 +19,7 @@ randomTreeDistances
 \description{
 A three-dimensional array listing the normalized distances between 1 000
 random pairs of trees drawn from the uniform distribution using
-\code{ape::rtree(nTip, br = NULL)}.
+\code{RandomTree(nTip, root = TRUE)}.
 }
 \details{
 Normalization is against the maximum possible value obtainable on a pair
