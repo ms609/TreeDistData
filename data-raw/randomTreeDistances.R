@@ -1,6 +1,6 @@
 library('TreeDistData')
 library('usethis')
-suppressWarnings(RNGversion("3.5.0")) # Stopgap until we can require R 3.6.0
+RNGversion("3.6.0")
 repls <- 1000
 ourMethods <- tdMethods[!tdMethods %in% c('nni_t', 'mafi')]
 
