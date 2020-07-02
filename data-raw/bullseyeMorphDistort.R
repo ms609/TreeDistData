@@ -147,7 +147,9 @@ for (tipName in tipsNames) {
       masti = masti,
 
       nni_l = nni['lower', ],
+      nni_L = nni['best_lower', ],
       nni_t = nni['tight_upper', ],
+      nni_U = nni['best_upper', ],
       nni_u = nni['loose_upper', ],
       spr = SPR.dist(tr, trs),
       tbr_l = tbr$tbr_min,

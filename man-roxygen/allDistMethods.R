@@ -22,8 +22,12 @@
 #' - `ms`: Matching Split Distance (Bogdanowicz & Giaro 2012), unnormalized.
 #' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009), unnormalized.
 #' - `masti`: Information content of Maximum Agreement Subtree, unnormalized.
-#' - `nni_l`, `nni_t`, `nni_u`: Lower bound, tight upper bound, and upper bound
+#' - `nni_l`, `nni_L`, `nni_t`, `nni_U`, `nni_u`: Lower, best lower,
+#' tight upper best upper, and upper bounds
 #' for nearest-neighbour interchange distance (Li _et al._ 1996), unnormalized.
+#' 'Best' lower bounds jump sharply when mismatched regions of a tree become
+#' large enough that a tight upper bound cannot be exactly calculated, so
+#' are discontinuous and cannot readily be compared between trees.
 #' - `spr`: Approximate subtree prune and regraft \acronym{SPR} distance,
 #' unnormalized.
 #' - `tbr_l`, `tbr_u`: Lower and upper bound for tree bisection and reconnection
