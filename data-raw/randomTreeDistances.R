@@ -21,8 +21,8 @@ if (file.exists(proj_path(paths))) {
   usethis::use_data(randomTreeDistances, compress = 'xz', overwrite = TRUE)
 }
 RandomDistances <- function (nLeaves, repls) {
-  set.seed(0)
   RandomTree <- function (nTip) ape::rtree(nTip, br = NULL)
+  set.seed(nLeaves)
   distances <- vapply(seq_len(repls),
                       function (XX) {
                         #cat(".")
