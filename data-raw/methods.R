@@ -29,8 +29,10 @@ tdAbbrevs <- c(
 
   nni = 'NNI (approx.)',
   nni_l = 'NNI (lwr bnd)',
+  nni_L = 'NNI (tgt lwr bnd)',
   nni_t = 'NNI (ub tight)',
   nni_u = 'NNI (upr bnd)',
+  nni_U = 'NNI (tgt upr bnd)',
 
   spr = 'SPR (approx.)',
   tbr = 'TBR (approx.)',
@@ -67,8 +69,10 @@ tdBoxAbbrevs <- c(
 
   nni = 'NNI\n(approx.)',
   nni_l = 'NNI\n(lwr bnd)',
+  nni_L = 'NNI\n(tgt lwr bnd)',
   nni_t = 'NNI\n(ub tight)',
   nni_u = 'NNI\n(upr bnd)',
+  nni_U = 'NNI\n(tgt upr bnd)',
   spr = 'SPR\n(approx.)',
   tbr = 'TBR\n(approx.)',
   tbr_l = 'TBR\n(lwr bnd)',
@@ -116,7 +120,9 @@ TDFunctions <- list(
 
   nni_u =  function(...) as.matrix(TreeDist::NNIDist(...)$loose_upper),
   nni_t =  function(...) as.matrix(TreeDist::NNIDist(...)$tight_upper),
+  nni_T =  function(...) as.matrix(TreeDist::NNIDist(...)$best_upper),
   nni_l =  function(...) as.matrix(TreeDist::NNIDist(...)$lower),
+  nni_L =  function(...) as.matrix(TreeDist::NNIDist(...)$best_lower),
   spr = phangorn::SPR.dist,
   tbr =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_max),
   tbr_l =  function(...) as.matrix(TBRDist::TBRDist(...)$tbr_min),
@@ -149,7 +155,9 @@ TDPair <- list(
   qd = function (tr, ref) Quartet::QuartetStatus(list(tr, ref))[2, 'd'],
   nni_t = function(tr, ref) TreeDist::NNIDist(tr, ref)['tight_upper'],
   nni_l = function(tr, ref) TreeDist::NNIDist(tr, ref)['lower'],
+  nni_L = function(tr, ref) TreeDist::NNIDist(tr, ref)['best_lower'],
   nni_u = function(tr, ref) TreeDist::NNIDist(tr, ref)['loose_upper'],
+  nni_U = function(tr, ref) TreeDist::NNIDist(tr, ref)['best_upper'],
   spr = function (tr, ref) phangorn::SPR.dist(tr, ref),
   tbr_u = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_max,
   tbr_l = function(tr, ref) TBRDist::TBRDist(tr, ref)$tbr_min,
@@ -201,7 +209,8 @@ if(any(duplicated(colOrder))) warning(ifelse(duplicated(colOrder), colOrder, 0))
 if (any(which(!1:22 %in% colOrder))) warning(which(!1:22 %in% colOrder))
 tdCol <- dr22[colOrder[tdMethods]]
 names(tdCol) <- tdMethods
-tdCol[c('nni', 'nea', 'tbr')] <- tdCol[c('nni_u', 'nye', 'tbr_u')]
+tdCol[c('nni', 'nea', 'tbr', 'nni_L', 'nni_U')] <-
+  tdCol[c('nni_u', 'nye', 'tbr_u', 'nni_l', 'nni_u')]
 
 
 usethis::use_data(tdAbbrevs, compress = 'gzip', overwrite = TRUE)
