@@ -8,12 +8,13 @@ pectinateTree <- PectinateTree(tipLabel)
 RNGversion("3.6.0")
 set.seed(0)
 repls <-  100000L
-message("Generating ", repls, " random trees")
-randomTreeIds <- unique(floor(runif(repls * 2) *
-                                NUnrooted(nTip)))[seq_len(repls)]
+message("Generating ", repls, " random trees:")
+randomTreeIds <- unique(runif(repls * 1.5, 0, NUnrooted(nTip) - 1L))[seq_len(repls)]
+message("> Found ", repls, ' unique integers. Arboricating...')
 randomTrees <- as.phylo(randomTreeIds, nTip, tipLabel)
+message("> Converted integers to trees. Sorting...")
 randomTrees <- structure(lapply(randomTrees, Postorder), class = 'multiPhylo')
-message("Generated ", repls, " comparison trees.")
+message("> Sorted trees into postorder.\n")
 
 message('Calculating info... ')
 pid <- DifferentPhylogeneticInfo(pectinateTree, randomTrees, normalize = TRUE)
@@ -40,8 +41,10 @@ ms <- MatchingSplitDistance(pectinateTree, randomTrees)
 message('MAST... ')
 mast <- MASTSize(pectinateTree, randomTrees, rooted = FALSE)
 message('NNI... ')
-nni <- matrix(unlist(NNIDist(pectinateTree, randomTrees)), nrow = 3,
-              dimnames = list(c('nni_l', 'nni_t', 'nni_u'), NULL))
+nni <- NNIDist(pectinateTree, randomTrees)[c('lower', 'best_lower',
+                                             'tight_upper', 'best_upper',
+                                             'loose_upper'), ]
+rownames(nni) <- c('nni_l', 'nni_L', 'nni_t', 'nni_U', 'nni_u')
 message('SPR... ')
 spr <- phangorn::SPR.dist(pectinateTree, randomTrees)
 message('TBR... ')
