@@ -6,7 +6,7 @@
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
 \format{
-An object of class \code{array} of dimension 20 x 13 x 197.
+An object of class \code{array} of dimension 22 x 13 x 197.
 }
 \source{
 Scripts used to generate data objects are housed in the
@@ -17,16 +17,13 @@ directory.
 randomTreeDistances
 }
 \description{
-A three-dimensional array listing the normalized distances between 1 000
+A three-dimensional array listing the distances between 1 000
 random pairs of trees drawn from the uniform distribution using
 \code{RandomTree(nTip, root = TRUE)}.
 }
 \details{
-Normalization is against the maximum possible value obtainable on a pair
-of trees of the shapes given, with the exception of the SPR distance,
-which is normalized against the upper bound (\code{spr}) and lower bound (\code{sprLB})
-of its diameter on a tree with \emph{n} leaves.  The path and matching split
-distances are not normalized.
+Distances were calculated using \code{\link[=AllDists]{AllDists()}}; see the documentation at
+there for details of methods and their normalization.
 
 Rows are named with abbreviations of the tree comparison metrics tested
 (see 'Methods tested' below).
@@ -43,37 +40,47 @@ For analysis of this data, see the
 }
 \section{Methods tested}{
 \itemize{
-\item \code{pid}: Phylogenetic Information Distance (Smith 2020)
-\item \code{msid}: Matching Split Information Distance (Smith 2020)
-\item \code{cid}: Clustering Information Distance (Smith 2020)
-\item \code{qd}: Quartet divergence (Smith 2019)
-\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006)
+\item \code{pid}: Phylogenetic Information Distance (Smith 2020), normalized
+against the phylogenetic information content of the splits in the trees
+being compared.
+\item \code{msid}: Matching Split Information Distance (Smith 2020), normalized
+against the phylogenetic information content of the splits in the trees
+being compared.
+\item \code{cid}: Clustering Information Distance (Smith 2020), normalized
+against the entropy of the splits in the trees being compared.
+\item \code{qd}: Quartet divergence (Smith 2019), normalized against its maximum
+possible value for \emph{n}-leaf trees.
+\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006), normalized against
+the total number of splits in the trees being compared.
 \item \code{jnc2}, \code{jnc4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
-conflicting pairings prohibited ('no-conflict')
-\item \code{joc2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
-conflicting pairings permitted ('conflict-ok')
-\item \code{ms}: Matching Split Distance (Bogdanowicz & Giaro 2012)
-\item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009)
-\item \code{masti}: Information content of Maximum Agreement Subtree
-\item \code{nni_l}, \code{nni_u}: Lower
-and upper bounds
-for nearest-neighbour interchange distance (Li \emph{et al.} 1996)
-\item \code{spr}: Approximate SPR distance
+conflicting pairings prohibited ('no-conflict'), normalized against
+the total number of splits in the trees being compared.
+\item \code{jco2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+conflicting pairings permitted ('conflict-ok'), normalized against
+the total number of splits in the trees being compared.
+\item \code{ms}: Matching Split Distance (Bogdanowicz & Giaro 2012), unnormalized.
+\item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009), unnormalized.
+\item \code{masti}: Information content of Maximum Agreement Subtree, unnormalized.
+\item \code{nni_l}, \code{nni_L}, \code{nni_U}, \code{nni_u}:
+Lower, best lower, best upper, and
+upper bounds for nearest-neighbour interchange distance (Li \emph{et al.} 1996),
+unnormalized.
+'Best' lower bounds jump sharply when mismatched regions of a tree become
+large enough that a tight upper bound cannot be exactly calculated, so
+are discontinuous and cannot readily be compared between trees.
+\item \code{spr}: Approximate subtree prune and regraft \acronym{SPR} distance,
+unnormalized.
 \item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
-(TBR) distance, calculated using
-\href{https://ms609.github.io/TBRDist/}{\pkg{TBRDist}}
-\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981)
-\item \code{icrf}: Information-corrected Robinson-Foulds distance (Smith 2020)
-\item \code{path}: Path distance (Steel & Penny 1993)
+(\acronym{TBR}) distance, calculated using
+\href{https://ms609.github.io/TBRDist/}{\pkg{TBRDist}}; unnormalized.
+\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981), unnormalized.
+\item \code{icrf}: Robinson-Foulds distance, splits weighted by phylogenetic
+information content (Smith 2020), unnormalized.
+\item \code{path}: Path distance (Steel & Penny 1993), unnormalized.
 }
 }
 
 \references{
-\itemize{
-\item \insertRef{Allen2001}{TreeDist}
-\item \insertRef{Bocker2013}{TreeDist}
-}
-
 \insertRef{Bogdanowicz2012}{TreeDist}
 
 \insertRef{Li1996}{TreeDist}
