@@ -72,6 +72,7 @@
 #'  or 100&nbsp;000 (`pectinateDistances11`) columns,
 #' listing the calculated distances between each pair of trees.
 #'
+#' @templateVar nni_t TRUE
 #' @template allDistMethods
 #' @details
 #' # Methods tested
@@ -172,15 +173,12 @@ NULL
 
 #' Mean distances between random pairs of trees
 #'
-#' A three-dimensional array listing the normalized distances between 1&nbsp;000
+#' A three-dimensional array listing the distances between 1&nbsp;000
 #' random pairs of trees drawn from the uniform distribution using
 #' `RandomTree(nTip, root = TRUE)`.
 #'
-#' Normalization is against the maximum possible value obtainable on a pair
-#' of trees of the shapes given, with the exception of the SPR distance,
-#' which is normalized against the upper bound (`spr`) and lower bound (`sprLB`)
-#' of its diameter on a tree with _n_ leaves.  The path and matching split
-#' distances are not normalized.
+#' Distances were calculated using [`AllDists()`]; see the documentation at
+#' there for details of methods and their normalization.
 #'
 #' Rows are named with abbreviations of the tree comparison metrics tested
 #' (see 'Methods tested' below).
@@ -196,14 +194,8 @@ NULL
 #' @template seeVignette
 #' @template dataRaw
 #' @templateVar nni_t FALSE
-#' @template methodsTested
-#'
-#' @references
-#' - \insertRef{Allen2001}{TreeDist}
-#'
-#' - \insertRef{Bocker2013}{TreeDist}
+#' @template allDistMethods
 #' @template methodRefs
-#'
 #' @encoding UTF-8
 "randomTreeDistances"
 
@@ -214,7 +206,7 @@ NULL
 #'
 #' @seealso
 #' The distances between these pairs of trees are recorded in
-#' the data objects  [`distanceDistribution25`] and  [`distanceDistribution50`].
+#' the data objects [`distanceDistribution25`] and  [`distanceDistribution50`].
 #'
 #' @template dataRaw
 #' @name randomTreePairs
@@ -238,6 +230,7 @@ NULL
 #' between each pair of seven-leaf trees.  The first 630 trees are pectinate
 #' (tree shape 0), the final 315 are balanced (tree shape 1).
 #'
+#' @templateVar nni_t TRUE
 #' @template allDistMethods
 #'
 #' @examples

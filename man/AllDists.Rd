@@ -9,16 +9,79 @@ AllDists(tr1, tr2, verbose = FALSE)
 \arguments{
 \item{tr1, tr2}{Phylogenetic trees of class \code{phylo}.}
 
-\item{verbose}{Logical specifying whether to notify user of progress.}
+\item{verbose}{Logical specifying whether to print messages allowing the
+user to keep track of progress.}
 }
 \description{
-All distances between a pair of trees
+\code{AllDists()} calculates the distances between two trees, using a suite
+of distance measures.
 }
+\section{Methods tested}{
+\itemize{
+\item \code{pid}: Phylogenetic Information Distance (Smith 2020), normalized
+against the phylogenetic information content of the splits in the trees
+being compared.
+\item \code{msid}: Matching Split Information Distance (Smith 2020), normalized
+against the phylogenetic information content of the splits in the trees
+being compared.
+\item \code{cid}: Clustering Information Distance (Smith 2020), normalized
+against the entropy of the splits in the trees being compared.
+\item \code{qd}: Quartet divergence (Smith 2019), normalized against its maximum
+possible value for \emph{n}-leaf trees.
+\item \code{nye}: Nye \emph{et al.} tree distance (Nye \emph{et al.} 2006), normalized against
+the total number of splits in the trees being compared.
+\item \code{jnc2}, \code{jnc4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+conflicting pairings prohibited ('no-conflict'), normalized against
+the total number of splits in the trees being compared.
+\item \code{jco2}, \code{jco4}: Jaccard-Robinson-Foulds distances with \emph{k} = 2, 4,
+conflicting pairings permitted ('conflict-ok'), normalized against
+the total number of splits in the trees being compared.
+\item \code{ms}: Matching Split Distance (Bogdanowicz & Giaro 2012), unnormalized.
+\item \code{mast}: Size of Maximum Agreement Subtree (Valiente 2009), unnormalized.
+\item \code{masti}: Information content of Maximum Agreement Subtree, unnormalized.
+\item \code{nni_l}, \code{nni_L}, \code{nni_t}, \code{nni_U}, \code{nni_u}:
+Lower, best lower, tight upper, best upper, and
+upper bounds for nearest-neighbour interchange distance (Li \emph{et al.} 1996),
+unnormalized.
+'Best' lower bounds jump sharply when mismatched regions of a tree become
+large enough that a tight upper bound cannot be exactly calculated, so
+are discontinuous and cannot readily be compared between trees.
+\item \code{spr}: Approximate subtree prune and regraft \acronym{SPR} distance,
+unnormalized.
+\item \code{tbr_l}, \code{tbr_u}: Lower and upper bound for tree bisection and reconnection
+(\acronym{TBR}) distance, calculated using
+\href{https://ms609.github.io/TBRDist/}{\pkg{TBRDist}}; unnormalized.
+\item \code{rf}: Robinson-Foulds distance (Robinson & Foulds 1981), unnormalized.
+\item \code{icrf}: Robinson-Foulds distance, splits weighted by phylogenetic
+information content (Smith 2020), unnormalized.
+\item \code{path}: Path distance (Steel & Penny 1993), unnormalized.
+}
+}
+
 \examples{
 library('TreeTools', quietly = TRUE, warn.conflict = FALSE)
 AllDists(BalancedTree(8), PectinateTree(8))
 AllDists(list(BalancedTree(6), PectinateTree(6)), BalancedTree(6))
 
+}
+\references{
+\insertRef{Bogdanowicz2012}{TreeDist}
+
+\insertRef{Li1996}{TreeDist}
+
+\insertRef{Kendall2016}{TreeDistData}
+
+\insertRef{Nye2006}{TreeDist}
+
+\insertRef{Robinson1981}{TreeDist}
+
+\insertRef{SmithTern}{TreeSearch}
+
+\insertRef{SmithDist}{TreeDist}
+
+\insertRef{Steel1993}{TreeDist}
+
+\insertRef{Valiente2009}{TreeDist}
 }
 \seealso{
 Other pairwise tree distances: 

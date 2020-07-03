@@ -1,6 +1,15 @@
 #' All distances between a pair of trees
+#'
+#' `AllDists()` calculates the distances between two trees, using a suite
+#' of distance measures.
+#'
+#' @templateVar nni_t TRUE
+#' @template allDistMethods
+#' @template methodRefs
+#'
 #' @param tr1,tr2 Phylogenetic trees of class `phylo`.
-#' @param verbose Logical specifying whether to notify user of progress.
+#' @param verbose Logical specifying whether to print messages allowing the
+#' user to keep track of progress.
 #'
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist SPRDist PathDist

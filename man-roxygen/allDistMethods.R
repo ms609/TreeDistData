@@ -22,9 +22,10 @@
 #' - `ms`: Matching Split Distance (Bogdanowicz & Giaro 2012), unnormalized.
 #' - `mast`: Size of Maximum Agreement Subtree (Valiente 2009), unnormalized.
 #' - `masti`: Information content of Maximum Agreement Subtree, unnormalized.
-#' - `nni_l`, `nni_L`, `nni_t`, `nni_U`, `nni_u`: Lower, best lower,
-#' tight upper best upper, and upper bounds
-#' for nearest-neighbour interchange distance (Li _et al._ 1996), unnormalized.
+#' - `nni_l`, `nni_L`,`r if (<%= nni_t %>) " ``nni_t``,"` `nni_U`, `nni_u`:
+#'   Lower, best lower,`r if (<%= nni_t %>) " tight upper,"` best upper, and
+#'   upper bounds for nearest-neighbour interchange distance (Li _et al._ 1996),
+#'   unnormalized.
 #' 'Best' lower bounds jump sharply when mismatched regions of a tree become
 #' large enough that a tight upper bound cannot be exactly calculated, so
 #' are discontinuous and cannot readily be compared between trees.

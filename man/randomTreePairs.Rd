@@ -28,6 +28,6 @@ distribution using \code{ape::rtree(nTip, br = NULL)}.
 }
 \seealso{
 The distances between these pairs of trees are recorded in
-the data objects  \code{\link{distanceDistribution25}} and  \code{\link{distanceDistribution50}}.
+the data objects \code{\link{distanceDistribution25}} and  \code{\link{distanceDistribution50}}.
 }
 \keyword{datasets}
