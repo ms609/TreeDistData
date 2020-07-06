@@ -14,7 +14,7 @@
 \code{bullseyeTrees} is a list with four elements, named \verb{5 leaves}, \verb{10 leaves},
 \verb{20 leaves} and \verb{50 leaves}.
 Each element contains 1 000 trees with \emph{n} leaves, randomly sampled
-(note: \emph{not} from the uniform distribtion) using \code{\link[ape:rtree]{ape::rtree()}}.
+(note: \emph{not} from the uniform distribution) using \code{\link[ape:rtree]{ape::rtree()}}.
 
 The \code{bullseyeMorph} prefix refers to the 'subsampling' experiment
 described by Smith (2020); the \code{bullMoDi} prefix refers to the

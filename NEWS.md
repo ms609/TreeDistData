@@ -1,6 +1,7 @@
 # TreeDistData 1.1.0
 
-- Sample trees from uniform distribution using `TreeTools::RandomTree()`.
+- Sample `randomTreePairs` and `randomTreeDistances` from uniform distribution
+  using `TreeTools::RandomTree()`, and recalculate `distanceDistributions`.
 
 # TreeDistData 1.0.0
 

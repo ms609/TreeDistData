@@ -103,5 +103,5 @@ Not plotted:
   the method of calculating the approximation.
 
 ```{r echo=FALSE}
-par(origPar)
+suppressWarnings(par(origPar))
 ```

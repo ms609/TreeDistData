@@ -10,8 +10,7 @@ paths <- fs::path('data', 'randomTreeDistances', ext = 'rda')
 if (file.exists(proj_path(paths))) {
   load(proj_path(paths))
 } else {
-  randomTreeDistances <- array(NA,
-                               dim = c(length(ourMethods), 13, 197),
+  randomTreeDistances <- array(NA, dim = c(length(ourMethods), 13, 197),
                                dimnames =
                                  list(
                                    ourMethods,
@@ -53,8 +52,3 @@ while (any(empty <- is.na(randomTreeDistances[1, 1, ]))) {
 }
 
 cat("\n # # # COMPLETE # # # \n")
-
-# Upper and lower bound for SPR diameter:
-# sprUpper = nLeaves - 3L
-# sprLower = (nLeaves - 2L) / 2L
-# (Allen & Steel 2001)

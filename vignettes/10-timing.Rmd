@@ -130,7 +130,7 @@ TreeDistData::.TDDTable(DT::datatable, twoSF,
 ```
 
 ```{r echo=FALSE}
-par(origPar)
+suppressWarnings(par(origPar))
 ```
 
 ## Reference

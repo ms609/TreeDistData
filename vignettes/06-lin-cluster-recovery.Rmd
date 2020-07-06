@@ -86,7 +86,7 @@ PlotFunc <- function () {
 }
 
 PlotFunc()
-par(origPar)
+suppressWarnings(par(origPar))
 ```
 
 **Figure 2.** Cluster recovery results. Successful cluster recovery rate for each tree distance metric under (a), test one: add 40 – _k_ leaves to two _k_-leaf skeletons; (b), test two: conduct _k_ LLI operations on two 40-leaf skeletons; (c), test three: conduct _k_ SPR operations on two 40-leaf skeletons.

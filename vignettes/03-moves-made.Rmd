@@ -14,7 +14,7 @@ vignette: >
 ```{r, echo=FALSE}
 library('Quartet', exclude = 'RobinsonFoulds')
 library('TreeTools', quietly = TRUE, warn.conflicts = FALSE)
-library('TreeDist')
+library('TreeDist', warn.conflicts = FALSE)
 library('TreeDistData')
 
 origPar <- par()
@@ -141,7 +141,7 @@ PlotFunc()
 ```
 
 ```{r, echo=FALSE}
-par(origPar)
+suppressWarnings(par(origPar))
 ````
 <!--PlotMe(1, oneCol, 1.75, PlotFunc)-->
 **Figure 1.** Tree differences produced by moving one leaf (▽), exchanging two

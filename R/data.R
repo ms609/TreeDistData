@@ -8,7 +8,7 @@
 #' `bullseyeTrees` is a list with four elements, named `5 leaves`, `10 leaves`,
 #' `20 leaves` and `50 leaves`.
 #' Each element contains 1&nbsp;000 trees with _n_ leaves, randomly sampled
-#' (note: *not* from the uniform distribtion) using [`ape::rtree()`].
+#' (note: *not* from the uniform distribution) using [`ape::rtree()`].
 #'
 #' The `bullseyeMorph` prefix refers to the 'subsampling' experiment
 #' described by Smith (2020); the `bullMoDi` prefix refers to the
