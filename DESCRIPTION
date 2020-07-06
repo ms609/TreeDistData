@@ -19,7 +19,7 @@ Imports:
     Quartet,
     TBRDist,
     TreeDist,
-    TreeTools (> 1.0.0)
+    TreeTools (>= 1.0.0)
 Suggests:
     ape,
     benchmarkme,
@@ -31,7 +31,7 @@ Suggests:
     knitr,
     MASS,
     microbenchmark,
-    phangorn (> 2.5.5),
+    phangorn (>= 2.5.5),
     Rdpack,
     rmarkdown,
     spatstat,
