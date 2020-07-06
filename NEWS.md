@@ -4,7 +4,7 @@
 
 # TreeDistData 1.0.0
 
-- Update abbreviations to match Smith (2020)
+- Update abbreviations to match Smith (2020).
 - Final `randomTreeDistances` data object.
 
 # TreeDistData 0.1.0
