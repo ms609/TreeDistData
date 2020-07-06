@@ -1,4 +1,4 @@
-# TreeDistData 1.0.0.9000
+# TreeDistData 1.1.0
 
 - Sample trees from uniform distribution using `TreeTools::RandomTree()`.
 
