@@ -166,7 +166,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   }
 
   MSG('NNI')
-  nni <- PairwiseDistances(trees, NNIDist, 3L)
+  nni <- PairwiseDistances(trees, NNIDist, 7L)
 
   MSG('SPR')
   sprDist <- as.matrix(SPRDist(trees))
