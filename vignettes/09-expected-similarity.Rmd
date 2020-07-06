@@ -39,8 +39,6 @@ methodLCH <- colorspace::coords(as(colorspace::hex2RGB(TreeDistCol(methods)), 'p
 data('randomTreeDistances', package = 'TreeDistData')
 pathMax <- randomTreeDistances['path', 'max', ]
 msMax <- randomTreeDistances['ms', 'max', ]
-nniMax <- randomTreeDistances['nni_u', 'max', ]
-tbrMax <- randomTreeDistances['tbr_u', 'max', ]
 
 nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 
@@ -52,7 +50,9 @@ normalizeAgainst <- rbind(
   path = exp(predict(pathNorm)),
   ms = exp(predict(msNorm)),
   nni_u = nniNorm[, 'max'],
+  nni_U = nniNorm[, 'max'],
   nni_l = nniNorm[, 'min'],
+  nni_L = nniNorm[, 'min'],
   spr = nTip / 2L,
   tbr_u = nTip,
   tbr_l = nTip,
@@ -90,8 +90,8 @@ AddLine <- function (method, normalize = FALSE) {
 }
 ```
 
-```{R tree-distance-averages, echo=FALSE, message=FALSE, cache=TRUE, fig.asp=2, fig.width=6, fig.align='center'}
-origPar <- par(mfrow = c(3, 1), cex = 0.7, oma = rep(0, 4), 
+```{R tree-distance-averages, echo=FALSE, message=FALSE, cache=TRUE, fig.asp=2.8, fig.width=6, fig.align='center'}
+origPar <- par(mfrow = c(4, 1), cex = 0.7, oma = rep(0, 4), 
                mar = c(5, 5, 0.01, 0.01))
 PlotMethods <- function (methods, yMin = 0.4,
                          lp = c('bottomright', 'bottomleft')) {
@@ -115,11 +115,10 @@ PlotMethods <- function (methods, yMin = 0.4,
          lty = 1, lwd = c(1, 4, 6), col = c(1, "#00000066", "#00000033"),
          legend = c('Median', 'Interquartile range', 'Interdecile range'))
 }
-PlotMethods(c('rf', 'pid', 'cid', 'ms', 'nye', 'msid'))
-PlotMethods(c('rf', 'jnc4', 'jco4', 'jnc2', 'jco2', 'nye'), yMin = 0.7)
-PlotMethods(c('nni_u', 'tbr_u', 'spr', 'masti', 'mast',
-              'path', 'qd', 'tbr_l', 'nni_l'), yMin = 0.14, 
-            lp = c('bottomright', 'right'))
+PlotMethods(c('rf', 'pid', 'cid', 'nye', 'msid'))
+PlotMethods(c('jnc4', 'jco4', 'jnc2', 'jco2', 'nye'), yMin = 0.7)
+PlotMethods(c('ms', 'masti', 'mast', 'path', 'qd'), yMin = 0.42)
+PlotMethods(c('tbr_u', 'spr', 'nni_u', 'nni_l', 'tbr_l'), yMin = 0.14)
 par(origPar)
 ```
 
