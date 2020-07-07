@@ -10,16 +10,16 @@
 \title{Distances between random pairs of trees}
 \format{
 Objects of class \code{matrix} (inherits from \code{array}) with
-21 rows, each corresponding
+23 rows, each corresponding
 to a tree distance method and is named with its abbreviation
 (listed in 'Methods tested' below), and 10 000
 (\code{distanceDistribution25/50})
 or 100 000 (\code{pectinateDistances11}) columns,
 listing the calculated distances between each pair of trees.
 
-An object of class \code{matrix} (inherits from \code{array}) with 21 rows and 10000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
 
-An object of class \code{matrix} (inherits from \code{array}) with 21 rows and 10000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
 
 An object of class \code{matrix} (inherits from \code{array}) with 22 rows and 100000 columns.
 }
