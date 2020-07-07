@@ -202,7 +202,7 @@ NULL
 #' Pairs of random trees
 #'
 #' Lists of 10&nbsp;000 pairs of binary trees drawn from the uniform
-#' distribution using `ape::rtree(nTip, br = NULL)`.
+#' distribution using [`TreeTools::RandomTree()`].
 #'
 #' @seealso
 #' The distances between these pairs of trees are recorded in
