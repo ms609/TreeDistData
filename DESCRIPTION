@@ -18,8 +18,8 @@ Depends:
 Imports:
     Quartet,
     TBRDist,
-    TreeDist,
-    TreeTools (>= 1.0.0)
+    TreeDist (> 1.0.0),
+    TreeTools (>= 1.1.0)
 Suggests:
     ape,
     benchmarkme,
