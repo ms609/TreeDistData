@@ -57,6 +57,11 @@ message('ICRF... ')
 icrf <- InfoRobinsonFoulds(pectinateTree, randomTrees)
 message('Path... ')
 path <- phangorn::path.dist(pectinateTree, randomTrees)
+message("EuS...")
+es <- KendallColijn(pectinateTree, randomTrees, Vector = SplitVector)
+message("K-C...")
+kc <- KendallColijn(pectinateTree, randomTrees)
+
 
 pectinateDistances11 <- rbind(pid = pid, msid = msid, cid = cid, qd = qd,
                               nye = nye,
@@ -66,16 +71,18 @@ pectinateDistances11 <- rbind(pid = pid, msid = msid, cid = cid, qd = qd,
                               mast = mast, masti = LnUnrooted(mast) / log(2),
                               nni, spr = spr,
                               tbr_l = tbr$tbr_min, tbr_u = tbr$tbr_max,
-                              rf = rf, icrf = icrf, path = path, mafi = mafi)
+                              rf = rf, icrf = icrf,
+                              path = path, es = es, kc = kc,
+                              mafi = mafi)
 
 
 message("Calculated and bound.")
+
+usethis::use_data(pectinateDistances11, compress = 'xz', overwrite = TRUE)
+message("Complete.")
 
 normalizers <- c(pid = 1, msid = 1, cid = 1, qd = 1, nye = 1, ms = 1,
                  mast = nTip, masti = LnUnrooted.int(nTip) / log(2),
                  nni_l = 18, nni_t = 18, nni_u = 18,
                  spr = 18, tbr_l = 18, tbr_u = 18,
                  rf = 1, icrf = NA, path = 1, mafi = 1)
-
-usethis::use_data(pectinateDistances11, compress = 'xz', overwrite = TRUE)
-message("Complete.")
