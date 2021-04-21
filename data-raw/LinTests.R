@@ -13,7 +13,7 @@ message("Running tests on ", nTrees, ' ', nTip, "-leaf trees; ",
         replicates, " replicates.")
 
 LinTestOneSet <- function (nTip, k, nTrees) {
-  skeleton <- RandomTree(seq_len(k))
+  skeleton <- RandomTree(seq_len(k), root = TRUE)
   structure(lapply(seq_len(nTrees), function (XX) {
     tr <- skeleton
     for (i in k + seq_len(nTip - k))

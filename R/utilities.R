@@ -113,7 +113,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG <- function (...) if (verbose) message(Sys.time(), ': ', ...)
 
   # Re-order once; will happen when calling path.dist and SPR.dist
-  trees <- structure(lapply(trees, Postorder), class='multiPhylo')
+  trees <- structure(lapply(trees, Postorder), class = 'multiPhylo')
 
   splits <- as.Splits(trees)
 
