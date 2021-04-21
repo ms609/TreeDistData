@@ -109,7 +109,7 @@ for nearest-neighbour interchange distance (Li \emph{et al.} 1996)
 
 \insertRef{Robinson1981}{TreeDist}
 
-\insertRef{SmithTern}{TreeSearch}
+\insertRef{Smith2019}{TreeSearch}
 
 \insertRef{SmithDist}{TreeDist}
 
