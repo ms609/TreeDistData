@@ -90,7 +90,7 @@ plot(UnrootedTreeWithShape(1, 7))
 
 \insertRef{Robinson1981}{TreeDist}
 
-\insertRef{SmithTern}{TreeSearch}
+\insertRef{Smith2019}{TreeSearch}
 
 \insertRef{SmithDist}{TreeDist}
 

@@ -101,7 +101,7 @@ maximum agreement forest (Smith 2020).
 
 \insertRef{Robinson1981}{TreeDist}
 
-\insertRef{SmithTern}{TreeSearch}
+\insertRef{Smith2019}{TreeSearch}
 
 \insertRef{SmithDist}{TreeDist}
 
