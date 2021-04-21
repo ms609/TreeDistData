@@ -85,7 +85,7 @@ baddies <- vapply(seq_along(add3), function(i) {
   move1[c('mast', 'masti'), ] <- -move1[c('mast', 'masti'), ]
   move2[c('mast', 'masti'), ] <- -move2[c('mast', 'masti'), ]
   rowSums(move2 <= move1)
-}, double(23))
+}, double(25))
 ```
 
 ## Results

@@ -13,7 +13,7 @@
 #'
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist SPRDist PathDist
-#' JaccardRobinsonFoulds
+#' JaccardRobinsonFoulds KendallColijn
 #' DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeSimilarity MatchingSplitDistance
 #' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
@@ -79,7 +79,9 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     tbr_u = tbr$tbr_max,
     rf = RobinsonFoulds(tr1, tr2),
     icrf = InfoRobinsonFoulds(tr1, tr2),
-    path = PathDist(tr1, tr2)
+    path = PathDist(tr1, tr2),
+    kc = KendallColijn(tr1, tr2),
+    es = KendallColijn(tr1, tr2, Vector = SplitVector)
   )
 }
 
@@ -196,7 +198,10 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 
     rf = RobinsonFoulds(trees),
     icrf = InfoRobinsonFoulds(splits),
-    path = pathDist
+    path = pathDist,
+
+    kc = KendallColijn(trees),
+    es = KendallColijn(trees, Vector = SplitVector)
   )
 }
 

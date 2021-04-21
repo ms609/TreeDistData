@@ -3,7 +3,7 @@ library('TreeDist')
 tdPlotSequence <- c("cid", "pid",
                     "nye", "jco2", "jco4", "jnc2", "jnc4",
                     "rf", "icrf",
-                    "path",
+                    "path", 'es', 'kc',
                     "msid", "ms",
                     "qd",
                     "mast", "masti",
@@ -43,6 +43,9 @@ tdAbbrevs <- c(
   icrf = 'Info. Corr. RF',
   path = 'Path',
 
+  kc = 'Kendall-Colijn',
+  es = "Euclidian Splits",
+
   mafi = 'MAF info'
 )
 
@@ -81,6 +84,9 @@ tdBoxAbbrevs <- c(
   rf  = 'Robins.\n-Foulds',
   icrf = 'Info.\nCorr.\nRF',
   path = 'Path',
+
+  kc = 'Kendall\n-Colijn',
+  es = "Euclidian\nSplits",
 
   mafi = 'MAF\ninfo'
 )
@@ -130,6 +136,9 @@ TDFunctions <- list(
   rf = TreeDist::RobinsonFoulds,
   icrf = TreeDist::InfoRobinsonFoulds,
   path = phangorn::path.dist,
+  kc = TreeDist::KendallColijn,
+  es = function (...) TreeDist::KendallColijn(...,
+                                              Vector = TreeDist::SplitVector),
   mafi = TBRDist::MAFInfo
 )
 
@@ -167,6 +176,8 @@ TDPair <- list(
   rf = function (tr, ref) TreeDist::RobinsonFoulds(tr, ref),
   icrf = function (tr, ref) TreeDist::InfoRobinsonFoulds(tr, ref),
   path = function (tr, ref) signif(phangorn::path.dist(tr, ref), 4L),
+  kc = function (tr, ref) TreeDist::KendallColijn(tr, ref),
+  es = function (tr, ref) TreeDist::KendallColijn(tr, ref, Vector = TreeDist::SplitVector),
   mafi = function (...) TBRDist::MAFInfo(...)
 )
 
@@ -193,10 +204,11 @@ tab30 <- as.character(matrix(c(tableau20, tableau10), 3, byrow = TRUE))
 
 # https://personal.sron.nl/~pault/data/colourschemes.pdf
 # plot(inlmisc::GetColors(n = 22, scheme = 'discrete rainbow'))
+# + 2 for kc, es
 dr22 <- c("#D9CCE3", "#CAACCB", "#BA8DB4", "#AA6F9E", "#994F88", "#882E72",
           "#1965B0", "#437DBF", "#6195CF", "#7BAFDE", "#4EB265", "#90C987",
           "#CAE0AB", "#F7F056", "#F7CB45", "#F4A736", "#EE8026", "#E65518",
-          "#DC050C", "#A5170E", "#72190E", "#42150A")
+          "#DC050C", "#A5170E", "#72190E", "#42150A", '#11cc11', '#bb3311')
 
 #tdCol <- tab30[c((1:10 * 2 - 1L), (seq_len(length(tdMethods) - 10L) * 2))]
 colOrder <- c(pid = 7, msid = 6, cid = 11, qd = 20, nye = 10,
@@ -204,14 +216,13 @@ colOrder <- c(pid = 7, msid = 6, cid = 11, qd = 20, nye = 10,
               ms = 5, mast = 8, masti = 9,
               nni_l = 17, nni_t = 16, nni_u = 15,
               spr = 14, tbr_l = 18, tbr_u = 19,
-              rf = 22, icrf = 21, path = 13, mafi = 12)
+              rf = 22, icrf = 21, path = 13, kc = 23, es = 24, mafi = 12)
 if(any(duplicated(colOrder))) warning(ifelse(duplicated(colOrder), colOrder, 0))
 if (any(which(!1:22 %in% colOrder))) warning(which(!1:22 %in% colOrder))
 tdCol <- dr22[colOrder[tdMethods]]
 names(tdCol) <- tdMethods
 tdCol[c('nni', 'nea', 'tbr', 'nni_L', 'nni_U')] <-
   tdCol[c('nni_u', 'nye', 'tbr_u', 'nni_l', 'nni_u')]
-
 
 usethis::use_data(tdAbbrevs, compress = 'gzip', overwrite = TRUE)
 usethis::use_data(tdMdAbbrevs, compress = 'gzip', overwrite = TRUE)

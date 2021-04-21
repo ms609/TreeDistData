@@ -21,7 +21,7 @@ An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 1
 
 An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
 
-An object of class \code{matrix} (inherits from \code{array}) with 22 rows and 100000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 24 rows and 100000 columns.
 }
 \source{
 Scripts used to generate data objects are housed in the
