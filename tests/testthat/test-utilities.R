@@ -43,7 +43,7 @@ test_that("KCMax() calculated", {
   Test <- function (nTip) {
     tips <- seq_len(nTip)
     expect_equal(KendallColijn(PectinateTree(tips), PectinateTree(rev(tips))),
-                 KCMax(nTip))
+                 KCDiameter(nTip))
   }
   Test(4)
   Test(40)
