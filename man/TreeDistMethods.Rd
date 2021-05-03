@@ -15,7 +15,7 @@
 \format{
 An object of class \code{expression} of length 29.
 
-An object of class \code{character} of length 20.
+An object of class \code{character} of length 22.
 
 An object of class \code{expression} of length 29.
 
