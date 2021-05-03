@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 vignette: >
   %\VignetteIndexEntry{Supplementary Figures: Metric correlation}
   %\VignetteEngine{knitr::rmarkdown}

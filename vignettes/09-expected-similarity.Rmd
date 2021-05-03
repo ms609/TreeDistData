@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 bibliography: ../inst/REFERENCES.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa-old-doi-prefix.csl
 vignette: >

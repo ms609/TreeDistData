@@ -3,6 +3,7 @@ title: "3.1.1: Length of move"
 output: 
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
   rmarkdown::html_vignette:
     default: yes
 vignette: >
