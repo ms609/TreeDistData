@@ -98,7 +98,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 #' @importFrom TreeTools as.Splits Postorder LnUnrooted PairwiseDistances
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
-#' NyeSimilarity MatchingSplitDistance MASTSize SPRDist
+#' NyeSimilarity MatchingSplitDistance MASTSize SPRDist SplitVector
 #' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #'
