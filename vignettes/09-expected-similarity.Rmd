@@ -46,7 +46,7 @@ nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 
 pathNorm <- lm(log(pathMax) ~ log(nTip))
 msNorm <- lm(log(msMax) ~ log(nTip))
-kcNorm <- vapply(nTip, KCMax, 1)
+kcNorm <- vapply(nTip, TreeDistData::KCDiameter, 1)
 nniNorm <- TreeDist::NNIDiameter(nTip)
 
 normalizeAgainst <- rbind(
@@ -136,6 +136,8 @@ The SPR distance is normalized against _n_ / 2; this value lies between the
 definitive bounds of the maximum diameter of the SPR distance [@Allen2001],
 and was not exceeded by any of the random tree pairs.  The TBR distance is 
 normalized against _n_.
+The Kendall&ndash;Colijn distance is normalized against the distance between
+a pair of oppositely-rooted pectinate trees.
 The path, Matching Split Distance and NNI metrics do not have a readily
 calculated maximum value and are thus crudely 'normalized' against an
 approximate maximum, estimated by fitting a polynomial to the the maximum 

@@ -3,6 +3,7 @@
 export(.TDDTable)
 export(AllDists)
 export(CompareAllTrees)
+export(KCDiameter)
 export(TreeDistCol)
 importFrom(Quartet,ManyToManyQuartetAgreement)
 importFrom(Quartet,QuartetDivergence)

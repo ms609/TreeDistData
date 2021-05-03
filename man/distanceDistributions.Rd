@@ -19,7 +19,7 @@ columns, listing the calculated distances between each pair of trees.
 
 An object of class \code{matrix} (inherits from \code{array}) with 25 rows and 10000 columns.
 
-An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 25 rows and 10000 columns.
 
 An object of class \code{matrix} (inherits from \code{array}) with 24 rows and 100000 columns.
 }
