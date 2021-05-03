@@ -12,9 +12,11 @@ paths <- fs::path('data', 'randomTreeDistances', ext = 'rda')
 load(proj_path(paths))
 
 rtd <- randomTreeDistances
-rtd <- abind::abind(rtd, rtd[1, , ], rtd[1, , ], along = 1)
-dimnames(rtd)[[1]][23:24] <- c('kc', 'es')
-rtd[23:24, , ] <- NA
+if (dim(rtd)[1] == 22L) {
+  rtd <- abind::abind(rtd, rtd[1, , ], rtd[1, , ], along = 1)
+  dimnames(rtd)[[1]][23:24] <- c('kc', 'es')
+  rtd[23:24, , ] <- NA
+}
 
 RandomDistances <- function (nLeaves, repls) {
   set.seed(nLeaves)

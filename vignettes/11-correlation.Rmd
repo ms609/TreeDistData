@@ -21,7 +21,7 @@ distanceDistribution25 <- distanceDistribution25[!rownames(distanceDistribution2
 data("distanceDistribution50", package = "TreeDistData")
 distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution50) %in% exclude, ]
 toCorrelate <- c(
-                 "path",
+                 "path", 'kc', 'es',
                  "qd", 
                  "ms", "msid", 
                  "pid", "cid", "nye",
