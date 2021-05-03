@@ -38,3 +38,13 @@ test_that("Colours retrieved", {
   expect_warning(expect_equal(c('#F7F056', 'NA'),
                               TreeDistCol(c('spr', 'whoops'))))
 })
+
+test_that("KCMax() calculated", {
+  Test <- function (nTip) {
+    tips <- seq_len(nTip)
+    expect_equal(KendallColijn(PectinateTree(tips), PectinateTree(rev(tips))),
+                 KCMax(nTip))
+  }
+  Test(4)
+  Test(40)
+})

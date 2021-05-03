@@ -243,3 +243,25 @@ TreeDistCol <- function (method, opacity = '') {
   Table(dat, options = list(paging = FALSE, searching = FALSE, info = FALSE),
         escape = FALSE, ...)
 }
+
+#' Approximate diameter of the Kendall&mdash;Collijn metric
+#'
+#' `KCMax()` calculates the value of the Kendall-Colijn (2016) metric distance
+#' between two pectinate trees with `nTip` leaves ordered in the opposite
+#' direction, which I have suggested (without any attempt at a proof) may
+#' be a useful proxy for the diameter (i.e. maximum value) of the KC metric.
+#'
+#' @return `KXMax()` returns a single numeric.
+#'
+#' @examples
+#' KCMax(4)
+#' @template MRS
+#' @param nTip Integer specifying number of leaves.
+#' @importFrom TreeTools PectinateTree
+KCMax <- function (nTip) {
+  mat <- matrix(seq_len(nTip), nTip, nTip)
+  Euclid <- function (x, y) sqrt(sum((x - y) ^ 2))
+
+  # Return:
+  Euclid(nTip - mat[lower.tri(mat)] + 1L, t(mat)[lower.tri(mat)])
+}

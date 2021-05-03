@@ -39,11 +39,13 @@ methodLCH <- colorspace::coords(as(colorspace::hex2RGB(TreeDistCol(methods)), 'p
 data('randomTreeDistances', package = 'TreeDistData')
 pathMax <- randomTreeDistances['path', 'max', ]
 msMax <- randomTreeDistances['ms', 'max', ]
+kcMax <- randomTreeDistances['kc', 'max', ]
 
 nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 
 pathNorm <- lm(log(pathMax) ~ log(nTip))
 msNorm <- lm(log(msMax) ~ log(nTip))
+kcNorm <- vapply(nTip, KCMax, 1)
 nniNorm <- TreeDist::NNIDiameter(nTip)
 
 normalizeAgainst <- rbind(
@@ -58,14 +60,16 @@ normalizeAgainst <- rbind(
   tbr_l = nTip,
   rf = (nTip - 3L) * 2L,
   mast = nTip,
-  masti = TreeTools::LnUnrooted(nTip) / log(2)
+  masti = TreeTools::LnUnrooted(nTip) / log(2),
+  kc = kcNorm,
+  es = kcNorm
 )
 
 AddLine <- function (method, normalize = FALSE) {
   dat <- randomTreeDistances[method, , ]
   dat <- dat[, !is.na(dat[1, ])]
   nLeaves <- colnames(dat)
-  if (normalize) dat <- dat / rep(normalizeAgainst[method, ], 
+  if (normalize) dat <- dat / rep(normalizeAgainst[method, nLeaves],
                                   each = dim(dat)[1L])
   Invert <- function (dat) {
     dat['mean', ] <- 1 - dat['mean', ]
@@ -118,7 +122,7 @@ PlotMethods <- function (methods, yMin = 0.4,
 PlotMethods(c('rf', 'pid', 'cid', 'nye', 'msid'))
 PlotMethods(c('jnc4', 'jco4', 'jnc2', 'jco2', 'nye'), yMin = 0.7)
 PlotMethods(c('ms', 'masti', 'mast', 'path', 'qd'), yMin = 0.42)
-PlotMethods(c('tbr_u', 'spr', 'nni_u', 'nni_l', 'tbr_l'), yMin = 0.14)
+PlotMethods(c('kc', 'es', 'tbr_u', 'spr', 'nni_u', 'nni_l', 'tbr_l'), yMin = 0.13)
 par(origPar)
 ```
 
