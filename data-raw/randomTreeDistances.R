@@ -19,6 +19,7 @@ if (file.exists(proj_path(paths))) {
                                    4:200))
   usethis::use_data(randomTreeDistances, compress = 'xz', overwrite = TRUE)
 }
+
 RandomDistances <- function (nLeaves, repls) {
   set.seed(nLeaves)
   distances <- vapply(seq_len(repls),
