@@ -39,7 +39,7 @@ test_that("Colours retrieved", {
                               TreeDistCol(c('spr', 'whoops'))))
 })
 
-test_that("KCMax() calculated", {
+test_that("KCDiameter() calculated", {
   Test <- function (nTip) {
     tips <- seq_len(nTip)
     expect_equal(KendallColijn(PectinateTree(tips), PectinateTree(rev(tips))),
