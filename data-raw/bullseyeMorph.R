@@ -8,8 +8,6 @@ tipsNames <- names(bullseyeTrees)
 nTrees <- 1000L
 subsamples <- 10:1 * 200
 
-bullseyeMorphInferred <- lapply(bullseyeTrees, function (x) NULL)
-
 # Define functions:
 WriteTNTData <- function (dataset, fileName) {
   index <- attr(dataset, 'index')
@@ -33,77 +31,80 @@ CacheFile <- function (name, ..., tmpDir = FALSE) {
 }
 
 
-message("\n\n = == Infer trees = = =\n")
-for (tipName in names(bullseyeTrees)) {
-  message('* ', tipName, ": Simulating sequences...")
-  theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
-  seqs <- lapply(theseTrees, simSeq, l = 2000, type = 'USER', levels = 1:4)
-  inferred <- vector(mode = 'list', nTrees)
+data('bullseyeMorphInferred', package = "TreeDistData")
+if (!exists('bullseyeMorphInferred')) {
+  message("\n\n = == Infer trees = = =\n")
+  bullseyeMorphInferred <- lapply(bullseyeTrees, function (x) NULL)
+
+  for (tipName in names(bullseyeTrees)) {
+    message('* ', tipName, ": Simulating sequences...")
+    theseTrees <- bullseyeTrees[[tipName]][seq_len(nTrees)]
+    seqs <- lapply(theseTrees, simSeq, l = 2000, type = 'USER', levels = 1:4)
+    inferred <- vector(mode = 'list', nTrees)
 
 
-  for (i in seq_along(seqs)) {
-    if (i %% 100 == 1) message(i)
-    seq00 <- formatC(i - 1L, width = 3, flag = '0')
-    FilePattern <- function (n) {
-      paste0(substr(tipName, 0, nchar(tipName) - 7),
-             't-', seq00, '-k6-',
-             formatC(n, width = 4, flag = '0'),
-             '.tre')
-    }
-
-    if (!file.exists(CacheFile(FilePattern(200)))) {
-      message("File not found at", CacheFile(FilePattern(200)), "; inferring:")
-      seqFile <- CacheFile('seq-', seq00, '.tnt')
-      WriteTNTData(seqs[[i]], file = seqFile)
-      Line <- function (n) {
-        paste0("piwe = 6 ;xmult;tsav *", FilePattern(n),
-               ";sav;tsav/;keep 0;hold 10000;\n",
-        "ccode ] ", paste(seq_len(200) + n - 200L, collapse = ' '), ";\n"
-        )
+    for (i in seq_along(seqs)) {
+      if (i %% 100 == 1) message(i)
+      seq00 <- formatC(i - 1L, width = 3, flag = '0')
+      FilePattern <- function (n) {
+        paste0(substr(tipName, 0, nchar(tipName) - 7),
+               't-', seq00, '-k6-',
+               formatC(n, width = 4, flag = '0'),
+               '.tre')
       }
 
-      runRoot <- paste0(sample(letters, 8, replace = TRUE), collapse = '')
-      runFile <- CacheFile(runRoot, '.run')
-      file.create(runFile)
-      write(paste("macro =;
-       xmult:hits 1 level 4 chklevel 5 rat5 drift5;
-       sect:slack 8;
-       keep 0; hold 10000;\n",
-       Line(2000),
-       Line(1800),
-       Line(1600),
-       Line(1400),
-       Line(1200),
-       Line(1000),
-       Line(0800),
-       Line(0600),
-       Line(0400),
-       Line(0200),
-       "quit;"), runFile)
-      # Install TNT and add to the PATH environment variable before running:
-      system(paste('tnt proc', seqFile, '; ', runRoot, ';'))
-      file.remove(seqFile)
-      file.remove(runFile)
+      if (!file.exists(CacheFile(FilePattern(200)))) {
+        message("File not found at", CacheFile(FilePattern(200)), "; inferring:")
+        seqFile <- CacheFile('seq-', seq00, '.tnt')
+        WriteTNTData(seqs[[i]], file = seqFile)
+        Line <- function (n) {
+          paste0("piwe = 6 ;xmult;tsav *", FilePattern(n),
+                 ";sav;tsav/;keep 0;hold 10000;\n",
+          "ccode ] ", paste(seq_len(200) + n - 200L, collapse = ' '), ";\n"
+          )
+        }
+
+        runRoot <- paste0(sample(letters, 8, replace = TRUE), collapse = '')
+        runFile <- CacheFile(runRoot, '.run')
+        file.create(runFile)
+        write(paste("macro =;
+         xmult:hits 1 level 4 chklevel 5 rat5 drift5;
+         sect:slack 8;
+         keep 0; hold 10000;\n",
+         Line(2000),
+         Line(1800),
+         Line(1600),
+         Line(1400),
+         Line(1200),
+         Line(1000),
+         Line(0800),
+         Line(0600),
+         Line(0400),
+         Line(0200),
+         "quit;"), runFile)
+        # Install TNT and add to the PATH environment variable before running:
+        system(paste('tnt proc', seqFile, '; ', runRoot, ';'))
+        file.remove(seqFile)
+        file.remove(runFile)
+      }
+
+      inferred[[i]] <-
+        lapply(formatC(subsamples, width = 4, flag = '0'),
+               function (nChar) {
+                 tr <- ReadTntTree(CacheFile(FilePattern(nChar)),
+                                   relativePath = '.',
+                    tipLabels = theseTrees[[i]]$tip.label)
+                 # Return:
+                 if (class(tr) == 'multiPhylo') tr[[1]] else tr
+                 })
     }
-
-    inferred[[i]] <-
-      lapply(formatC(subsamples, width = 4, flag = '0'),
-             function (nChar) {
-               tr <- ReadTntTree(CacheFile(FilePattern(nChar)),
-                                 relativePath = '.',
-                  tipLabels = theseTrees[[i]]$tip.label)
-               # Return:
-               if (class(tr) == 'multiPhylo') tr[[1]] else tr
-               })
+    bullseyeMorphInferred[[tipName]] <- inferred
   }
-  bullseyeMorphInferred[[tipName]] <- inferred
+  usethis::use_data(bullseyeMorphInferred, compress = 'bzip2', overwrite = TRUE)
 }
-usethis::use_data(bullseyeMorphInferred, compress = 'bzip2', overwrite = TRUE)
-
 
 message("\n\n = = = Calculate distances = = =\n")
-bullseyeMorphScores <- vector('list', length(tipsNames))
-names(bullseyeMorphScores) <- tipsNames
+bullseyeMorphScores <- setNames(vector('list', length(tipsNames)), tipsNames)
 
 for (tipName in tipsNames) {
   cat('\u2714 Calculating tree distances:', tipName, ':\n')
@@ -127,6 +128,7 @@ for (tipName in tipsNames) {
     tbr <- TBRDist(tr, trs)
 
     cbind(
+      # The order here MUST correspond to the dimnames template below!
       pid = DifferentPhylogeneticInfo(tr, trs, normalize = TRUE),
       msid = MatchingSplitInfoDistance(tr, trs, normalize = TRUE),
       cid = ClusteringInfoDistance(tr, trs, normalize = TRUE),
@@ -158,10 +160,18 @@ for (tipName in tipsNames) {
 
       rf = RobinsonFoulds(tr, trs),
       icrf = InfoRobinsonFoulds(tr, trs),
-      path = path.dist(tr, trs)
+      path = path.dist(tr, trs),
+
+      kc = KendallColijn(tr, trs),
+      es = KendallColijn(tr, trs, SplitVector)
     )
-  }, matrix(0, nrow = 10L, ncol = 21L,
-            dimnames = list(subsamples, tdMethods[-22]))
+  }, matrix(0, nrow = 10L, ncol = 25L,
+            dimnames = list(subsamples, c('pid', 'msid', 'cid', 'nye', 'qd',
+                                          'jnc2', 'jnc4', 'jco2', 'jco4',
+                                          'ms', 'mast', 'masti', 'nni_l',
+                                          'nni_L', 'nni_t', 'nni_U', 'nni_u',
+                                          'spr', 'tbr_l', 'tbr_u', 'rf',
+                                          'icrf', 'path', 'kc', 'es')))
   )
   bullseyeMorphScores[[tipName]] <- theseScores
 }
