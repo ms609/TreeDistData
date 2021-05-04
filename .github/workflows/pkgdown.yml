@@ -32,6 +32,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get install libharfbuzz-dev libfribidi-dev libglpk-dev libcurl4-openssl-dev
+          sudo tlmgr install doi titling hyperref
           while read -r cmd
           do
             eval sudo $cmd
