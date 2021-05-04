@@ -38,9 +38,6 @@ Suggests:
     spatstat,
     testthat,
     TreeSearch (>= 0.4.0)
-Remotes:
-  ms609/TreeTools,
-  ms609/TreeDist
 RdMacros: Rdpack
 LazyData: true
 ByteCompile: true
