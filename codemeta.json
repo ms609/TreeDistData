@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/ms609/TreeDistData/",
   "issueTracker": "https://github.com/ms609/TreeDistData/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.1.0.9000",
+  "version": "1.1.0.9002",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.0.5 (2021-03-31)",
   "author": [
     {
       "@type": "Person",
@@ -302,7 +302,6 @@
   ],
   "releaseNotes": "https://github.com/ms609/TreeDistData/blob/master/NEWS.md",
   "readme": "https://github.com/ms609/TreeDistData/blob/master/README.md",
-  "contIntegration": "https://travis-ci.org/ms609/TreeDistData",
   "developmentStatus": "http://www.repostatus.org/#inactive",
   "citation": [
     {
@@ -317,14 +316,16 @@
       ],
       "name": "Information theoretic Generalized Robinson-Foulds metrics for comparing phylogenetic trees",
       "identifier": "10.1093/bioinformatics/btaa614",
-      "pagination": "online ahead of print",
+      "pagination": "5007--5013",
       "@id": "https://doi.org/10.1093/bioinformatics/btaa614",
       "sameAs": "https://doi.org/10.1093/bioinformatics/btaa614",
       "isPartOf": {
         "@type": "PublicationIssue",
+        "issueNumber": "20",
         "datePublished": "2020",
         "isPartOf": {
           "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "36",
           "name": "Bioinformatics"
         }
       }
@@ -334,5 +335,5 @@
     "https://ms609.github.io/TreeDistData",
     "https://ms609.github.io/TreeDistData/"
   ],
-  "fileSize": "18884.655KB"
+  "fileSize": "24168.381KB"
 }
