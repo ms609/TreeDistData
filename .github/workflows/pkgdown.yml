@@ -29,6 +29,10 @@ jobs:
       #   run: |
       #     brew install cairo
 
+      - name: Install package 'remotes'
+        run: install.packages('remotes')
+        shell: Rscript {0}
+
       - name: Install system dependencies
         run: |
           sudo apt-get install libharfbuzz-dev libfribidi-dev libglpk-dev libcurl4-openssl-dev
