@@ -32,6 +32,7 @@ Suggests:
     MASS,
     microbenchmark,
     phangorn (>= 2.5.5),
+    pkgdown,
     Rdpack,
     rmarkdown,
     spatstat,
