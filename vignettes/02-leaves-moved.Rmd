@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 vignette: >
   %\VignetteIndexEntry{3.1.2: Number of leaves moved}
   %\VignetteEngine{knitr::rmarkdown}
@@ -85,7 +86,7 @@ baddies <- vapply(seq_along(add3), function(i) {
   move1[c('mast', 'masti'), ] <- -move1[c('mast', 'masti'), ]
   move2[c('mast', 'masti'), ] <- -move2[c('mast', 'masti'), ]
   rowSums(move2 <= move1)
-}, double(23))
+}, double(25))
 ```
 
 ## Results

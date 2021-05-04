@@ -10,18 +10,18 @@
 \title{Distances between random pairs of trees}
 \format{
 Objects of class \code{matrix} (inherits from \code{array}) with
-23 rows, each corresponding
+25 rows, each corresponding
 to a tree distance method and is named with its abbreviation
 (listed in 'Methods tested' below), and
 10\ifelse{html}{&nbsp;}{,}000 (\code{distanceDistribution25/50})
 or 100\ifelse{html}{&nbsp;}{,}000 (\code{pectinateDistances11})
 columns, listing the calculated distances between each pair of trees.
 
-An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 25 rows and 10000 columns.
 
-An object of class \code{matrix} (inherits from \code{array}) with 23 rows and 10000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 25 rows and 10000 columns.
 
-An object of class \code{matrix} (inherits from \code{array}) with 22 rows and 100000 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 24 rows and 100000 columns.
 }
 \source{
 Scripts used to generate data objects are housed in the

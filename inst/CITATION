@@ -9,12 +9,14 @@ citEntry(entry = "Article",
       author = personList(as.person("Martin R. Smith")),
       journal = "Bioinformatics",
       doi = "10.1093/bioinformatics/btaa614",
-      pages = "online ahead of print",
+      volume = "36",
+      number = "20",
+      pages = "5007--5013",
       year = "2020",
 
       textVersion =
       paste0("Smith, M.R. (2020).",
              " Information theoretic Generalized Robinson-Foulds metrics",
              " for comparing phylogenetic trees.",
-             " Bioinformatics, online ahead of print.",
+             " Bioinformatics 36, 5007-5013.",
              " doi: 10.1093/bioinformatics/btaa614"))

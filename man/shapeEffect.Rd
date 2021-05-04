@@ -6,7 +6,7 @@
 \alias{shapeEffect}
 \title{Shape effect}
 \format{
-A list of length 21.
+A list of length 25.
 Each entry of the list is named according to the abbreviation of the
 corresponding method (see 'Methods tested' below).
 

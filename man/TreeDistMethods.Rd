@@ -13,21 +13,21 @@
 \alias{TDPair}
 \title{Method parameters}
 \format{
-An object of class \code{expression} of length 27.
+An object of class \code{expression} of length 29.
 
-An object of class \code{character} of length 20.
+An object of class \code{character} of length 22.
 
-An object of class \code{expression} of length 27.
+An object of class \code{expression} of length 29.
 
-An object of class \code{character} of length 27.
+An object of class \code{character} of length 29.
 
-An object of class \code{character} of length 24.
+An object of class \code{character} of length 26.
 
-An object of class \code{character} of length 27.
+An object of class \code{character} of length 29.
 
-An object of class \code{list} of length 25.
+An object of class \code{list} of length 27.
 
-An object of class \code{list} of length 24.
+An object of class \code{list} of length 26.
 }
 \source{
 Scripts used to generate data objects are housed in the

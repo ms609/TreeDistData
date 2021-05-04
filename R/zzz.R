@@ -2,6 +2,7 @@
 release_questions <- function() {
   c(
     "Is the code free of #TODOs?",
+    "Do you plan to add a reference to Smith (2021)?",
     "Have you updated REFERENCES.bib, inst/CITATION and README.md with a citation to the published study?",
     "Have you updated the version number in NEWS & DESCRIPTION?",
     "Have you checked the Vignettes for sanity?"
@@ -10,7 +11,7 @@ release_questions <- function() {
 
 # Additional steps:
 #
-# Propogate changes in README.md to R/TreeTools-package.R
+# Propogate changes in README.md to R/TreeDistData-package.R
 
 
 # Additional tests:

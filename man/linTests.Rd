@@ -30,9 +30,9 @@ Slices correspond to values of \emph{k}:
 \item \code{linTestSPRResults}: \emph{k} = 30, 40, 50, 60, 70
 }
 
-An object of class \code{array} of dimension 5 x 18 x 4.
+An object of class \code{array} of dimension 5 x 24 x 4.
 
-An object of class \code{array} of dimension 5 x 18 x 5.
+An object of class \code{array} of dimension 5 x 24 x 5.
 }
 \source{
 Scripts used to generate data objects are housed in the

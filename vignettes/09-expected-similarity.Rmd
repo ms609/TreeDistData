@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 bibliography: ../inst/REFERENCES.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa-old-doi-prefix.csl
 vignette: >
@@ -39,11 +40,13 @@ methodLCH <- colorspace::coords(as(colorspace::hex2RGB(TreeDistCol(methods)), 'p
 data('randomTreeDistances', package = 'TreeDistData')
 pathMax <- randomTreeDistances['path', 'max', ]
 msMax <- randomTreeDistances['ms', 'max', ]
+kcMax <- randomTreeDistances['kc', 'max', ]
 
 nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 
 pathNorm <- lm(log(pathMax) ~ log(nTip))
 msNorm <- lm(log(msMax) ~ log(nTip))
+kcNorm <- vapply(nTip, TreeDistData::KCDiameter, 1)
 nniNorm <- TreeDist::NNIDiameter(nTip)
 
 normalizeAgainst <- rbind(
@@ -58,14 +61,16 @@ normalizeAgainst <- rbind(
   tbr_l = nTip,
   rf = (nTip - 3L) * 2L,
   mast = nTip,
-  masti = TreeTools::LnUnrooted(nTip) / log(2)
+  masti = TreeTools::LnUnrooted(nTip) / log(2),
+  kc = kcNorm,
+  es = kcNorm
 )
 
 AddLine <- function (method, normalize = FALSE) {
   dat <- randomTreeDistances[method, , ]
   dat <- dat[, !is.na(dat[1, ])]
   nLeaves <- colnames(dat)
-  if (normalize) dat <- dat / rep(normalizeAgainst[method, ], 
+  if (normalize) dat <- dat / rep(normalizeAgainst[method, nLeaves],
                                   each = dim(dat)[1L])
   Invert <- function (dat) {
     dat['mean', ] <- 1 - dat['mean', ]
@@ -118,19 +123,21 @@ PlotMethods <- function (methods, yMin = 0.4,
 PlotMethods(c('rf', 'pid', 'cid', 'nye', 'msid'))
 PlotMethods(c('jnc4', 'jco4', 'jnc2', 'jco2', 'nye'), yMin = 0.7)
 PlotMethods(c('ms', 'masti', 'mast', 'path', 'qd'), yMin = 0.42)
-PlotMethods(c('tbr_u', 'spr', 'nni_u', 'nni_l', 'tbr_l'), yMin = 0.14)
+PlotMethods(c('kc', 'es', 'tbr_u', 'spr', 'nni_u', 'nni_l', 'tbr_l'), yMin = 0.13)
 par(origPar)
 ```
 
 
 Information-based metrics are normalized against the total information content 
 of each pair of trees. 
-The (Jaccard-)Robinson-Foulds, Nye _et al._, maximum agreement subtree and 
+The (Jaccard&ndash;)Robinson&ndash;Foulds, Nye _et al._, maximum agreement subtree and 
 Quartet metrics are normalized based on the maximum possible value. 
 The SPR distance is normalized against _n_ / 2; this value lies between the 
 definitive bounds of the maximum diameter of the SPR distance [@Allen2001],
 and was not exceeded by any of the random tree pairs.  The TBR distance is 
 normalized against _n_.
+The Kendall&ndash;Colijn distance is normalized against the distance between
+a pair of oppositely-rooted pectinate trees.
 The path, Matching Split Distance and NNI metrics do not have a readily
 calculated maximum value and are thus crudely 'normalized' against an
 approximate maximum, estimated by fitting a polynomial to the the maximum 

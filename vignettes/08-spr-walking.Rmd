@@ -36,8 +36,8 @@ legend('right', TreeDistData::tdAbbrevs[method], bty='n', col = col)
 
 ## Figure
 
-```{r plots, echo = FALSE, fig.width=7, fig.height=6}
-origPar <- par(mfrow = c(3, 7), mar = c(1, 0.1, 1, 0.1), oma = c(1, 1, 0, 0))
+```{r plots, echo = FALSE, fig.width=7, fig.asp = 5/5}
+origPar <- par(mfrow = c(5, 5), mar = c(1, 0.1, 1, 0.1), oma = c(1, 1, 0, 0))
 XX <- lapply(plotSequence, Plotter)
 mtext("Tree distance \u2192", 2, outer = TRUE, cex = 0.8)
 mtext("Number of SPR moves separating pair \u2192", 1, outer = TRUE, cex = 0.8)
@@ -49,8 +49,8 @@ par(origPar)
 ```{r table, output="asis", echo = FALSE}
 Tabler <- function (method) {
   dat <- as.matrix(distances[[method]])
-  cor.test(dat[!is.na(dat)], moves[!is.na(dat)], method = "kendall",
-           use = "pairwise")$estimate
+  cor(dat[!is.na(dat)], moves[!is.na(dat)],
+      method = "kendall", use = "pairwise")
 }
 tauB <- vapply(plotSequence, Tabler, double(1))
 tauB <- abs(signif(tauB[order(abs(tauB), decreasing = TRUE)], 3))
