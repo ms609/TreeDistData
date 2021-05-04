@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 vignette: >
   %\VignetteIndexEntry{Supplementary Figures: Metric correlation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -21,6 +22,7 @@ distanceDistribution25 <- distanceDistribution25[!rownames(distanceDistribution2
 data("distanceDistribution50", package = "TreeDistData")
 distanceDistribution50 <- distanceDistribution50[!rownames(distanceDistribution50) %in% exclude, ]
 toCorrelate <- c(
+                 "es", "kc",
                  "path",
                  "qd", 
                  "ms", "msid", 
@@ -57,8 +59,7 @@ PlotR2 <- function (distribution, methodA, methodB) {
   a <- distribution[methodA, ]
   b <- distribution[methodB, ]
   plot.new()
-  reg <- lm(a ~ b)
-  r2 <- summary(reg)$adj.r.squared
+  r2 <- cor(a, b) ^ 2
   regCol <- colScale[max(ceiling((r2 - 0.5) * 2000), 1L)]
   text(0.5, 0.5, FormatR2(r2), col = regCol, cex = if (r2 < 1e-3) 1.1 else 1.4)
 }
@@ -86,13 +87,13 @@ PlotCorr <- function (distribution) {
 PlotCorr(distanceDistribution25)
 ```
 
-**Supplementary Figure 1. Correlation (adjusted r²) between distances for 10&nbsp;000 pairs of 25-leaf trees**
+**Supplementary Figure 1. Correlation (r²) between distances for 10&nbsp;000 pairs of 25-leaf trees**
 
 ```{R metric-correlation-50, echo=FALSE, fig.align='center', fig.asp=9/8, fig.width=7, warning=FALSE, out.width='98%'}
 PlotCorr(distanceDistribution50)
 ```
 
-**Supplementary Figure 2. Correlation (adjusted r²) between distances for 10&nbsp;000 pairs of 50-leaf trees**
+**Supplementary Figure 2. Correlation (r²) between distances for 10&nbsp;000 pairs of 50-leaf trees**
 
 
 Not plotted:

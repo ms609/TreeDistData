@@ -6,7 +6,7 @@
 \alias{randomTreeDistances}
 \title{Mean distances between random pairs of trees}
 \format{
-An object of class \code{array} of dimension 22 x 13 x 197.
+An object of class \code{array} of dimension 24 x 13 x 197.
 }
 \source{
 Scripts used to generate data objects are housed in the

@@ -1,7 +1,7 @@
 # TreeDistData
 
 [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
-[![Build Status](https://travis-ci.org/ms609/TreeDistData.svg?branch=master)](https://travis-ci.org/ms609/TreeDistData)
+[![Build status](https://github.com/ms609/TreeDistData/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/ms609/TreeDistData/actions/)
 [![CRAN Status Badge](http://www.r-pkg.org/badges/version/TreeDistData)](https://cran.r-project.org/package=TreeDistData)
 [![DOI](https://zenodo.org/badge/196380775.svg)](https://zenodo.org/badge/latestdoi/196380775)
 

@@ -1,3 +1,8 @@
+# TreeDistData 1.1.0.9002
+
+- Evaluate Kendall-Colijn & Euclidian split size metrics
+- Sample `bullseyeTrees` from uniform distribution.
+
 # TreeDistData 1.1.0
 
 - Sample `randomTreePairs` and `randomTreeDistances` from uniform distribution

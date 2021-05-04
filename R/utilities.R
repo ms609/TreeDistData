@@ -13,7 +13,7 @@
 #'
 #' @template MRS
 #' @importFrom TreeDist MASTSize NNIDist SPRDist PathDist
-#' JaccardRobinsonFoulds
+#' JaccardRobinsonFoulds KendallColijn
 #' DifferentPhylogeneticInfo MatchingSplitInfoDistance
 #' NyeSimilarity MatchingSplitDistance
 #' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
@@ -79,7 +79,9 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
     tbr_u = tbr$tbr_max,
     rf = RobinsonFoulds(tr1, tr2),
     icrf = InfoRobinsonFoulds(tr1, tr2),
-    path = PathDist(tr1, tr2)
+    path = PathDist(tr1, tr2),
+    kc = KendallColijn(tr1, tr2),
+    es = KendallColijn(tr1, tr2, Vector = SplitVector)
   )
 }
 
@@ -96,7 +98,7 @@ AllDists <- function (tr1, tr2, verbose = FALSE) {
 #' @importFrom TreeTools as.Splits Postorder LnUnrooted PairwiseDistances
 #' @importFrom TBRDist TBRDist USPRDist
 #' @importFrom TreeDist DifferentPhylogeneticInfo MatchingSplitInfoDistance
-#' NyeSimilarity MatchingSplitDistance MASTSize SPRDist
+#' NyeSimilarity MatchingSplitDistance MASTSize SPRDist SplitVector
 #' ClusteringInfoDistance RobinsonFoulds InfoRobinsonFoulds
 #' @importFrom Quartet ManyToManyQuartetAgreement
 #'
@@ -111,7 +113,7 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
   MSG <- function (...) if (verbose) message(Sys.time(), ': ', ...)
 
   # Re-order once; will happen when calling path.dist and SPR.dist
-  trees <- structure(lapply(trees, Postorder), class='multiPhylo')
+  trees <- structure(lapply(trees, Postorder), class = 'multiPhylo')
 
   splits <- as.Splits(trees)
 
@@ -196,7 +198,10 @@ CompareAllTrees <- function (trees, exact = FALSE, slow = TRUE,
 
     rf = RobinsonFoulds(trees),
     icrf = InfoRobinsonFoulds(splits),
-    path = pathDist
+    path = pathDist,
+
+    kc = KendallColijn(trees),
+    es = KendallColijn(trees, Vector = SplitVector)
   )
 }
 
@@ -237,4 +242,31 @@ TreeDistCol <- function (method, opacity = '') {
   rownames(dat) <- NULL
   Table(dat, options = list(paging = FALSE, searching = FALSE, info = FALSE),
         escape = FALSE, ...)
+}
+
+#' Approximate diameter of the Kendall&ndash;Collijn metric
+#'
+#' `KCDiameter()` calculates the value of the Kendall & Colijn's (2016)
+#' metric distance between two pectinate trees with `nTip` leaves ordered in
+#' the opposite direction, which I suggest (without any attempt at a proof) may
+#' be a useful proxy for the diameter (i.e. maximum value) of the K&ndash;C
+#' metric.
+#'
+#' NOTE: This function will be moved to a future release of the "TreeDist"
+#' package.
+#'
+#' @return `KCDiameter()` returns a single numeric.
+#'
+#' @examples
+#' KCMax(4)
+#' @template MRS
+#' @param nTip Integer specifying number of leaves.
+#' @importFrom TreeTools PectinateTree
+#' @export
+KCDiameter <- function (nTip) {
+  mat <- matrix(seq_len(nTip), nTip, nTip)
+  Euclid <- function (x, y) sqrt(sum((x - y) ^ 2))
+
+  # Return:
+  Euclid(nTip - mat[lower.tri(mat)] + 1L, t(mat)[lower.tri(mat)])
 }

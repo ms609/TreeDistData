@@ -5,6 +5,7 @@ output:
     default: yes
   bookdown::pdf_document2:
     toc: no
+    latex_engine: xelatex
 vignette: >
   %\VignetteIndexEntry{3.1.3: Number of moves made}
   %\VignetteEngine{knitr::rmarkdown}
@@ -90,7 +91,7 @@ BoxPlot <- function (method) {
 }
 ```
 
-```{r, echo=FALSE, fig.width=5, fig.height=4, fig.align='center'}
+```{r, echo=FALSE, fig.width=5, fig.height=6, fig.align='center'}
 TreePlotsPlotFunc <- function() {
   par(mar = c(1, 0.2, 1, 1), xpd = NA)
   nMethod <- length(tdPlotSequence)

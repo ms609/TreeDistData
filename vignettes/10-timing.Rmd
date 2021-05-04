@@ -72,6 +72,8 @@ Times <- function (trees) {
     rf = RF(trees),
     icrf = InfoRobinsonFoulds(splits),
     path = path.dist(trees),
+    kc = KendallColijn(trees),
+    es = KendallColijn(trees, Vector = SplitVector),
     
     times = nRepeats
   )
