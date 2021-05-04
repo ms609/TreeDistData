@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TreeDistData</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9002</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 
       
 
-      </header><script src="10-timing_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="10-timing_files/jquery-3.5.1/jquery.min.js"></script><link href="10-timing_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+      </header><script src="10-timing_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="10-timing_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="10-timing_files/jquery-3.5.1/jquery.min.js"></script><link href="10-timing_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="10-timing_files/datatables-binding-0.18/datatables.js"></script><link href="10-timing_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="10-timing_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="10-timing_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="10-timing_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
@@ -128,7 +128,7 @@
     
     
 <p>The time taken to compare all 990 pairs of trees by each method was calculated, replicating timing 10 times.</p>
-<p>The below are the results of a benchmarking exercise conducted on an Intel(R) Xeon(R) CPU machine with <!--2 cores and--> 8.36 GB of RAM, comparing 45 trees obtained by performing successive subtree pruning and regrafting rearrangements on a pectinate starting tree.<br>
+<p>The below are the results of a benchmarking exercise conducted on an Intel(R) Xeon(R) Platinum 8171M CPU @ 2.60GHz machine with <!--2 cores and--> 7.29 GB of RAM, comparing 45 trees obtained by performing successive subtree pruning and regrafting rearrangements on a pectinate starting tree.<br>
 The values reported in Smith <span class="citation">(2020)</span> were calculated on a modest desktop computer, and will differ from those reported here, which will have been generated on the hardware system used to render the documentation.</p>
 <div id="figure" class="section level2">
 <h2 class="hasAnchor">
@@ -139,8 +139,8 @@ The values reported in Smith <span class="citation">(2020)</span> were calculate
 <div id="tabulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tabulation" class="anchor"></a>Tabulation</h2>
-<div id="htmlwidget-645c4a0173fa826ea5fd" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-645c4a0173fa826ea5fd">{"x":{"filter":"none","caption":"<caption>Mean time per comparison / µs<\/caption>","data":[["Robinson-Foulds","Path","Info. Corr. RF","Match. Split Dist.","Nye <i>et al.<\/i>","Phylog. Info. Dist","JRF (k = 2, no-confl.)","Match. Split Info Dist","JRF (k = 2, confl.-ok)","Clust. Info. Dist.","JRF (k = 4, no-confl.)","JRF (k = 4, confl.-ok)","NNI (approx.)","SPR (approx.)","TBR (approx.)","Quartet","MAST size"],["5.1"," 11"," 17"," 19"," 26"," 27"," 28"," 29"," 31"," 34"," 47"," 58"," 68","230","240","250","4600"],["6.5"," 15"," 26"," 57","140"," 97","120","160","170","140","540","850"," 86","2200","420","450","24000"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Method<\/th>\n      <th>20 leaves<\/th>\n      <th>50 leaves<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":false,"searching":false,"info":false,"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cda42aead000d9ac6052" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cda42aead000d9ac6052">{"x":{"filter":"none","caption":"<caption>Mean time per comparison / µs<\/caption>","data":[["Robinson-Foulds","Path","Info. Corr. RF","Match. Split Dist.","Phylog. Info. Dist","Nye <i>et al.<\/i>","Match. Split Info Dist","JRF (k = 2, no-confl.)","Clust. Info. Dist.","JRF (k = 2, confl.-ok)","JRF (k = 4, no-confl.)","JRF (k = 4, confl.-ok)","NNI (approx.)","Euclidian Splits","Kendall-Colijn","TBR (approx.)","SPR (approx.)","Quartet","MAST size"],["5.8"," 12"," 22"," 23"," 34"," 35"," 38"," 41"," 41"," 48"," 51"," 59"," 76"," 97","140","230","260","270","5200"],["7.4"," 19"," 34"," 57","120","170","190","190","170","280","580","940","120","650","660","410","2700","510","26000"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Method<\/th>\n      <th>20 leaves<\/th>\n      <th>50 leaves<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":false,"searching":false,"info":false,"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="reference" class="section level2 unnumbered">
 <h2 class="hasAnchor">

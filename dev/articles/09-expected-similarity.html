@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TreeDistData</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9002</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 
       
 
-      </header><script src="09-expected-similarity_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="09-expected-similarity_files/jquery-3.5.1/jquery.min.js"></script><link href="09-expected-similarity_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+      </header><script src="09-expected-similarity_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="09-expected-similarity_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="09-expected-similarity_files/jquery-3.5.1/jquery.min.js"></script><link href="09-expected-similarity_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="09-expected-similarity_files/datatables-binding-0.18/datatables.js"></script><link href="09-expected-similarity_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="09-expected-similarity_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="09-expected-similarity_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="09-expected-similarity_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
@@ -133,15 +133,15 @@
 <p>Context for tree distances can be provided by comparison with the distance expected for a pair of random trees.</p>
 <p>The figure below shows how the median normalized tree distance varies with the number of leaves in the trees being compared. 1 000 random pairs of <em>n</em>-leaf trees were generated for <span class="math inline">\(4 \leq n \leq 200\)</span>, and the distances between them calculated. Shaded envelopes denote the interdecile and interquartile ranges. The raw data are available in the data object <a href="../reference/randomTreeDistances.html"><code>randomTreeDistances</code></a>.</p>
 <p><img src="09-expected-similarity_files/figure-html/tree-distance-averages-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>Information-based metrics are normalized against the total information content of each pair of trees. The (Jaccard-)Robinson-Foulds, Nye <em>et al.</em>, maximum agreement subtree and Quartet metrics are normalized based on the maximum possible value. The SPR distance is normalized against <em>n</em> / 2; this value lies between the definitive bounds of the maximum diameter of the SPR distance <span class="citation">(Allen &amp; Steel, 2001)</span>, and was not exceeded by any of the random tree pairs. The TBR distance is normalized against <em>n</em>. The path, Matching Split Distance and NNI metrics do not have a readily calculated maximum value and are thus crudely ‘normalized’ against an approximate maximum, estimated by fitting a polynomial to the the maximum observed distance for each number of leaves. Candidate polynomial functions were evaluated based on the Akaike and Bayesian information criteria.</p>
+<p>Information-based metrics are normalized against the total information content of each pair of trees. The (Jaccard–)Robinson–Foulds, Nye <em>et al.</em>, maximum agreement subtree and Quartet metrics are normalized based on the maximum possible value. The SPR distance is normalized against <em>n</em> / 2; this value lies between the definitive bounds of the maximum diameter of the SPR distance <span class="citation">(Allen &amp; Steel, 2001)</span>, and was not exceeded by any of the random tree pairs. The TBR distance is normalized against <em>n</em>. The Kendall–Colijn distance is normalized against the distance between a pair of oppositely-rooted pectinate trees. The path, Matching Split Distance and NNI metrics do not have a readily calculated maximum value and are thus crudely ‘normalized’ against an approximate maximum, estimated by fitting a polynomial to the the maximum observed distance for each number of leaves. Candidate polynomial functions were evaluated based on the Akaike and Bayesian information criteria.</p>
 <p>Note that the path and Matching Splits distances exhibit a prominently larger variability than other metrics, suggesting that they are less consistent in the score that they assign to a random pair of trees. In combination with the difficulty in calculating the range of these metrics, this makes their absolute value difficult to interpret.</p>
 </div>
 <div id="ranges" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ranges" class="anchor"></a>Ranges</h2>
 <p>Average range of distance between random trees with 20–200 leaves, expressed as percentages of the median.</p>
-<div id="htmlwidget-42e71c6615a75b019376" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-42e71c6615a75b019376">{"x":{"filter":"none","data":[["NNI (tgt upr bnd)","NNI (upr bnd)","Path","MAST info","NNI (lwr bnd)","Match. Split Dist.","NNI (tgt lwr bnd)","MAST size","Info. Corr. RF","SPR (approx.)","TBR (lwr bnd)","Match. Split Info Dist","TBR (upr bnd)","Nye <i>et al.<\/i>","Clust. Info. Dist.","Quartet","JRF (k = 2, confl.-ok)","Phylog. Info. Dist","JRF (k = 2, no-confl.)","JRF (k = 4, confl.-ok)","JRF (k = 4, no-confl.)","Robinson-Foulds"],["22.4","19.3","18.8","14.7","14.2","12.3","11.9","8.8","8.4","4.6","3.7","3.3","2.6","2","1.6","1.6","1.1","1","0.8","0.3","0.3","0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Method<\/th>\n      <th>Range (%)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":false,"searching":false,"info":false,"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d7181e9ae755ab2b5a6f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7181e9ae755ab2b5a6f">{"x":{"filter":"none","data":[["Kendall-Colijn","NNI (tgt upr bnd)","NNI (upr bnd)","Path","MAST info","NNI (lwr bnd)","Match. Split Dist.","NNI (tgt lwr bnd)","MAST size","Info. Corr. RF","SPR (approx.)","TBR (lwr bnd)","Match. Split Info Dist","TBR (upr bnd)","Euclidian Splits","Nye <i>et al.<\/i>","Clust. Info. Dist.","Quartet","JRF (k = 2, confl.-ok)","Phylog. Info. Dist","JRF (k = 2, no-confl.)","JRF (k = 4, confl.-ok)","JRF (k = 4, no-confl.)","Robinson-Foulds"],["35.2","22.4","19.3","18.8","14.7","14.2","12.3","11.9","8.8","8.4","4.6","3.7","3.3","2.6","2.2","2","1.6","1.6","1.1","1","0.8","0.3","0.3","0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Method<\/th>\n      <th>Range (%)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":false,"searching":false,"info":false,"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
