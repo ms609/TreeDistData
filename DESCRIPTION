@@ -9,7 +9,7 @@ Authors@R: c(person("Martin R.", 'Smith',
 License: GPL (>= 3)
 Description: Data used to perform analyses of tree distance measures in unrooted
   phylogenetic trees, underlying tables and figures in Smith (2020)
-  <doi:10.1093/bioinformatics/btaa614>.
+  <doi:10.1093/bioinformatics/btaa614> and Smith (forthcoming).
 URL: https://ms609.github.io/TreeDistData/, 
   https://github.com/ms609/TreeDistData/
 BugReports: https://github.com/ms609/TreeDistData/issues/
