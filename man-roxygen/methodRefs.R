@@ -9,7 +9,7 @@
 #'
 #' \insertRef{Robinson1981}{TreeDist}
 #'
-#' \insertRef{Smith2019}{TreeSearch}
+#' \insertRef{Smith2019}{TreeDist}
 #'
 #' \insertRef{SmithDist}{TreeDist}
 #'
