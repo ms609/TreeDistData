@@ -46,7 +46,7 @@ nTip <- as.integer(dimnames(randomTreeDistances)[[3]])
 
 pathNorm <- lm(log(pathMax) ~ log(nTip))
 msNorm <- lm(log(msMax) ~ log(nTip))
-kcNorm <- vapply(nTip, TreeDistData::KCDiameter, 1)
+kcNorm <- vapply(nTip, TreeDist::KCDiameter, 1)
 nniNorm <- TreeDist::NNIDiameter(nTip)
 
 normalizeAgainst <- rbind(
