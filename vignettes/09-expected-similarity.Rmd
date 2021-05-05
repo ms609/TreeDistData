@@ -164,7 +164,7 @@ iq <- colMeans(apply(randomTreeDistances, 1, IQRNorm)[as.character(20:200), ],
                na.rm = TRUE)
 names(iq) <- tdMdAbbrevs[names(iq)]
 .TDDTable(DT::datatable, 
-          cbind("Range (%)" = round(iq[order(iq, decreasing = TRUE)] * 100, 1)))
+          cbind("Range (%)" = round(iq[order(iq, decreasing = FALSE)] * 100, 2)))
 ```
 
 ## References
