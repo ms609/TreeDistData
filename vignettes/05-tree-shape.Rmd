@@ -77,7 +77,7 @@ allocates a low distance to trees with a similar degree of balance,
 regardless of the relationship information they contain.
 
 ```{r balance, echo=FALSE}
-sBal <- TreeDistData::balance50 # generated in balance.R
+sBal <- TreeDistData::balance25 # generated in balance.R
 sBal <- sBal[!is.na(sBal)]
 sBalMethods <- names(sBal)
 nMethod <- length(sBalMethods)
