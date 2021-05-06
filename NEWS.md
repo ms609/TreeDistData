@@ -1,6 +1,7 @@
-# TreeDistData 1.1.0.9002
+# TreeDistData 1.1.0.9003
 
-- Evaluate Kendall-Colijn & Euclidian split size metrics
+- Evaluate Kendall-Colijn & Euclidian split size metrics.
+- Add balance test.
 - Sample `bullseyeTrees` from uniform distribution.
 
 # TreeDistData 1.1.0

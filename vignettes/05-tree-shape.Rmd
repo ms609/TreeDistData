@@ -67,11 +67,41 @@ axis(1, at = c(0, length(seMethods)) + 0.5, pos = 0, labels = FALSE)
 mtext(expression('r'^2), 2, 2.5)
 ```
 
+One aspect of tree shape is balance, which can be quantified using the Total
+Cophenetic Index [TCI; @Mir2013].
+For 10&nbsp;000 random pairs of 25-leaf trees,
+I calculated the tree distance under each metric, and the difference in TCI
+bettween the trees.
+A high correlation between TCI and a tree distance indicates that a metric
+allocates a low distance to trees with a similar degree of balance,
+regardless of the relationship information they contain.
+
+```{r balance, echo=FALSE}
+sBal <- TreeDistData::balance50 # generated in balance.R
+sBal <- sBal[!is.na(sBal)]
+sBalMethods <- names(sBal)
+nMethod <- length(sBalMethods)
+par(xpd = NA)
+
+plot(sBal, ylab = '', xlab = '', axes = FALSE, pch = 3, 
+     ylim = c(-0.5, max(sBal, na.rm = TRUE)))
+text(seq_along(sBalMethods), sBal, paste(' ', round(sBal * 100, 1), '%'),
+     col = TreeDistCol(sBalMethods), srt = 90, pos = 4, offset = 0)
+text(srt = 90, seq_along(sBalMethods), -0.12,
+     TreeDistData::tdAbbrevs[sBalMethods], 
+     col = TreeDistCol(sBalMethods), pos = 2, offset = 0)
+axis(2, at = seq(0, 0.6, 0.1), pos = -0.6)
+axis(1, at = c(0, length(sBalMethods)) + 0.5, pos = 0, labels = FALSE)
+#mtext(expression('log'[10]*'(r'^2*')'), 2, 2.5)
+mtext(expression('r'^2), 2, 2.5)
+```
 ```{r text-table, output = 'asis', echo= FALSE}
-result <- t(round(r, 4L))
+precision <- 4L
+result <- cbind(round(r2, precision),
+                round(sBal[names(r2)], precision))
 dimnames(result) <- list(
   TreeDistData::tdMdAbbrevs[rownames(result)],
-  c('r²', 'adjusted r²'))
+  c('8-leaf tree shape / r²', 'TCI / r²'))
 
 .TDDTable(DT::datatable, result)
 ```
