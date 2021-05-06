@@ -26,8 +26,15 @@ randomTreePairs50
 Lists of 10\ifelse{html}{&nbsp;}{,}000 pairs of binary trees
 drawn from the uniform distribution using \code{\link[TreeTools:GenerateTree]{TreeTools::RandomTree()}}.
 }
+\references{
+\insertRef{Mir2013}{TreeTools}
+}
 \seealso{
 The distances between these pairs of trees are recorded in
 the data objects \code{\link{distanceDistribution25}} and  \code{\link{distanceDistribution50}}.
+
+Corrrelation of these distances with differences in tree balance,
+measured using the total cophenetic index (Mir \emph{et al.} 2013),
+are recorded in \code{\link{balance25}} and \code{\link{balance25}}.
 }
 \keyword{datasets}

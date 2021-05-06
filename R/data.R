@@ -209,7 +209,13 @@ NULL
 #' The distances between these pairs of trees are recorded in
 #' the data objects [`distanceDistribution25`] and  [`distanceDistribution50`].
 #'
+#' Corrrelation of these distances with differences in tree balance,
+#' measured using the total cophenetic index (Mir _et al._ 2013),
+#' are recorded in [`balance25`] and [`balance25`].
+#'
 #' @template dataRaw
+#' @references
+#' \insertRef{Mir2013}{TreeTools}
 #' @name randomTreePairs
 #' @encoding UTF-8
 NULL
@@ -218,6 +224,26 @@ NULL
 "randomTreePairs25"
 #' @rdname randomTreePairs
 "randomTreePairs50"
+
+#' Correlation between tree distances and tree balance
+#'
+#' The balance of each tree in the lists [`distanceDistribution25`] and
+#' [`distanceDistribution50`] was quantified using the total cophenetic
+#' index (Mir _et al._ 2013).
+#' The difference in balance for each pair of trees was then correlated with
+#' the distance between those trees, and the r² value recorded.
+#'
+#' @template dataRaw
+#' @references
+#' \insertRef{Mir2013}{TreeTools}
+#' @name treeBalance
+#' @encoding UTF-8
+NULL
+
+#' @rdname treeBalance
+"balance25"
+#' @rdname treeBalance
+"balance50"
 
 #' Distances between unrooted seven-leaf trees
 #'
