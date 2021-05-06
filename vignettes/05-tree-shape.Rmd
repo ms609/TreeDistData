@@ -68,7 +68,7 @@ mtext(expression('r'^2), 2, 2.5)
 ```
 
 One aspect of tree shape is balance, which can be quantified using the Total
-Cophenetic Index [TCI; @Mir2013].
+Cophenetic Index (TCI).
 For 10&nbsp;000 random pairs of 25-leaf trees,
 I calculated the tree distance under each metric, and the difference in TCI
 bettween the trees.

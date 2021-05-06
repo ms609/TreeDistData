@@ -44,7 +44,7 @@ tdAbbrevs <- c(
   path = 'Path',
 
   kc = 'Kendall-Colijn',
-  es = "Euclidian Splits",
+  es = "Split Size Vector",
 
   mafi = 'MAF info'
 )
@@ -86,7 +86,7 @@ tdBoxAbbrevs <- c(
   path = 'Path',
 
   kc = 'Kendall\n-Colijn',
-  es = "Euclidian\nSplits",
+  es = "Split\nSize\nVect.",
 
   mafi = 'MAF\ninfo'
 )
