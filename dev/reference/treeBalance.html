@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • TreeDistData</title>
+<title>Correlation between tree distances and tree balance — treeBalance • TreeDistData</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,12 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Correlation between tree distances and tree balance — treeBalance" />
+<meta property="og:description" content="The balance of each tree in the lists distanceDistribution25 and
+distanceDistribution50 was quantified using the total cophenetic
+index (Mir et al. 2013).
+The difference in balance for each pair of trees was then correlated with
+the distance between those trees, and the r² value recorded." />
 
 
 <meta name="robots" content="noindex">
@@ -58,7 +63,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -152,50 +157,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/ms609/TreeDistData/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Correlation between tree distances and tree balance</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ms609/TreeDistData/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>treeBalance.Rd</code></div>
     </div>
 
-    <div id="treedistdata-1109003" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0.9003">
-<a href="#treedistdata-1109003" class="anchor"></a>TreeDistData 1.1.0.9003</h1>
-<ul>
-<li>Evaluate Kendall-Colijn &amp; Euclidian split size metrics.</li>
-<li>Add balance test.</li>
-<li>Sample <code>bullseyeTrees</code> from uniform distribution.</li>
-</ul>
-</div>
-    <div id="treedistdata-110" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.0">
-<a href="#treedistdata-110" class="anchor"></a>TreeDistData 1.1.0</h1>
-<ul>
-<li>Sample <code>randomTreePairs</code> and <code>randomTreeDistances</code> from uniform distribution using <code><a href="https://ms609.github.io/TreeTools/reference/GenerateTree.html">TreeTools::RandomTree()</a></code>, and recalculate <code>distanceDistributions</code>.</li>
-</ul>
-</div>
-    <div id="treedistdata-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#treedistdata-100" class="anchor"></a>TreeDistData 1.0.0</h1>
-<ul>
-<li>Update abbreviations to match Smith (2020).</li>
-<li>Final <code>randomTreeDistances</code> data object.</li>
-</ul>
-</div>
-    <div id="treedistdata-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#treedistdata-010" class="anchor"></a>TreeDistData 0.1.0</h1>
-<ul>
-<li>Initial compilation of analyses and datasets, forked from ‘TreeSearch’ v0.3.2.9005.</li>
-<li>NOTE: <code>randomTreeDistances</code> data object undergoing recalculation.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>The balance of each tree in the lists <code><a href='distanceDistributions.html'>distanceDistribution25</a></code> and
+<code><a href='distanceDistributions.html'>distanceDistribution50</a></code> was quantified using the total cophenetic
+index (Mir <em>et al.</em> 2013).
+The difference in balance for each pair of trees was then correlated with
+the distance between those trees, and the r² value recorded.</p>
+    </div>
 
+    <pre class="usage"><span class='va'>balance25</span>
+
+<span class='va'>balance50</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>numeric</code> of length 25.</p>
+<p>An object of class <code>numeric</code> of length 25.</p>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Scripts used to generate data objects are housed in the
+<a href='https://github.com/ms609/TreeDistData/tree/master/data-raw'><code>data-raw</code></a>
+directory.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Mir A, Rosselló F, Rotger LA (2013).
+&#8220;A new balance index for phylogenetic trees.&#8221;
+<em>Mathematical Biosciences</em>, <b>241</b>(1), 125--136.
+doi: <a href='https://doi.org/10.1016/j.mbs.2012.10.005'>10.1016/j.mbs.2012.10.005</a>
+, <a href='https://doi.org/10.1016/j.mbs.2012.10.005'>https://doi.org/10.1016/j.mbs.2012.10.005</a>.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
