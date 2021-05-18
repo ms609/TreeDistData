@@ -46,10 +46,9 @@ origPar <- par(mfrow = c(1, 4), mar = rep(0.3, 4))
 lapply(lapply(0:3, UnrootedTreeWithShape, 8), plot) -> XX
 ```
 
-To evaluate the extent to which trees are ranked as less (or more) different
-simply because they exhibit the same shape, I evaluated the extent to which
-tree distance could be predicted based only on knowledge of the topology of 
-the two input trees.
+To evaluate the extent to which trees are ranked as more or less different
+based on their shape, I evaluated the extent to which tree distance could be 
+predicted based only on the shape of the two input trees.
 
 ```{r analyse, echo=FALSE, fig.width=6, fig.align='center'}
 par(xpd = NA)
