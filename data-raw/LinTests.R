@@ -69,7 +69,7 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
   cat (".")
   if (i %% 50L == 0L) cat(" ", i, "\n")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
-  comparison <- CompareAllTrees(trees, slow = testAllMethods, verbose = TRUE)
+  comparison <- CompareAllTrees(trees, slow = testAllMethods, verbose = FALSE)
   if (!testAllMethods) {
     # Too slow to compute
     comparison$mast <- NULL
