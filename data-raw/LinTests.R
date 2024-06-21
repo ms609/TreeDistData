@@ -65,15 +65,17 @@ SpectralClustering <- function (dat, nClusters) {
 
 
 LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
-                    i = 1L) {
+                    i = 1L, testAllMethods = TRUE) {
   cat (".")
   if (i %% 50L == 0L) cat(" ", i, "\n")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
-  comparison <- CompareAllTrees(trees, slow = TRUE, verbose = FALSE)
-  # Too slow to compute
-  # comparison$mast <- NULL
-  # comparison$masti <- NULL
-  # comparison$qd <- NULL
+  comparison <- CompareAllTrees(trees, slow = testAllMethods, verbose = TRUE)
+  if (!testAllMethods) {
+    # Too slow to compute
+    comparison$mast <- NULL
+    comparison$masti <- NULL
+    comparison$qd <- NULL
+  }
 
   # NAs not supported
   comparison$nni_t <- NULL
