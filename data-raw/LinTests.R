@@ -1,6 +1,6 @@
-library('TreeTools', quietly = TRUE, warn.conflicts = FALSE)
-library('TreeDist')
-library('TreeDistData')
+library("TreeTools", quietly = TRUE, warn.conflicts = FALSE)
+library("TreeDist")
+library("TreeDistData")
 
 # Lin use nTrees = 100L, nTip = 100L, replicates = 1000L
 # k1 = 40, 50, 60, 70
@@ -9,7 +9,7 @@ library('TreeDistData')
 nTrees = 50 # Quadratic effect on runtime
 nTip = 40 # Hyperexponential effect on runtime
 replicates = 500 # Linear effect on runtime
-message("Running tests on ", nTrees, ' ', nTip, "-leaf trees; ",
+message("Running tests on ", nTrees, " ", nTip, "-leaf trees; ",
         replicates, " replicates.")
 
 LinTestOneSet <- function (nTip, k, nTrees) {
@@ -19,7 +19,7 @@ LinTestOneSet <- function (nTip, k, nTrees) {
     for (i in k + seq_len(nTip - k))
       tr <- AddTip(tr, label = i)
     tr
-  }), class = 'multiPhylo')
+  }), class = "multiPhylo")
 }
 
 LinTestTwoSet <- function (nTip, k, nTrees) {
@@ -39,7 +39,7 @@ LinTestTwoSet <- function (nTip, k, nTrees) {
   }
 
   structure(lapply(seq_len(nTrees), function (XX) RepeatLLI(startTree, k)),
-            class = 'multiPhylo')
+            class = "multiPhylo")
 }
 
 LinTestSPRSet <- function (nTip, k, nTrees) {
@@ -51,7 +51,7 @@ LinTestSPRSet <- function (nTip, k, nTrees) {
   }
 
   structure(lapply(seq_len(nTrees), function (XX) RepeatSPR(startTree, k)),
-            class = 'multiPhylo')
+            class = "multiPhylo")
 }
 
 SpectralClustering <- function (dat, nClusters) {
@@ -67,7 +67,7 @@ SpectralClustering <- function (dat, nClusters) {
 LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
                     i = 1L) {
   cat (".")
-  if (i %% 50L == 0L) cat(' ', i, "\n")
+  if (i %% 50L == 0L) cat(" ", i, "\n")
   trees <- c(TestSet(nTip, k, nTrees), TestSet(nTip, k, nTrees))
   comparison <- CompareAllTrees(trees, slow = TRUE, verbose = FALSE)
   # Too slow to compute
@@ -98,21 +98,21 @@ LinTest <- function(k, TestSet = LinTestOneSet, nTip = 100L, nTrees = 100L,
 
   cbind(spc = ClusterOK(SClusters),
         pam = ClusterOK(cluster::pam, k = 2L, diss = TRUE, cluster.only = TRUE),
-        h.cmp = ClusterOK(HClusters, method = 'complete'),
-        h.sng = ClusterOK(HClusters, method = 'single'),
-        h.avg = ClusterOK(HClusters, method = 'average')
+        h.cmp = ClusterOK(HClusters, method = "complete"),
+        h.sng = ClusterOK(HClusters, method = "single"),
+        h.avg = ClusterOK(HClusters, method = "average")
         )
 }
 
-compAllMethods <- c('rf', 'icrf',
-                    'jnc2', 'jnc4', 'jco2', 'jco4',
-                    'pid', 'msid', 'cid', 'qd', 'nye',
-                    'ms', 'mast', 'masti',
-                    'nni_l', 'nni_L', 'nni_U', 'nni_u', 'spr',
-                    'tbr_l', 'tbr_u', 'path', 'es', 'kc')
+compAllMethods <- c("rf", "icrf",
+                    "jnc2", "jnc4", "jco2", "jco4",
+                    "pid", "msid", "cid", "qd", "nye",
+                    "ms", "mast", "masti",
+                    "nni_l", "nni_L", "nni_U", "nni_u", "spr",
+                    "tbr_l", "tbr_u", "path", "es", "kc")
 linTestReturn <- matrix(FALSE, nrow = length(compAllMethods), ncol = 5L,
                         dimnames = list(compAllMethods,
-                                        c('spc', 'pam', 'h.cmp', 'h.sng', 'h.avg')))
+                                        c("spc", "pam", "h.cmp", "h.sng", "h.avg")))
 runLinTestReturn <- t(0 * linTestReturn)
 
 RunLinTest <- function (k, TestSet = LinTestOneSet,
@@ -128,18 +128,18 @@ linTestOneResults <-
 vapply(seq(30L, 70L, by = 10L), RunLinTest, TestSet = LinTestOneSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
-usethis::use_data(linTestOneResults, compress = 'xz', overwrite = TRUE)
+usethis::use_data(linTestOneResults, compress = "xz", overwrite = TRUE)
 
 message("Lin et al. (2012) test two")
 linTestTwoResults <-
 vapply(seq(10L, 40L, by = 10L), RunLinTest, TestSet = LinTestTwoSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
-usethis::use_data(linTestTwoResults, compress = 'xz', overwrite = TRUE)
+usethis::use_data(linTestTwoResults, compress = "xz", overwrite = TRUE)
 
 message("SPR cluster recovery test")
 linTestSPRResults <-
 vapply(seq(30L, 70L, by = 10L), RunLinTest, TestSet = LinTestSPRSet,
        nTip = nTip, nTrees = nTrees, replicates = replicates,
        FUN.VALUE = runLinTestReturn)
-usethis::use_data(linTestSPRResults, compress = 'xz', overwrite = TRUE)
+usethis::use_data(linTestSPRResults, compress = "xz", overwrite = TRUE)
